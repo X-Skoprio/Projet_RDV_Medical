@@ -1,5 +1,5 @@
 package controller;
 
-public class Controller {
+public class MainController {
     //je suis dans le remote de tout le monde
 }

@@ -6,39 +6,34 @@ import java.awt.event.ActionListener;
 
 public class ControlleurLogin {
     private ViewLogin view;
+    private Runnable onPatientButtonClicked;
 
-    public ControlleurLogin(ViewLogin view) {
+    public ControlleurLogin(ViewLogin view, Runnable onPatientButtonClicked) {
         this.view = view;
+        this.onPatientButtonClicked = onPatientButtonClicked; // Callback for when the patient button is clicked
 
-        // Register action listeners
-        this.view.getPatientButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onButtonEmployeClick();
-            }
-        });
+        initListeners();
+    }
 
-        this.view.getEmployeeButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onButtonEmployeClick();
-            }
-        });
+    private void initListeners() {
+        // Patient button action listener
+        this.view.getPatientButton().addActionListener(e -> onButtonPatientClick());
+
+        // Employee button action listener
+        this.view.getEmployeeButton().addActionListener(e -> onButtonEmployeClick());
     }
 
     private void onButtonPatientClick() {
-        // Handle patient button click
         System.out.println("Patient button clicked");
+        if (onPatientButtonClicked != null) {
+            onPatientButtonClicked.run(); // Execute the callback, if provided
+        }
     }
 
     private void onButtonEmployeClick() {
-        // Handle employee button click
         System.out.println("Employee button clicked");
+        // Additional logic for handling the employee button click can be added here
     }
 
-    public static void main(String[] args) {
-        // Initialize the view and the controller
-        ViewLogin view = new ViewLogin();
-        new ControlleurLogin(view);
-    }
+    // The main method would likely be moved to a Main class or MainController class
 }
