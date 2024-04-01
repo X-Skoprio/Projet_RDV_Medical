@@ -1,14 +1,13 @@
 package view;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 
 public class ViewLogin {
+    private JButton patientButton;
+    private JButton employeeButton;
 
-    public static void main(String[] args) {
+    public ViewLogin() {
         // Création de la fenêtre
         JFrame fenetre = new JFrame("DOCTOUBIB");
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,10 +18,10 @@ public class ViewLogin {
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Configuration pour centrer les composants
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Place les composants à la fin de la ligne
-        gbc.fill = GridBagConstraints.NONE; // Les composants ne s'étendent pas pour remplir l'espace
-        gbc.weightx = 1; // Distribue l'espace supplémentaire horizontalement
-        gbc.insets = new Insets(10, 10, 10, 10); // Marges externes autour des composants
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         // Création et ajout du titre
         JLabel titre = new JLabel("DOCTOUBIB");
@@ -30,23 +29,28 @@ public class ViewLogin {
         gbc.weighty = 0.1;
         panneau.add(titre, gbc);
 
-        // Création des boutons avec un padding interne
-        JButton bouton1 = new JButton("Patient");
-        bouton1.setMargin(new Insets(20, 50, 20, 50)); // Marges internes du bouton
-        JButton bouton2 = new JButton("Employé");
-        bouton2.setMargin(new Insets(20, 50, 20, 50)); // Marges internes du bouton
-
-        // Réajustement pour les boutons
-        gbc.weighty = 1; // Distribue plus d'espace verticalement aux boutons
+        // Création des boutons
+        patientButton = new JButton("Patient");
+        patientButton.setMargin(new Insets(20, 50, 20, 50));
+        employeeButton = new JButton("Employé");
+        employeeButton.setMargin(new Insets(20, 50, 20, 50));
 
         // Ajout des boutons au panneau avec les contraintes
-        panneau.add(bouton1, gbc);
-        panneau.add(bouton2, gbc);
+        panneau.add(patientButton, gbc);
+        panneau.add(employeeButton, gbc);
 
         // Ajout du panneau à la fenêtre
         fenetre.add(panneau);
 
         // Affichage de la fenêtre
         fenetre.setVisible(true);
+    }
+
+    public JButton getPatientButton() {
+        return patientButton;
+    }
+
+    public JButton getEmployeeButton() {
+        return employeeButton;
     }
 }
