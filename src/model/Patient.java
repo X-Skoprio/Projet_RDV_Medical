@@ -10,15 +10,12 @@ import model.RendezVous;
 public class Patient {
 
     private List<RendezVous> listRendezVous;
-
     private String nom;
     private String prenom;
     private String email;
     private String mdp;
-
-    private String details;
-
     private int age;
+    private String details;
 
 
     //constructeur Patient
@@ -41,6 +38,8 @@ public class Patient {
         this.listRendezVous.add(rdv);
         rdv.ajouterRendezVous(rdv);
     }
+
+
 
 
     //Getters
@@ -71,6 +70,8 @@ public class Patient {
     public String getDetails() {
         return details;
     }
+
+
 
     //Setters
     public void setNom(String nom) {
