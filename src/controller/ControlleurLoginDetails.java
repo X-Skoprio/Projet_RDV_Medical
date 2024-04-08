@@ -1,34 +1,59 @@
 package controller;
 
 import view.ViewLoginDetails;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+//import
 
 public class ControlleurLoginDetails {
-    private ViewLoginDetails LoginDetails;
+    private static ViewLoginDetails LoginDetails;
+    private Runnable onSendLoginButtonClicked;
 
     public ControlleurLoginDetails(ViewLoginDetails LoginDetails) {
-        this.LoginDetails = LoginDetails;
-        initController();
+        ControlleurLoginDetails.LoginDetails = LoginDetails;
+        initListeners();
+    }
+    private void initListeners() {
+        // Patient button action listener
+        LoginDetails.getLoginButton().addActionListener(e -> onSendLoginButtonClicked());
     }
 
-    private void initController() {
-        // Action listener for the login button
-        LoginDetails.getLoginButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                performLogin();
-            }
-        });
+    private void onSendLoginButtonClick() {
+        System.out.println("Patient button clicked");
+        if (onSendLoginButtonClicked != null) {
+            onSendLoginButtonClicked.run(); //
+        }
+    }
 
-        // Action listener for the return button
-        LoginDetails.getReturnButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                returnToMainMenu();
-            }
+    private static void onSendLoginButtonClicked() {
+        LoginDetails.dispose(); // Close the ViewLogin window
+
+        String email = LoginDetails.getEmailField().getText();
+        String password = new String(LoginDetails.getPasswordField().getPassword());
+
+        System.out.println(email + "  " + password);
+    }
+
+
+    public static void ShowLoginDetails() {
+        SwingUtilities.invokeLater(() -> {
+            LoginDetails = new ViewLoginDetails(); // Create the ViewLogin window
+            LoginDetails.setTitle("Login Window"); // Optional: Set the window title
+            LoginDetails.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
+            LoginDetails.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
+            LoginDetails.setLocationRelativeTo(null); // Center the window on the screen
+            LoginDetails.setVisible(true); // Make the window visible
+
+            LoginDetails.getLoginButton().addActionListener(e -> onSendLoginButtonClicked());
+
         });
     }
+
+
+
 
     private void performLogin() {
         // Get email and password from the view
@@ -42,12 +67,4 @@ public class ControlleurLoginDetails {
         // showing error messages, or transitioning to another view upon success.
     }
 
-    private void returnToMainMenu() {
-        // Logic to return to the main menu
-        System.out.println("Returning to main menu");
-
-        // This could involve closing the current view and opening the main menu view.
-        // For example: LoginDetails.dispose(); (if loginView should close)
-        // and then initialize and show the main menu view.
-    }
 }

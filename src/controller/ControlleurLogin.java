@@ -1,16 +1,18 @@
 package controller;
 
-import view.ViewLogin;
+import view.*;
+import controller.*;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControlleurLogin {
     private ViewLogin view;
-    private Runnable onPatientButtonClicked;
+    private Runnable onLoginButtonClicked;
 
-    public ControlleurLogin(ViewLogin view, Runnable onPatientButtonClicked) {
+    public ControlleurLogin(ViewLogin view) {
         this.view = view;
-        this.onPatientButtonClicked = onPatientButtonClicked; // Callback for when the patient button is clicked
 
         initListeners();
     }
@@ -22,9 +24,30 @@ public class ControlleurLogin {
 
     private void onLoginButtonClick() {
         System.out.println("Patient button clicked");
-        if (onPatientButtonClicked != null) {
-            onPatientButtonClicked.run(); // Execute the callback, if provided
+        if (onLoginButtonClicked != null) {
+            onLoginButtonClicked.run(); //
         }
+    }
+
+    public void showLoginWindow() {
+        SwingUtilities.invokeLater(() -> {
+            view = new ViewLogin(); // Create the ViewLogin window
+            view.setTitle("Login Window"); // Optional: Set the window title
+            view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
+            view.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
+            view.setLocationRelativeTo(null); // Center the window on the screen
+            view.setVisible(true); // Make the window visible
+
+            // Assuming you have methods in ViewLogin to get the buttons
+            view.getLoginButton().addActionListener(e -> onLoginButtonClicked());
+
+        });
+    }
+
+    private void onLoginButtonClicked() {
+        view.dispose(); // Close the ViewLogin window
+
+        ControlleurLoginDetails.ShowLoginDetails();
     }
 
 }

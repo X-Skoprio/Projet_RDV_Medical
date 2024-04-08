@@ -7,8 +7,7 @@ import java.awt.event.ActionListener;
 public class ViewLoginDetails extends JFrame { // Extend JPanel
     private JTextField emailField;
     private JPasswordField passwordField;
-    private JButton loginButton;
-    private JButton returnButton;
+    private JButton sendLoginButton;
 
     public ViewLoginDetails() {
         initializeUI();
@@ -41,26 +40,15 @@ public class ViewLoginDetails extends JFrame { // Extend JPanel
         gbc.gridy = 4;
         this.add(passwordField, gbc);
 
-        loginButton = new JButton("Login");
+        sendLoginButton = new JButton("Login");
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
-        this.add(loginButton, gbc);
+        this.add(sendLoginButton, gbc);
 
-        returnButton = new JButton("Retour au menu principal");
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        this.add(returnButton, gbc);
     }
 
     // Provide methods to attach action listeners to the buttons
-    public void addLoginButtonListener(ActionListener listener) {
-        loginButton.addActionListener(listener);
-    }
-
-    public void addReturnButtonListener(ActionListener listener) {
-        returnButton.addActionListener(listener);
-    }
 
     // Getter methods
     public JTextField getEmailField() {
@@ -72,10 +60,7 @@ public class ViewLoginDetails extends JFrame { // Extend JPanel
     }
 
     public JButton getLoginButton() {
-        return loginButton;
+        return sendLoginButton;
     }
 
-    public JButton getReturnButton() {
-        return returnButton;
-    }
 }
