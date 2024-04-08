@@ -1,10 +1,13 @@
 package model;
+import java.util.*;
 
 public class Employe {
     private String nom;
     private String prenom;
     private String email;
     private String mdp;
+
+    private static List<Patient> listPatientTotal;
 
     public Employe(String nom, String prenom, String email, String mdp)
     {
@@ -31,5 +34,14 @@ public class Employe {
 
     public String getMdp() {
         return mdp;
+    }
+
+
+
+    public void supprimerPatient(Patient MonPatient) {
+        this.listPatientTotal.remove(MonPatient);
+    }
+    public void ajouterPatient(Patient MonPatient) {
+        this.listPatientTotal.add(MonPatient);
     }
 }
