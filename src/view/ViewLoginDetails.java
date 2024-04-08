@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ViewLoginDetails extends JPanel { // Extend JPanel
+public class ViewLoginDetails extends JFrame { // Extend JPanel
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
@@ -69,5 +69,13 @@ public class ViewLoginDetails extends JPanel { // Extend JPanel
 
     public JPasswordField getPasswordField() {
         return passwordField;
+    }
+
+    public JButton getLoginButton() {
+        return loginButton;
+    }
+
+    public JButton getReturnButton() {
+        return returnButton;
     }
 }

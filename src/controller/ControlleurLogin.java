@@ -17,23 +17,14 @@ public class ControlleurLogin {
 
     private void initListeners() {
         // Patient button action listener
-        this.view.getPatientButton().addActionListener(e -> onButtonPatientClick());
-
-        // Employee button action listener
-        this.view.getEmployeeButton().addActionListener(e -> onButtonEmployeClick());
+        this.view.getLoginButton().addActionListener(e -> onLoginButtonClick());
     }
 
-    private void onButtonPatientClick() {
+    private void onLoginButtonClick() {
         System.out.println("Patient button clicked");
         if (onPatientButtonClicked != null) {
             onPatientButtonClicked.run(); // Execute the callback, if provided
         }
     }
 
-    private void onButtonEmployeClick() {
-        System.out.println("Employee button clicked");
-        // Additional logic for handling the employee button click can be added here
-    }
-
-    // The main method would likely be moved to a Main class or MainController class
 }

@@ -3,9 +3,8 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewLogin extends JPanel { // Extend JPanel instead of creating a JFrame internally
-    private JButton patientButton;
-    private JButton employeeButton;
+public class ViewLogin extends JFrame { // Extend JPanel instead of creating a JFrame internally
+    private JButton loginButton;
 
     public ViewLogin() {
         this.setLayout(new GridBagLayout());
@@ -21,21 +20,19 @@ public class ViewLogin extends JPanel { // Extend JPanel instead of creating a J
         gbc.weighty = 0.1;
         this.add(titre, gbc);
 
-        patientButton = new JButton("Patient");
-        patientButton.setMargin(new Insets(20, 50, 20, 50));
-        employeeButton = new JButton("Employé");
-        employeeButton.setMargin(new Insets(20, 50, 20, 50));
+        loginButton = new JButton("Login");
+        loginButton.setMargin(new Insets(20, 50, 20, 50));
 
-        this.add(patientButton, gbc);
-        this.add(employeeButton, gbc);
+
+        this.add(loginButton, gbc);
     }
 
     // Keep the getter methods to allow the controller to add listeners to the buttons
-    public JButton getPatientButton() {
-        return patientButton;
+    public JButton getLoginButton() {
+        return loginButton;
     }
 
-    public JButton getEmployeeButton() {
-        return employeeButton;
-    }
+
+
+
 }
