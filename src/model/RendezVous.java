@@ -19,11 +19,11 @@ public class RendezVous {
 
 
     // Constructeur
-    public RendezVous(Patient Patient, LocalDateTime dateDebut, LocalDateTime dateFin,String emailMedecin) {
+    public RendezVous(String emailPatient, String emailMedecin, LocalDateTime dateDebut, LocalDateTime dateFin) {
         this.id = ++dernierId;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.emailPatient = Patient.getEmail();
+        this.emailPatient = emailPatient;
         this.emailMedecin = emailMedecin;
     }
 
@@ -68,6 +68,9 @@ public class RendezVous {
         System.out.println("Rendez-vous du " + dateDebut.toString() + " au " + dateFin.toString());
     }
 
+
+    public String getEmailPatient(){return emailPatient;}
+    public String getEmailMedecin(){return emailMedecin;}
 
     //Getters
     public String getDescription() {

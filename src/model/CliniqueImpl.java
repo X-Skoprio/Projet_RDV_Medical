@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,16 +9,20 @@ public class CliniqueImpl implements Clinique {
 
     private Connection connection;
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
+    private static final String USER = "root";
+    private static final String PASS = "";
 
     @Override
-    public void connect(String DB_URL, String USER, String PASS)
+    public void connect()
             throws SQLException, ClassNotFoundException {
+
         // Chargement du pilote JDBC
         Class.forName(JDBC_DRIVER);
 
         // Connexion à la base de données
         connection = DriverManager.getConnection(DB_URL, USER, PASS);
+
     }
 
     @Override
@@ -134,5 +139,45 @@ public class CliniqueImpl implements Clinique {
             preparedStatement.executeUpdate();
         }
     }
+
+    @Override
+    public List<RendezVous> getAllRendezVous() throws SQLException {
+        List<RendezVous> RDVList = new ArrayList<>();
+        String query = "SELECT * FROM rdv";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                LocalDateTime dateDeBut = resultSet.getTimestamp("dateDebut").toLocalDateTime();
+                LocalDateTime dateFin = resultSet.getTimestamp("dateFin").toLocalDateTime();
+                String emailPatient = resultSet.getString("emailPatient");
+                String emailMedecin = resultSet.getString("emailMedecin");
+                String Description =  resultSet.getString("Description");
+
+                RendezVous rdv = new RendezVous(emailPatient, emailMedecin, dateDeBut, dateFin);
+                RDVList.add(rdv);
+            }
+        }
+
+        return RDVList;
+    }
+
+    @Override
+    public void insertRDV(RendezVous rdv) throws SQLException {
+        String query = "INSERT INTO rdv (dateDebut, dateFin, emailPatient, emailMedecin, Description) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setTimestamp(1, java.sql.Timestamp.valueOf(rdv.getDateDebut()));
+            preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(rdv.getDateFin()));
+            preparedStatement.setString(3, rdv.getEmailPatient());
+            preparedStatement.setString(4, rdv.getEmailMedecin());
+            preparedStatement.setString(5, rdv.getDescription());
+            preparedStatement.executeUpdate();
+        }
+    }
+
+
 
 }

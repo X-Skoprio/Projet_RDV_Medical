@@ -11,67 +11,59 @@ import controller.ControlleurPatient.*;
 
 public class ViewPatient extends JFrame{
     private Patient patient;
+    private JButton prendreRDVButton;
+    private JButton  consultRDVButton;
 
     public ViewPatient(Patient patient) {
         this.patient = patient;
-        setTitle("Doctoubib Menu Patient");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Creation d'un paneau pour contenir les composants
-        JPanel panel = new JPanel(new BorderLayout());
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.insets = new Insets(10, 10, 10, 10);
 
-        // cree la zone de texte en haut de la fenetre pour profil patient
-        JTextArea infoPatient = new JTextArea();
-        Font largerFont = new Font(infoPatient.getFont().getName(), Font.PLAIN, 20); // Change 16 to the desired font size
+        JLabel titre = new JLabel("DOCTOUBIB Menu Patient");
+        titre.setFont(new Font("Serif", Font.BOLD, 24));
+        gbc.weighty = 0.1;
+        this.add(titre, gbc);
 
-        // Edit la taille du texte
-        infoPatient.setFont(largerFont);
+        JTextArea profilPatient = new JTextArea();
+        displayPatientInfo(profilPatient, patient);
+        titre.setFont(new Font("Serif", Font.BOLD, 20));
+        gbc.weighty = 0.1;
+        this.add(titre, gbc);
 
-        infoPatient.setEditable(false);
-        displayPatientInfo(infoPatient, patient);
-        panel.add(infoPatient, BorderLayout.NORTH);
-
-        // Creation bouttons
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 5, 5));
-        JButton prendreRDVButton = new JButton("Prendre RDV");
-        JButton consulterRDVButton = new JButton("Prendre RDV");
-
-
-        // Ajoutez les écouteurs d'événements aux boutons
-        prendreRDVButton.addActionListener(new PrendreRDVListener());
-        consulterRDVButton.addActionListener(new ConsulterRDVListener());
-
-        // Ajout des boutons au paneau
-        buttonPanel.add(prendreRDVButton);
-        buttonPanel.add(consulterRDVButton);
-
-        // Place le paneau au centre de la fenêtre
-        panel.add(buttonPanel, BorderLayout.CENTER);
-
-        // Place le paneau sur la fenêtre
-        add(panel);
-
-        // taille de la fenêtre
-        setSize(500, 500); // Width: 400 pixels, Height: 300 pixels
+        prendreRDVButton = new JButton("Prendre un RDV");
+        consultRDVButton = new JButton("Consulter les RDV");
+        prendreRDVButton.setMargin(new Insets(20, 50, 20, 50));
+        consultRDVButton.setMargin(new Insets(20, 50, 20, 50));
 
 
-        setLocationRelativeTo(null); // Center the frame
-        setVisible(true);
+        this.add(prendreRDVButton, gbc);
+        this.add(consultRDVButton, gbc);
+
+
     }
 
     // Methode pour afficher le profil du patient
     private void displayPatientInfo(JTextArea textArea, Patient patient) {
-        String patientInfo = patient.getNom() + "  " + patient.getPrenom() + "\n" +
+        String profilpatient = patient.getNom() + "  " + patient.getPrenom() + "\n" +
                 patient.getAge() + " ans\n";
-        textArea.setText(patientInfo);
+        textArea.setText(profilpatient);
     }
 
-    public static void main(String[] args) {
-        // Simulation du login patient
-        Patient patient = new Patient("John", "Doe","joh.doe@example.com" , "mdp", 30, "Additional details");
 
-        // Creation et affichage de la fenêtre
-        SwingUtilities.invokeLater(() -> new ViewPatient(patient));
+    public JButton getPrendreRDVButton() {
+        return prendreRDVButton;
+    }
+    public JButton getConsultRDVButton(){
+        return consultRDVButton;
+    }
+
+    public void fenetreListeRDV(Patient patient){
+
     }
 }
