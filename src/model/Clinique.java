@@ -13,7 +13,7 @@ public interface Clinique {
      L’exception SQLException est levée et propagée si aucun driver n’est trouvé pour l’URLDataBase
      L’exception ClassNotFoundException est levée et propagée si le chargement du driver échoue
      */
-    public void connect(String URLDataBase, String LoginDataBase, String PwdDataBase) throws SQLException, ClassNotFoundException;
+    public void connect() throws SQLException, ClassNotFoundException;
 
     // Fermer la connexion à la base de données
     public void disconnect() throws SQLException ;
@@ -33,4 +33,9 @@ public interface Clinique {
     public List<Medecin> getAllMedecin() throws SQLException ;
 
     public void insertMedecin(Medecin medecin) throws SQLException ;
+
+    // RENDEZ-VOUS //
+    public List<RendezVous> getAllRendezVous() throws SQLException ;
+
+    public void insertRDV(RendezVous rdv) throws SQLException ;
 }
