@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class ControllerViewEmploye {
 
     private ViewEmploye view;
-    private Runnable onGererPatientsButtonClick;
+    private Runnable onGererPatientsButtonClicked;
 
     public ControllerViewEmploye(ViewEmploye view) {
         this.view = view;
@@ -27,16 +27,28 @@ public class ControllerViewEmploye {
 
     private void onGererPatientsButtonClick() {
         System.out.println(" Gérer Patient button clicked");
-        if (onGererPatientsButtonClick != null) {
-            onGererPatientsButtonClick.run();
+        if (onGererPatientsButtonClicked != null) {
+            onGererPatientsButtonClicked.run();
         }
     }
+    
 
     public void showGererPatientWindow() {
+        SwingUtilities.invokeLater(() -> {
+            view = new ViewEmploye(); // Create the ViewLogin window
+            view.setTitle("Employe Window"); // Optional: Set the window title
+            view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
+            view.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
+            view.setLocationRelativeTo(null); // Center the window on the screen
+            view.setVisible(true); // Make the window visible
 
+            // Assuming you have methods in ViewLogin to get the buttons
+            view.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClicked());
+
+        });
     }
 
-    private void onLoginButtonClicked() {
+    private void onGererPatientsButtonClicked() {
         view.dispose(); // Close the ViewLogin window
 
     }
