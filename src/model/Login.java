@@ -2,26 +2,20 @@ package model;
 
 public class Login {
 
-    private String email;
-    private String mdp;
+    private static String email;
+
 
 
 
     //getters
-    public String getEmail() {
+    public static String getEmail() {
         return email;
-    }
-    public String getMdp() {
-        return mdp;
     }
 
 
 
     //setters
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-    public void setEmail(String email) {
-        this.email = email;
+    public static void setEmail(String email) {
+        Login.email = email;
     }
 }
