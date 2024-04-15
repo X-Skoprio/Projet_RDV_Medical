@@ -39,10 +39,6 @@ public class RendezVous {
 
 
 
-
-
-
-
     // Getter pour la date de début
     public LocalDateTime getDateDebut() {
         return dateDebut;

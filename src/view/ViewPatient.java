@@ -23,7 +23,7 @@ public class ViewPatient extends JFrame{
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(5, 10, 10, 10);
 
         JLabel titre = new JLabel("DOCTOUBIB Menu Patient");
         titre.setFont(new Font("Serif", Font.BOLD, 24));
@@ -50,9 +50,9 @@ public class ViewPatient extends JFrame{
 
     // Methode pour afficher le profil du patient
     private void displayPatientInfo(JTextArea textArea, Patient patient) {
-        String profilpatient = patient.getNom() + "  " + patient.getPrenom() + "\n" +
+        String ppatient = patient.getNom() + "  " + patient.getPrenom() + "\n" +
                 patient.getAge() + " ans\n";
-        textArea.setText(profilpatient);
+        textArea.setText(ppatient);
     }
 
 
@@ -63,7 +63,5 @@ public class ViewPatient extends JFrame{
         return consultRDVButton;
     }
 
-    public void fenetreListeRDV(Patient patient){
 
-    }
 }

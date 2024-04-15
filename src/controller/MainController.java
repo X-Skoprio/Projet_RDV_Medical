@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.*;
 
+import model.Patient;
 import view.*;
 import controller.*;
 
@@ -27,9 +28,10 @@ class MainController extends JFrame {
 
 
     public static void main(String[] args) {
-        ViewLogin viewLogin = new ViewLogin();
-        ControlleurLogin controlleurLogin = new ControlleurLogin(viewLogin);
+        Patient patient = new Patient("prevost", "alexandre", "alex.prevost@test.com", "mdp", 21,"rien");
+        ViewPatient viewPatient = new ViewPatient(patient);
+        ControlleurPatient controlleurPatient = new ControlleurPatient(viewPatient);
 
-        controlleurLogin.showLoginWindow();
+        controlleurPatient.showPatientWindow(patient);
     }
 }

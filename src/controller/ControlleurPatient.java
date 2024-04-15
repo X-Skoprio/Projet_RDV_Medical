@@ -24,6 +24,7 @@ public class ControlleurPatient {
     private void initListeners() {
         // Patient button action listener
         this.view.getPrendreRDVButton().addActionListener(e -> onPrendreRDVButtonClick());
+        this.view.getConsultRDVButton().addActionListener(e -> onConsultRDVButtonClicked());
     }
 
     private void onPrendreRDVButtonClick() {
