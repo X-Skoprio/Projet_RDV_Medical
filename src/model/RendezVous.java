@@ -9,7 +9,7 @@ public class RendezVous {
 
     private List<RendezVous> listRendezVousTotal;
     public static int dernierId=0;
-    public int id;
+    public static int id;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private String emailPatient;

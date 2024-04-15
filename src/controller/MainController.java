@@ -4,6 +4,9 @@ import javax.swing.*;
 
 import view.*;
 import controller.*;
+import model.CliniqueImpl;
+
+import java.sql.SQLException;
 
 
 class MainController extends JFrame {
@@ -15,21 +18,15 @@ class MainController extends JFrame {
     }
 
 
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
+        CliniqueImpl clinique = new CliniqueImpl();
 
 
-
-
-
-
-
-
-
-
-
-    public static void main(String[] args) {
         ViewLogin viewLogin = new ViewLogin();
         ControlleurLogin controlleurLogin = new ControlleurLogin(viewLogin);
-
         controlleurLogin.showLoginWindow();
+
+        clinique.disconnect();
     }
 }

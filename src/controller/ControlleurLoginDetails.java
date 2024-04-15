@@ -1,18 +1,35 @@
 package controller;
 
+import com.mysql.cj.log.Log;
+import model.CliniqueImpl;
 import view.ViewLoginDetails;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Arrays;
-//import
+import model.CliniqueImpl;
+import model.Login;
 
 public class ControlleurLoginDetails {
     private static ViewLoginDetails LoginDetails;
     private Runnable onSendLoginButtonClicked;
 
-    public ControlleurLoginDetails(ViewLoginDetails LoginDetails) {
+    public static CliniqueImpl clinique;
+
+    static {
+        try {
+            clinique = new CliniqueImpl();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public ControlleurLoginDetails(ViewLoginDetails LoginDetails) throws SQLException, ClassNotFoundException {
         ControlleurLoginDetails.LoginDetails = LoginDetails;
         initListeners();
     }
@@ -33,8 +50,19 @@ public class ControlleurLoginDetails {
 
         String email = LoginDetails.getEmailField().getText();
         String password = new String(LoginDetails.getPasswordField().getPassword());
-
         System.out.println(email + "  " + password);
+
+
+
+        //envoie mail et mdp à la base de donnée et evalue si correct ou no afin d'ensuite d'établir une connexion.
+        clinique.checkEmailAndPassword(email,password);
+
+        if (clinique.checkEmailAndPassword(email,password) == true)
+        {
+            Login.setEmail(email);
+        }
+
+        System.out.println(Login.getEmail());
     }
 
 
@@ -48,7 +76,6 @@ public class ControlleurLoginDetails {
             LoginDetails.setVisible(true); // Make the window visible
 
             LoginDetails.getLoginButton().addActionListener(e -> onSendLoginButtonClicked());
-
         });
     }
 

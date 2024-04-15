@@ -11,7 +11,12 @@ public class CliniqueImpl implements Clinique {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "root";
+
+    public CliniqueImpl() throws SQLException, ClassNotFoundException {
+        connect();
+    }
+
 
     @Override
     public void connect()
@@ -22,6 +27,7 @@ public class CliniqueImpl implements Clinique {
 
         // Connexion à la base de données
         connection = DriverManager.getConnection(DB_URL, USER, PASS);
+
 
     }
 
@@ -177,7 +183,49 @@ public class CliniqueImpl implements Clinique {
             preparedStatement.executeUpdate();
         }
     }
+    public boolean checkEmailAndPassword(String email, String password) {
+
+        // Liste des noms de table
+        String[] tableNames = {"employe", "patient"};
+
+        // Indicateur pour suivre si une correspondance a été trouvée
+        boolean matchFound = false;
+
+        // Requête SQL pour récupérer les lignes en fonction de l'email et du mot de passe
+        String query = "SELECT * FROM %s WHERE email = ? AND mdp = ?";
 
 
+        // Parcourir les tables
+        for (String tableName : tableNames) {
+            // Créer la requête SQL avec le nom de la table
+            String formattedQuery = String.format(query, tableName);
+            try (PreparedStatement preparedStatement = connection.prepareStatement(formattedQuery)) {
+                // Remplacement des paramètres email et mot de passe dans la requête SQL
+                preparedStatement.setString(1, email);
+                preparedStatement.setString(2, password);
 
+                // Exécution de la requête
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                // Si une ligne est retournée, cela signifie que l'email et le mot de passe correspondent
+                if (resultSet.next()) {
+                    matchFound = true;
+                    break; // Sortir de la boucle dès qu'une correspondance est trouvée
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println(matchFound);
+        return matchFound;
+
+    }
 }
+
+
+
+
+
+
+
