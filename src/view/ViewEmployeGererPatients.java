@@ -9,12 +9,14 @@ public class ViewEmployeGererPatients extends JFrame {
 
     public ViewEmployeGererPatients() {
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
         setTitle("Gerer le patient");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
 
-        JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
+        JPanel backgroundPanel = new JPanel(new GridLayout(2, 1, 0, 10)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -27,7 +29,7 @@ public class ViewEmployeGererPatients extends JFrame {
 
 
         // Création du panel pour les boutons
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 10)); // 2 lignes, 1 colonne avec espacement vertical de 10 pixels
+        //JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 10)); // 2 lignes, 1 colonne avec espacement vertical de 10 pixels
 
         // Bouton pour la création de nouveaux patients
         JButton nouveauPatientButton = new JButton("Création nouveaux patients");
@@ -52,11 +54,14 @@ public class ViewEmployeGererPatients extends JFrame {
         });
 
         // Ajout des boutons au panel
-        buttonPanel.add(nouveauPatientButton);
-        buttonPanel.add(ancienPatientButton);
+        backgroundPanel.add(nouveauPatientButton);
+        backgroundPanel.add(ancienPatientButton);
 
         // Ajout du panel à la fenêtre
-        add(buttonPanel, BorderLayout.CENTER);
+
+
+
+
 
         // Affichage de la fenêtre
         setVisible(true);
@@ -79,12 +84,14 @@ public class ViewEmployeGererPatients extends JFrame {
 
         public ViewEmployeCreationPatients() {
 
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(10, 10, 10, 10);
             setTitle("Creation patient");
             setSize(600, 400);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
-
-            JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
+/*
+            JPanel backgroundPanel = new JPanel(new GridLayout(6, 2, 10, 10)) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
@@ -95,7 +102,7 @@ public class ViewEmployeGererPatients extends JFrame {
             };
             this.setContentPane(backgroundPanel); // Set the custom panel as the content pane
 
-
+*/
             // Création du panel pour le formulaire
             JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10)); // 6 lignes, 2 colonnes avec espacement de 10 pixels
 
@@ -143,11 +150,17 @@ public class ViewEmployeGererPatients extends JFrame {
 
                 }
             });
+            boutonAnnuler.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
 
 
             JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10)); // 1 ligne, 2 colonnes avec espacement de 10 pixels
             buttonPanel.add(boutonCreer);
             buttonPanel.add(boutonAnnuler);
+            buttonPanel.add(formPanel);
 
             // Ajout des panels de formulaire et de boutons à la fenêtre
             add(formPanel, BorderLayout.CENTER);
@@ -165,11 +178,13 @@ public class ViewEmployeAncienPatient extends JFrame {
 
     public ViewEmployeAncienPatient() {
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
         setTitle("Connexion du patient via l'employe");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
-
+/*
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -181,7 +196,7 @@ public class ViewEmployeAncienPatient extends JFrame {
         };
         this.setContentPane(backgroundPanel); // Set the custom panel as the content pane
 
-
+*/
         // Création du panel pour le formulaire
         JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10)); // 6 lignes, 2 colonnes avec espacement de 10 pixels
 
@@ -207,6 +222,14 @@ public class ViewEmployeAncienPatient extends JFrame {
 
                 System.out.println("Email : " + Email);
                 System.out.println("Mdp : " + Mdp);
+                dispose();
+
+            }
+        });
+
+        boutonAnnuler.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
                 dispose();
 
             }

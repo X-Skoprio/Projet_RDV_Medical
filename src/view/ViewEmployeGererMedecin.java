@@ -10,13 +10,26 @@ public class ViewEmployeGererMedecin extends JFrame {
 
     public ViewEmployeGererMedecin() {
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
         setTitle("Gerer les Medecins");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
 
+        JPanel backgroundPanel = new JPanel(new GridLayout(2, 1, 0, 10)) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Draw the background image
+                Image backgroundImage = new ImageIcon("src/view/fond.png").getImage();
+                g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+            }
+        };
+        this.setContentPane(backgroundPanel); // Set the custom panel as the content pane
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 10)); // 2 lignes, 1 colonne avec espacement vertical de 10 pixels
+
+       // JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 10)); // 2 lignes, 1 colonne avec espacement vertical de 10 pixels
 
         // Bouton pour la création de nouveaux patients
         JButton nouveauMedecinButton = new JButton("Création nouveaux Medecins");
@@ -39,11 +52,11 @@ public class ViewEmployeGererMedecin extends JFrame {
             }
         });
 
-        buttonPanel.add(nouveauMedecinButton);
-        buttonPanel.add(ancienMedcinButton);
+        backgroundPanel.add(nouveauMedecinButton);
+        backgroundPanel.add(ancienMedcinButton);
 
         // Ajout du panel à la fenêtre
-        add(buttonPanel, BorderLayout.CENTER);
+        //add(buttonPanel, BorderLayout.CENTER);
 
         // Affichage de la fenêtre
         setVisible(true);
@@ -106,6 +119,13 @@ public class ViewEmployeGererMedecin extends JFrame {
 
                 }
             });
+            boutonAnnuler.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
+                    dispose();
+
+                }
+            });
 
 
 
@@ -157,6 +177,13 @@ public class ViewEmployeGererMedecin extends JFrame {
 
                     System.out.println("Email : " + Email);
                     System.out.println("Mdp : " + Mdp);
+                    dispose();
+
+                }
+            });
+            boutonAnnuler.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
                     dispose();
 
                 }
