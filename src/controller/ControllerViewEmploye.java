@@ -25,7 +25,7 @@ public class ControllerViewEmploye {
     private void initListeners() {
         // Patient button action listener
         this.viewEmploye.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClick());
-        this.viewEmploye.getGererMedecinButton().addActionListener(e->getOnGererMedecinButtonClick());
+        this.viewEmploye.getGererMedecinButton().addActionListener(e->onGererMedecinButtonClick());
     }
 
     private void onGererPatientsButtonClick() {
@@ -36,7 +36,7 @@ public class ControllerViewEmploye {
         }
     }
 
-    public void getOnGererMedecinButtonClick(){
+    private void onGererMedecinButtonClick(){
         System.out.println(" Gérer Medecin button clicked");
 
         if (onGererMedecinButtonClicked != null) {
@@ -45,8 +45,10 @@ public class ControllerViewEmploye {
     }
     
 
+    //Affichage graphique uniquement de la fenetre patient, les actions se déroulent dans une autre fonctions.
     public void showGererPatientWindow() {
         SwingUtilities.invokeLater(() -> {
+            System.out.println(" Gérer Patient button clicked");
             VEGP = new ViewEmployeGererPatients(); // Create the ViewLogin window
             VEGP.setTitle("Employe Window"); // Optional: Set the window title
             VEGP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
@@ -55,26 +57,26 @@ public class ControllerViewEmploye {
             VEGP.setVisible(true); // Make the window visible
 
             // Assuming you have methods in ViewLogin to get the buttons
-            viewEmploye.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClicked());
+             viewEmploye.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClicked());
 
         });
     }
-
+    //Action qui se déroule qd on clique sur le boutton
     private void onGererPatientsButtonClicked() {
-        viewEmploye.dispose(); // Close the ViewLogin window
         System.out.println(" Gérer Patient button clicked");
+        viewEmploye.dispose(); // Close the ViewLogin window
+
         showGererPatientWindow();
-        viewEmploye.dispose();
 
     }
 
+    //Action qui se déroule qd on clique sur le boutton
     private void onGererMedecinButtonClicked(){
         viewEmploye.dispose();
         System.out.println(" Gérer Medecin button clicked");
-        new ViewEmployeGererMedecin();
-        viewEmploye.dispose();
-    }
 
+    }
+//Main qui nous permet de tester
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new ViewEmploye().setVisible(true));
     }
