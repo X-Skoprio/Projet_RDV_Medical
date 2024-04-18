@@ -26,7 +26,7 @@ public class ControlleurPatient {
     private void initListeners() {
         // Patient button action listener
         this.view.getPrendreRDVButton().addActionListener(e -> onPrendreRDVButtonClick());
-        this.view.getConsultRDVButton().addActionListener(e -> onConsultRDVButtonClicked());
+        this.view.getConsultRDVButton().addActionListener(e -> onConsultRDVButtonClick());
     }
 
     private void onPrendreRDVButtonClick() {
@@ -43,7 +43,11 @@ public class ControlleurPatient {
         }
     }
 
+
     public void showPatientWindow() {
+
+    public static void showPatientWindow() {
+
         SwingUtilities.invokeLater(() -> {
             view = new ViewPatient(); // Create the ViewLogin window
             view.setTitle("Patient Window"); // Optional: Set the window title
@@ -58,13 +62,13 @@ public class ControlleurPatient {
         });
     }
 
-    private void onPrendreRDVButtonClicked() {
+    private static void onPrendreRDVButtonClicked() {
         view.dispose(); // Close the ViewPatient window
 
         ControlleurLoginDetails.ShowLoginDetails();
     }
 
-    private void onConsultRDVButtonClicked() {
+    private static void onConsultRDVButtonClicked() {
 
         view.dispose(); // Close the ViewPatient window
         ControlleurLoginDetails.ShowLoginDetails();
