@@ -2,7 +2,8 @@ package controller;
 
 import javax.swing.*;
 
-import controller.Login.ControlleurLogin;
+import controller.Login.*;
+import controller.Employe.*;
 import view.*;
 import model.CliniqueImpl;
 
@@ -13,6 +14,7 @@ class MainController extends JFrame {
     private static ViewLogin viewLogin;
     private static ControlleurLogin controlleurLogin;
     private static ViewLoginDetails viewLoginDetails;
+    private static ViewEmploye viewEmploye;
 
     public MainController() {
     }
@@ -29,4 +31,6 @@ class MainController extends JFrame {
 
         clinique.disconnect();
     }
+
+
 }

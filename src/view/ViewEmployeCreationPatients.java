@@ -52,18 +52,7 @@ public class ViewEmployeCreationPatients extends JFrame{
 
 
         // Ajout d'un ActionListener pour le bouton Soumettre
-        boutonSoumettre.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Code à exécuter lorsque le bouton Soumettre est cliqué
-                // Ici, vous pouvez récupérer les valeurs des champs de texte et effectuer le traitement approprié
-                String nom = textFieldNom.getText();
-                String prenom = textFieldPrenom.getText();
-                // Récupérez les autres valeurs des champs de texte de la même manière
-                System.out.println("Nom: " + nom);
-                System.out.println("Prénom: " + prenom);
-                // Affichez les autres valeurs des champs de texte de la même manière
-            }
-        });
+
 
         // Création du panel pour les boutons
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10)); // 1 ligne, 2 colonnes avec espacement de 10 pixels
@@ -73,8 +62,6 @@ public class ViewEmployeCreationPatients extends JFrame{
         // Ajout des panels de formulaire et de boutons à la fenêtre
         add(formPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-
-
 
         // Affichage de la fenêtre
         setVisible(true);

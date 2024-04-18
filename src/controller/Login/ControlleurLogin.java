@@ -10,7 +10,6 @@ public class ControlleurLogin {
 
     public ControlleurLogin(ViewLogin view) {
         this.view = view;
-
         initListeners();
     }
 
@@ -36,8 +35,6 @@ public class ControlleurLogin {
 
     private void onLoginButtonClicked() {
         view.dispose(); // Close the ViewLogin window
-
-
         ControlleurLoginDetails.ShowLoginDetails();
     }
 

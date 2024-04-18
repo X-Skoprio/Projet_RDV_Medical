@@ -11,7 +11,7 @@ public class CliniqueImpl implements Clinique {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "root";
+    private static final String PASS = "";
 
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
@@ -276,6 +276,57 @@ public class CliniqueImpl implements Clinique {
 
         return details;
     }
+
+    public boolean checkEmailInPatient(String email) {
+        // Nom de la table à vérifier
+        String tableName = "patient";
+
+        // Requête SQL pour vérifier l'existence de l'email dans la table
+        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Remplacement du paramètre email dans la requête SQL
+            preparedStatement.setString(1, email);
+
+            // Exécution de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Si une ligne est retournée, cela signifie que l'email existe
+            if (resultSet.next()) {
+                return true; // L'email existe
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false; // L'email n'existe pas
+    }
+
+    public boolean checkEmailInEmploye(String email) {
+        // Nom de la table à vérifier
+        String tableName = "employe";
+
+        // Requête SQL pour vérifier l'existence de l'email dans la table
+        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Remplacement du paramètre email dans la requête SQL
+            preparedStatement.setString(1, email);
+
+            // Exécution de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Si une ligne est retournée, cela signifie que l'email existe
+            if (resultSet.next()) {
+                return true; // L'email existe
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false; // L'email n'existe pas
+    }
+
 }
 
 

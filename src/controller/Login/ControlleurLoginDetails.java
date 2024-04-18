@@ -1,6 +1,7 @@
 package controller.Login;
 
 import controller.Patient.ControlleurPatient;
+import controller.Employe.ControlleurViewEmploye;
 import model.CliniqueImpl;
 import view.ViewLoginDetails;
 
@@ -49,13 +50,10 @@ public class ControlleurLoginDetails {
     }
 
     private static void onSendLoginButtonClicked() throws SQLException {
-        LoginDetails.dispose(); // Close the ViewLogin window
-
+         // Close the ViewLogin window
         String email = LoginDetails.getEmailField().getText();
         String password = new String(LoginDetails.getPasswordField().getPassword());
         System.out.println(email + "  " + password);
-
-
 
         //envoie mail et mdp à la base de donnée et evalue si correct ou no afin d'ensuite d'établir une connexion.
         clinique.checkEmailAndPassword(email,password);
@@ -64,15 +62,17 @@ public class ControlleurLoginDetails {
         {
             Login.setEmail(email);
         }
-        /* REFAORE METHODE checkEmailInPatient et checkEmailInEmploye dans implemntation clinique
+
         if(clinique.checkEmailInEmploye(email))
         {
-            //ControlleurEmploye.ShowEmploye(); à FAIRE MAX ----------------------------------------------------------------------------------
+            ControlleurViewEmploye.showEmployeWindow();
+            LoginDetails.dispose();
         }
         else if(clinique.checkEmailInPatient(email))
         {
             ControlleurPatient.showPatientWindow();
-        }*/
+            LoginDetails.dispose();
+        }
         System.out.println(Login.getEmail());
     }
 
@@ -96,20 +96,6 @@ public class ControlleurLoginDetails {
         });
 
 
-    }
-
-
-
-    private void performLogin() {
-        // Get email and password from the view
-        String email = LoginDetails.getEmailField().getText();
-        String password = new String(LoginDetails.getPasswordField().getPassword());
-
-        // Perform login logic here
-        System.out.println("Attempting login with email: " + email + " and password: " + password);
-
-        // You can add more logic here, such as validating the credentials,
-        // showing error messages, or transitioning to another view upon success.
     }
 
 }

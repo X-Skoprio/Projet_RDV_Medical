@@ -48,7 +48,7 @@ public class ViewLoginDetails extends JFrame {
         gbc.gridy = 2;
         backgroundPanel.add(emailField, gbc);
 
-        JLabel mdpLabel = new JLabel("Mot de pass");
+        JLabel mdpLabel = new JLabel("Mot de passe");
         passwordField = new JPasswordField(20);
         gbc.gridx = 0;
         gbc.gridy = 3;

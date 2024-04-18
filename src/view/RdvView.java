@@ -54,5 +54,10 @@ public class RdvView {
     public void display() {
         frame.setVisible(true);
     }
+
+
+    public static void main (String[] a)
+    {
+    }
 }
 
