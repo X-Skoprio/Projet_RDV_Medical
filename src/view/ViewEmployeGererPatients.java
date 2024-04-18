@@ -64,7 +64,7 @@ public class ViewEmployeGererPatients extends JFrame {
 
 
         // Affichage de la fenêtre
-        setVisible(true);
+       // setVisible(true);
 
     }
 
