@@ -1,20 +1,17 @@
 package controller;
 
 
+import controller.ControlleurPatientRDV.RdvController;
 import view.*;
 import model.*;
-import controller.ControlleurPatientRDV.RdvController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 public class ControlleurPatient {
 
 
-    private ViewPatient view;
-    private Patient patientCharge;
+    private static ViewPatient view;
+    private static Patient patientCharge;
     private Runnable onPrendreRDVButtonClicked;
     private Runnable onConsultRDVButtonClicked;
 
@@ -44,7 +41,7 @@ public class ControlleurPatient {
         }
     }
 
-    public void showPatientWindow(Patient patientCharge) {
+    public static void showPatientWindow() {
         SwingUtilities.invokeLater(() -> {
             view = new ViewPatient(patientCharge); // Create the ViewLogin window
             view.setTitle("Patient Window"); // Optional: Set the window title
@@ -59,13 +56,13 @@ public class ControlleurPatient {
         });
     }
 
-    private void onPrendreRDVButtonClicked() {
+    private static void onPrendreRDVButtonClicked() {
         view.dispose(); // Close the ViewPatient window
 
         ControlleurLoginDetails.ShowLoginDetails();
     }
 
-    private void onConsultRDVButtonClicked() {
+    private static void onConsultRDVButtonClicked() {
 
         view.dispose(); // Close the ViewPatient window
 

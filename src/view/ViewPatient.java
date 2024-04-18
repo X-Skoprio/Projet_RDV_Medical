@@ -4,17 +4,13 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import controller.ControlleurPatient.*;
 
 public class ViewPatient extends JFrame{
     private Patient patient;
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
 
-    public ViewPatient(Patient patient) {
+    public ViewPatient(Patient patientCharge) {
         this.patient = patient;
 
         this.setLayout(new GridBagLayout());

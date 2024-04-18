@@ -1,5 +1,6 @@
 package controller;
 
+import com.mysql.cj.log.Log;
 import model.CliniqueImpl;
 import view.ViewLoginDetails;
 
@@ -34,7 +35,13 @@ public class ControlleurLoginDetails {
     }
     private void initListeners() {
         // Patient button action listener
-        LoginDetails.getLoginButton().addActionListener(e -> onSendLoginButtonClicked());
+        LoginDetails.getLoginButton().addActionListener(e -> {
+            try {
+                onSendLoginButtonClicked();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     private void onSendLoginButtonClick() {
@@ -44,7 +51,7 @@ public class ControlleurLoginDetails {
         }
     }
 
-    private static void onSendLoginButtonClicked() {
+    private static void onSendLoginButtonClicked() throws SQLException {
         LoginDetails.dispose(); // Close the ViewLogin window
 
         String email = LoginDetails.getEmailField().getText();
@@ -61,6 +68,14 @@ public class ControlleurLoginDetails {
             Login.setEmail(email);
         }
 
+        if(clinique.checkEmailInEmploye(email))
+        {
+            //ControlleurEmploye.ShowEmploye(); à FAIRE MAX ----------------------------------------------------------------------------------
+        }
+        else if(clinique.checkEmailInPatient(email))
+        {
+            ControlleurPatient.showPatientWindow();
+        }
         System.out.println(Login.getEmail());
     }
 
@@ -74,10 +89,17 @@ public class ControlleurLoginDetails {
             LoginDetails.setLocationRelativeTo(null); // Center the window on the screen
             LoginDetails.setVisible(true); // Make the window visible
 
-            LoginDetails.getLoginButton().addActionListener(e -> onSendLoginButtonClicked());
+            LoginDetails.getLoginButton().addActionListener(e -> {
+                try {
+                    onSendLoginButtonClicked();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
         });
-    }
 
+
+    }
 
 
 

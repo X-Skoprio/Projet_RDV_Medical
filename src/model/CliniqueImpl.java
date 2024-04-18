@@ -183,7 +183,7 @@ public class CliniqueImpl implements Clinique {
             preparedStatement.executeUpdate();
         }
     }
-    public boolean checkEmailAndPassword(String email, String password) {
+    public boolean checkEmailAndPassword(String email, String password) throws SQLException{
 
         // Liste des noms de table
         String[] tableNames = {"employe", "patient"};
@@ -221,6 +221,58 @@ public class CliniqueImpl implements Clinique {
         return matchFound;
 
     }
+
+    public boolean checkEmailInPatient(String email) throws SQLException {
+        // Nom de la table à vérifier
+        String tableName = "patient";
+
+        // Requête SQL pour vérifier l'existence de l'email
+        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
+
+        // Essayer de préparer et d'exécuter la requête
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Remplacement du paramètre email dans la requête SQL
+            preparedStatement.setString(1, email);
+
+            // Exécution de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Retourner vrai si un résultat est trouvé
+            return resultSet.next();
+        } catch (SQLException e) {
+            // Lever une exception si une erreur SQL se produit
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean checkEmailInEmploye(String email) throws SQLException {
+        // Nom de la table à vérifier
+        String tableName = "employe";
+
+        // Requête SQL pour vérifier l'existence de l'email
+        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
+
+        // Essayer de préparer et d'exécuter la requête
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Remplacement du paramètre email dans la requête SQL
+            preparedStatement.setString(1, email);
+
+            // Exécution de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Retourner vrai si un résultat est trouvé
+            return resultSet.next();
+        } catch (SQLException e) {
+            // Lever une exception si une erreur SQL se produit
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
+
 }
 
 
