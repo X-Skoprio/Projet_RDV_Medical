@@ -2,8 +2,8 @@ package controller;
 
 import javax.swing.*;
 
+import controller.Login.ControlleurLogin;
 import view.*;
-import controller.*;
 import model.CliniqueImpl;
 
 import java.sql.SQLException;

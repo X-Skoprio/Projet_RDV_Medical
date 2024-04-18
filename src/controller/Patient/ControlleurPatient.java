@@ -1,9 +1,9 @@
-package controller;
+package controller.Patient;
 
 
 import controller.ControlleurPatientRDV.RdvController;
+import controller.Login.ControlleurLoginDetails;
 import view.*;
-import model.*;
 
 import javax.swing.*;
 

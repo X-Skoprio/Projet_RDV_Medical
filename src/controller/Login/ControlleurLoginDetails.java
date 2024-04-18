@@ -1,15 +1,12 @@
-package controller;
+package controller.Login;
 
-import com.mysql.cj.log.Log;
+import controller.Patient.ControlleurPatient;
 import model.CliniqueImpl;
 import view.ViewLoginDetails;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.Arrays;
-import model.CliniqueImpl;
+
 import model.Login;
 
 public class ControlleurLoginDetails {
