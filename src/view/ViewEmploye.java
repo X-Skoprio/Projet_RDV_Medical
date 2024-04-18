@@ -73,14 +73,14 @@ public class ViewEmploye extends JFrame {
                 System.out.println("Gérer RDV");
             }
         });
-
+/*
         GererPatientsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Code à exécuter lorsque le bouton 2 est cliqué
                 System.out.println("Gérer Patients");
             }
         });
-/*
+
         GererMedecinButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Code à exécuter lorsque le bouton 3 est cliqué

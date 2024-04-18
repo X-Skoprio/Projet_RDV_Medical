@@ -11,10 +11,11 @@ import java.awt.event.ActionListener;
 
 public class ControllerViewEmploye {
 
-    private ViewEmploye viewEmploye;
-    private ViewEmployeGererPatients VEGP;
-    private Runnable onGererPatientsButtonClicked;
-    private Runnable onGererMedecinButtonClicked;
+    private static ViewEmploye viewEmploye;
+    private static ViewEmployeGererPatients VEGP;
+    private ViewEmployeGererMedecin viewM;
+    public Runnable onGererPatientsButtonClicked;
+    public Runnable onGererMedecinButtonClicked;
 
     public ControllerViewEmploye(ViewEmploye view) {
         this.viewEmploye = view;
@@ -22,10 +23,11 @@ public class ControllerViewEmploye {
         initListeners();
     }
 
+
     private void initListeners() {
         // Patient button action listener
         this.viewEmploye.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClick());
-        this.viewEmploye.getGererMedecinButton().addActionListener(e->onGererMedecinButtonClick());
+        this.viewEmploye.getGererMedecinButton().addActionListener(e -> onGererMedecinButtonClick());
     }
 
     private void onGererPatientsButtonClick() {
@@ -51,13 +53,23 @@ public class ControllerViewEmploye {
             System.out.println(" Gérer Patient button clicked");
             VEGP = new ViewEmployeGererPatients(); // Create the ViewLogin window
             VEGP.setTitle("Employe Window"); // Optional: Set the window title
-            VEGP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
-            VEGP.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
-            VEGP.setLocationRelativeTo(null); // Center the window on the screen
             VEGP.setVisible(true); // Make the window visible
 
             // Assuming you have methods in ViewLogin to get the buttons
              viewEmploye.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClicked());
+
+        });
+    }
+
+    public void showGererMedecinWindonw(){
+        SwingUtilities.invokeLater(() -> {
+            System.out.println(" Gérer Patient button clicked");
+            viewM = new ViewEmployeGererMedecin(); // Create the ViewLogin window
+            viewM.setTitle("Employe Window"); // Optional: Set the window title
+            viewM.setVisible(true); // Make the window visible
+
+            // Assuming you have methods in ViewLogin to get the buttons
+            viewEmploye.getGererPatientButton().addActionListener(e -> onGererPatientsButtonClicked());
 
         });
     }
@@ -74,6 +86,7 @@ public class ControllerViewEmploye {
     private void onGererMedecinButtonClicked(){
         viewEmploye.dispose();
         System.out.println(" Gérer Medecin button clicked");
+        showGererMedecinWindonw();
 
     }
 //Main qui nous permet de tester
