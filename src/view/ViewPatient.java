@@ -10,12 +10,11 @@ import java.awt.event.ActionListener;
 import controller.ControlleurPatient.*;
 
 public class ViewPatient extends JFrame{
-    private Patient patient;
+
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
 
-    public ViewPatient(Patient patient) {
-        this.patient = patient;
+    public ViewPatient() {
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -31,7 +30,7 @@ public class ViewPatient extends JFrame{
         this.add(titre, gbc);
 
         JTextArea profilPatient = new JTextArea();
-        displayPatientInfo(profilPatient, patient);
+        displayPatientInfo(profilPatient);
         titre.setFont(new Font("Serif", Font.BOLD, 20));
         gbc.weighty = 0.1;
         this.add(titre, gbc);

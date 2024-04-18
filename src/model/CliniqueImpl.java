@@ -7,11 +7,12 @@ import java.util.List;
 
 public class CliniqueImpl implements Clinique {
 
-    private Connection connection;
+    private static Connection connection;
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
     private static final String PASS = "";
+
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
         connect();
@@ -221,7 +222,62 @@ public class CliniqueImpl implements Clinique {
         return matchFound;
 
     }
+
+
+    private static String getAttribute(String column, String email) {
+        String sql = "SELECT " + column + " FROM patient WHERE email = ?";
+        try (
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(column);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getNom(String email) {
+
+        String nom = getAttribute("nom", email);
+
+        return nom;
+    }
+
+    public static String getPrenom(String email) {
+
+        String prenom = getAttribute("prenom", email);
+
+        return prenom;
+    }
+
+    public static int getAge(String email) {
+            try {
+                int age = Integer.parseInt(getAttribute("age", email));
+                return age;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            };
+            return 0;
+    }
+
+    public static String getMdp(String email) {
+
+        String mdp = getAttribute("mdp", email);
+
+        return mdp;
+    }
+
+    public static String getDetails(String email) {
+
+        String details = getAttribute("details", email);
+
+        return details;
+    }
 }
+
 
 
 
