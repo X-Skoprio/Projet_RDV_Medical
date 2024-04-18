@@ -3,21 +3,24 @@ package controller;
 
 import view.*;
 import model.*;
+import controller.ControlleurPatientRDV.RdvController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class ControlleurPatient {
 
 
     private ViewPatient view;
+    private Patient patientCharge;
     private Runnable onPrendreRDVButtonClicked;
     private Runnable onConsultRDVButtonClicked;
 
-    public ControlleurPatient(ViewPatient view) {
+    public ControlleurPatient(ViewPatient view, Patient patientCharge) {
         this.view = view;
-
+        this.patientCharge = patientCharge;
         initListeners();
     }
 
@@ -57,15 +60,17 @@ public class ControlleurPatient {
     }
 
     private void onPrendreRDVButtonClicked() {
-        view.dispose(); // Close the ViewLogin window
+        view.dispose(); // Close the ViewPatient window
 
         ControlleurLoginDetails.ShowLoginDetails();
     }
 
     private void onConsultRDVButtonClicked() {
-        view.dispose(); // Close the ViewLogin window
 
-        ControlleurLoginDetails.ShowLoginDetails();
+        view.dispose(); // Close the ViewPatient window
+
+        RdvController rdvController = new RdvController(patientCharge);
+        rdvController.ShowPatientRdvWindow();
     }
 
 

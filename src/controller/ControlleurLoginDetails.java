@@ -1,6 +1,5 @@
 package controller;
 
-import com.mysql.cj.log.Log;
 import model.CliniqueImpl;
 import view.ViewLoginDetails;
 

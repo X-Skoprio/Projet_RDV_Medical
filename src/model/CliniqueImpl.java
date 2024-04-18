@@ -8,10 +8,10 @@ import java.util.List;
 public class CliniqueImpl implements Clinique {
 
     private Connection connection;
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "root";
+    private static final String PASS = "";
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
         connect();
@@ -159,9 +159,9 @@ public class CliniqueImpl implements Clinique {
                 LocalDateTime dateFin = resultSet.getTimestamp("dateFin").toLocalDateTime();
                 String emailPatient = resultSet.getString("emailPatient");
                 String emailMedecin = resultSet.getString("emailMedecin");
-                String Description =  resultSet.getString("Description");
+                String description =  resultSet.getString("description");
 
-                RendezVous rdv = new RendezVous(emailPatient, emailMedecin, dateDeBut, dateFin);
+                RendezVous rdv = new RendezVous(emailPatient, emailMedecin, dateDeBut, dateFin, description);
                 RDVList.add(rdv);
             }
         }
@@ -171,7 +171,7 @@ public class CliniqueImpl implements Clinique {
 
     @Override
     public void insertRDV(RendezVous rdv) throws SQLException {
-        String query = "INSERT INTO rdv (dateDebut, dateFin, emailPatient, emailMedecin, Description) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO rdv (dateDebut, dateFin, emailPatient, emailMedecin, description) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

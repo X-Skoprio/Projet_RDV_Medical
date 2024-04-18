@@ -14,17 +14,18 @@ public class RendezVous {
     private LocalDateTime dateFin;
     private String emailPatient;
     private String emailMedecin;
-    private String Description;
+    private String description;
 
 
 
     // Constructeur
-    public RendezVous(String emailPatient, String emailMedecin, LocalDateTime dateDebut, LocalDateTime dateFin) {
+    public RendezVous(String emailPatient, String emailMedecin, LocalDateTime dateDebut, LocalDateTime dateFin, String description) {
         this.id = ++dernierId;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.emailPatient = emailPatient;
         this.emailMedecin = emailMedecin;
+        this.description = description;
     }
 
 
@@ -74,11 +75,11 @@ public class RendezVous {
 
     //Getters
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     //Setter
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 }
