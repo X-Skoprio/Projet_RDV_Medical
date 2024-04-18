@@ -11,6 +11,7 @@ import controller.ControlleurPatient.*;
 
 public class ViewPatient extends JFrame{
 
+
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
 
@@ -48,9 +49,9 @@ public class ViewPatient extends JFrame{
     }
 
     // Methode pour afficher le profil du patient
-    private void displayPatientInfo(JTextArea textArea, Patient patient) {
-        String ppatient = patient.getNom() + "  " + patient.getPrenom() + "\n" +
-                patient.getAge() + " ans\n";
+    private void displayPatientInfo(JTextArea textArea) {
+        String ppatient = CliniqueImpl.getNom(Login.getEmail()) + "  " + CliniqueImpl.getPrenom(Login.getEmail()) + "\n" +
+                CliniqueImpl.getAge(Login.getEmail()) + " ans\n";
         textArea.setText(ppatient);
     }
 

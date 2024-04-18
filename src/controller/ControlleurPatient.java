@@ -14,13 +14,12 @@ public class ControlleurPatient {
 
 
     private ViewPatient view;
-    private Patient patientCharge;
+
     private Runnable onPrendreRDVButtonClicked;
     private Runnable onConsultRDVButtonClicked;
 
-    public ControlleurPatient(ViewPatient view, Patient patientCharge) {
+    public ControlleurPatient(ViewPatient view) {
         this.view = view;
-        this.patientCharge = patientCharge;
         initListeners();
     }
 
@@ -44,9 +43,9 @@ public class ControlleurPatient {
         }
     }
 
-    public void showPatientWindow(Patient patientCharge) {
+    public void showPatientWindow() {
         SwingUtilities.invokeLater(() -> {
-            view = new ViewPatient(patientCharge); // Create the ViewLogin window
+            view = new ViewPatient(); // Create the ViewLogin window
             view.setTitle("Patient Window"); // Optional: Set the window title
             view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set the default close operation
             view.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
@@ -68,9 +67,10 @@ public class ControlleurPatient {
     private void onConsultRDVButtonClicked() {
 
         view.dispose(); // Close the ViewPatient window
+        ControlleurLoginDetails.ShowLoginDetails();
 
-        RdvController rdvController = new RdvController(patientCharge);
-        rdvController.ShowPatientRdvWindow();
+        // RdvController rdvController = new RdvController();
+        // rdvController.ShowPatientRdvWindow();
     }
 
 
