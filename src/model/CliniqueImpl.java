@@ -11,7 +11,7 @@ public class CliniqueImpl implements Clinique {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "root";
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
         connect();

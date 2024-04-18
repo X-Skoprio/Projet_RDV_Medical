@@ -10,7 +10,7 @@ public class ViewPatient extends JFrame{
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
 
-    public ViewPatient(Patient patientCharge) {
+    public ViewPatient() {
         this.patient = patient;
 
         this.setLayout(new GridBagLayout());
@@ -27,7 +27,7 @@ public class ViewPatient extends JFrame{
         this.add(titre, gbc);
 
         JTextArea profilPatient = new JTextArea();
-        displayPatientInfo(profilPatient, patient);
+        displayPatientInfo(profilPatient);
         titre.setFont(new Font("Serif", Font.BOLD, 20));
         gbc.weighty = 0.1;
         this.add(titre, gbc);
@@ -45,9 +45,8 @@ public class ViewPatient extends JFrame{
     }
 
     // Methode pour afficher le profil du patient
-    private void displayPatientInfo(JTextArea textArea, Patient patient) {
-        String ppatient = patient.getNom() + "  " + patient.getPrenom() + "\n" +
-                patient.getAge() + " ans\n";
+    private void displayPatientInfo(JTextArea textArea) {
+        String ppatient ="" ;
         textArea.setText(ppatient);
     }
 
