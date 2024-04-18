@@ -66,8 +66,8 @@ public class ControlleurPatient {
 
         view.dispose(); // Close the ViewPatient window
 
-        RdvController rdvController = new RdvController();
-        rdvController.ShowPatientRdvWindow();
+
+        RdvController.ShowPatientRdvWindow();
     }
 
 

@@ -11,7 +11,7 @@ public class CliniqueImpl implements Clinique {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "root";
+    private static final String PASS = "";
 
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
@@ -224,7 +224,7 @@ public class CliniqueImpl implements Clinique {
     }
 
 
-    private static String getAttribute(String column, String email) {
+    private static String getAttributePatient(String column, String email) {
         String sql = "SELECT " + column + " FROM patient WHERE email = ?";
         try (
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -239,23 +239,24 @@ public class CliniqueImpl implements Clinique {
         return null;
     }
 
-    public static String getNom(String email) {
 
-        String nom = getAttribute("nom", email);
+    public static String getNomPatient(String email) {
+
+        String nom = getAttributePatient("nom", email);
 
         return nom;
     }
 
-    public static String getPrenom(String email) {
+    public static String getPrenomPatient(String email) {
 
-        String prenom = getAttribute("prenom", email);
+        String prenom = getAttributePatient("prenom", email);
 
         return prenom;
     }
 
-    public static int getAge(String email) {
+    public static int getAgePatient(String email) {
             try {
-                int age = Integer.parseInt(getAttribute("age", email));
+                int age = Integer.parseInt(getAttributePatient("age", email));
                 return age;
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -263,18 +264,44 @@ public class CliniqueImpl implements Clinique {
             return 0;
     }
 
-    public static String getMdp(String email) {
+    public static String getMdpPatient(String email) {
 
-        String mdp = getAttribute("mdp", email);
+        String mdp = getAttributePatient("mdp", email);
 
         return mdp;
     }
 
-    public static String getDetails(String email) {
+    public static String getDetailsPatient(String email) {
 
-        String details = getAttribute("details", email);
+        String details = getAttributePatient("details", email);
 
         return details;
+    }
+
+    // Méthode statique pour récupérer tous les rendez-vous d'un patient par email
+    public static List<RendezVous> getRendezVousByEmailPatient(String emailPatient) {
+        List<RendezVous> rendezVousList = new ArrayList<>();
+        String sql = "SELECT * FROM rdv WHERE emailPatient = ?";
+
+        try ( // Assurez-vous que cette méthode existe et est correcte
+              PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, emailPatient);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                LocalDateTime dateDebut = rs.getTimestamp("dateDebut").toLocalDateTime();
+                LocalDateTime dateFin = rs.getTimestamp("dateFin").toLocalDateTime();
+                String emailMedecin = rs.getString("emailMedecin");
+                String description = rs.getString("description");
+
+                RendezVous rdv = new RendezVous(emailPatient, emailMedecin, dateDebut, dateFin, description);
+                rendezVousList.add(rdv);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur SQL : " + e.getMessage());
+        }
+        return rendezVousList;
     }
 }
 

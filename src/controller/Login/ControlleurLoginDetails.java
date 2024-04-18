@@ -74,6 +74,8 @@ public class ControlleurLoginDetails {
             ControlleurPatient.showPatientWindow();
         }*/
         System.out.println(Login.getEmail());
+
+        ControlleurPatient.showPatientWindow();
     }
 
 
