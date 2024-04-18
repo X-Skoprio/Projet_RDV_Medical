@@ -60,11 +60,11 @@ public class ControlleurLoginDetails {
         //envoie mail et mdp à la base de donnée et evalue si correct ou no afin d'ensuite d'établir une connexion.
         clinique.checkEmailAndPassword(email,password);
 
-        if (clinique.checkEmailAndPassword(email,password) == true)
+        if (clinique.checkEmailAndPassword(email, password))
         {
             Login.setEmail(email);
         }
-
+        /* REFAORE METHODE checkEmailInPatient et checkEmailInEmploye dans implemntation clinique
         if(clinique.checkEmailInEmploye(email))
         {
             //ControlleurEmploye.ShowEmploye(); à FAIRE MAX ----------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ public class ControlleurLoginDetails {
         else if(clinique.checkEmailInPatient(email))
         {
             ControlleurPatient.showPatientWindow();
-        }
+        }*/
         System.out.println(Login.getEmail());
     }
 
