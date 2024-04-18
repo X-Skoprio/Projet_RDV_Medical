@@ -7,11 +7,12 @@ import java.util.List;
 
 public class CliniqueImpl implements Clinique {
 
-    private Connection connection;
+    private static Connection connection;
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
     private static final String PASS = "root";
+
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
         connect();
@@ -183,7 +184,7 @@ public class CliniqueImpl implements Clinique {
             preparedStatement.executeUpdate();
         }
     }
-    public boolean checkEmailAndPassword(String email, String password) throws SQLException{
+    public boolean checkEmailAndPassword(String email, String password) {
 
         // Liste des noms de table
         String[] tableNames = {"employe", "patient"};
@@ -222,58 +223,61 @@ public class CliniqueImpl implements Clinique {
 
     }
 
-    public boolean checkEmailInPatient(String email) throws SQLException {
-        // Nom de la table à vérifier
-        String tableName = "patient";
 
-        // Requête SQL pour vérifier l'existence de l'email
-        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
-
-        // Essayer de préparer et d'exécuter la requête
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            // Remplacement du paramètre email dans la requête SQL
-            preparedStatement.setString(1, email);
-
-            // Exécution de la requête
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Retourner vrai si un résultat est trouvé
-            return resultSet.next();
+    private static String getAttribute(String column, String email) {
+        String sql = "SELECT " + column + " FROM patient WHERE email = ?";
+        try (
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(column);
+            }
         } catch (SQLException e) {
-            // Lever une exception si une erreur SQL se produit
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public boolean checkEmailInEmploye(String email) throws SQLException {
-        // Nom de la table à vérifier
-        String tableName = "employe";
+    public static String getNom(String email) {
 
-        // Requête SQL pour vérifier l'existence de l'email
-        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
+        String nom = getAttribute("nom", email);
 
-        // Essayer de préparer et d'exécuter la requête
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            // Remplacement du paramètre email dans la requête SQL
-            preparedStatement.setString(1, email);
-
-            // Exécution de la requête
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Retourner vrai si un résultat est trouvé
-            return resultSet.next();
-        } catch (SQLException e) {
-            // Lever une exception si une erreur SQL se produit
-            throw new RuntimeException(e);
-        }
+        return nom;
     }
 
+    public static String getPrenom(String email) {
 
+        String prenom = getAttribute("prenom", email);
 
+        return prenom;
+    }
 
+    public static int getAge(String email) {
+            try {
+                int age = Integer.parseInt(getAttribute("age", email));
+                return age;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            };
+            return 0;
+    }
 
+    public static String getMdp(String email) {
 
+        String mdp = getAttribute("mdp", email);
+
+        return mdp;
+    }
+
+    public static String getDetails(String email) {
+
+        String details = getAttribute("details", email);
+
+        return details;
+    }
 }
+
 
 
 
