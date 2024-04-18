@@ -6,12 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewPatient extends JFrame{
-    private Patient patient;
+
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
 
     public ViewPatient() {
-        this.patient = patient;
+
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -46,7 +46,8 @@ public class ViewPatient extends JFrame{
 
     // Methode pour afficher le profil du patient
     private void displayPatientInfo(JTextArea textArea) {
-        String ppatient ="" ;
+        String ppatient = CliniqueImpl.getNomPatient(Login.getEmail()) + "  " + CliniqueImpl.getPrenomPatient(Login.getEmail()) + "\n" +
+                CliniqueImpl.getAgePatient(Login.getEmail()) + " ans\n"; ;
         textArea.setText(ppatient);
     }
 
