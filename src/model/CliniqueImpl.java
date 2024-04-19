@@ -129,18 +129,19 @@ public class CliniqueImpl {
         return patientList;
     }
 
-    public static void insertPatient(Patient patient) throws SQLException {
+    public static boolean insertPatient(String nom, String prenom, int age, String email, String password, String details) throws SQLException {
         String query = "INSERT INTO patient (nom, prenom, age, email, mdp, details) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, patient.getNom());
-            preparedStatement.setString(2, patient.getPrenom());
-            preparedStatement.setInt(3, patient.getAge());
-            preparedStatement.setString(4, patient.getEmail());
-            preparedStatement.setString(5, patient.getMdp());
-            preparedStatement.setString(6, patient.getDetails());
+            preparedStatement.setString(1, nom);
+            preparedStatement.setString(2, prenom);
+            preparedStatement.setInt(3, age);
+            preparedStatement.setString(4, email);
+            preparedStatement.setString(5, password);
+            preparedStatement.setString(6, details);
             preparedStatement.executeUpdate();
         }
+        return true;
     }
 
     public static List<RendezVous> getAllRendezVous() throws SQLException {

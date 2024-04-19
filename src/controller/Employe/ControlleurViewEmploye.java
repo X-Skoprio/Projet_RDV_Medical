@@ -2,7 +2,6 @@ package controller.Employe;
 
 import model.CliniqueImpl;
 import view.ViewEmploye;
-import controller.Employe.ControlleurEmployeGererPatients;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -33,20 +32,20 @@ public class ControlleurViewEmploye {
     }
 
     private void gererMedecin() {
-        System.out.println("Gérer Médecin button clicked");
-        // Add logic to handle doctor management
+        System.out.println("Gérer Medecin button clicked");
+
 
     }
 
     private void gererPatient() {
-        System.out.println("Gérer Patient button clicked");
+        System.out.println("Gerer Patient button clicked");
         showEmployeGererPatientWindow();
     }
 
     public static void showEmployeWindow() {
         SwingUtilities.invokeLater(() -> {
             ViewEmploye view = new ViewEmploye();
-            view.setTitle("Employé Management Window");
+            view.setTitle("Employe Management Window");
             view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             view.pack();
             view.setLocationRelativeTo(null);

@@ -3,9 +3,8 @@ package controller;
 import javax.swing.*;
 
 import controller.Login.*;
-import controller.Employe.*;
 import view.*;
-import model.CliniqueImpl;
+import view.ViewEmploye;
 
 import java.sql.SQLException;
 
