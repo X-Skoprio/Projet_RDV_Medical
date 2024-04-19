@@ -16,54 +16,43 @@ public class ViewPatientPrendreRdv extends JFrame {
     private JList<String> dateList;
     private JComboBox<String> timeComboBox;
 
+    private JPanel doctorPanel = new JPanel(new GridLayout(0, 1));
+    private JScrollPane scrollPane = new JScrollPane(doctorPanel);
+
     public ViewPatientPrendreRdv() {
-        setTitle("Clinic Appointment Booking");
-        setSize(500, 500);
+        setTitle("Patient - Prise de rdv");
+        setSize(500, 700);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public void displayDoctors(List<Medecin> doctors, ActionListener selectAction) {
-        doctorComboBox = new JComboBox<>(new Vector<>(doctors));
-        doctorComboBox.addActionListener(selectAction);
-        add(doctorComboBox, BorderLayout.NORTH);
-    }
-
-    public void displayDates(List<LocalDateTime> dates, ActionListener dateSelectAction) {
-        DefaultListModel<String> model = new DefaultListModel<>();
-        dates.forEach(date -> model.addElement(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
-        dateList = new JList<>(model);
-        dateList.addListSelectionListener(e -> dateSelectAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null)));
-        JScrollPane scrollPane = new JScrollPane(dateList);
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public void displayTimes(List<String> times, ActionListener timeSelectAction) {
-        timeComboBox = new JComboBox<>(new Vector<>(times));
-        timeComboBox.addActionListener(timeSelectAction);
-        add(timeComboBox, BorderLayout.SOUTH);
+    public void displayDoctors(List<Medecin> doctors, ActionListener actionListener) {
+        for (Medecin doctor : doctors) {
+            String nomBoutton = doctor.getPrenom() + " " + doctor.getNom() + "       spé : " + doctor.getSpecialisation();
+            JButton button = new JButton(nomBoutton);
+            button.addActionListener(actionListener);
+            button.setActionCommand(doctor.getEmail()); // Use doctor's email as the action command for identification
+            doctorPanel.add(button);
+        }
+        validate();
+        repaint();
     }
 
-    public Medecin getSelectedDoctor() {
-        return (Medecin) doctorComboBox.getSelectedItem();
-    }
-
-    public LocalDateTime getSelectedDate() {
-        String selected = dateList.getSelectedValue();
-        return LocalDateTime.parse(selected, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-    }
-
-    public String getSelectedTime() {
-        return (String) timeComboBox.getSelectedItem();
+    public void displayTimeSlots(List<String> slots, ActionListener actionListener) {
+        JPanel timePanel = new JPanel(new GridLayout(0, 1));
+        for (String slot : slots) {
+            JButton button = new JButton(slot);
+            button.addActionListener(actionListener);
+            timePanel.add(button);
+        }
+        setContentPane(new JScrollPane(timePanel)); // Replace current panel with time selection
+        validate();
+        repaint();
     }
 
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
-    }
-
-    public void refresh() {
-        revalidate();
-        repaint();
     }
 }
 

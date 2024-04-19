@@ -2,6 +2,7 @@ package controller.Patient;
 
 
 import controller.ControlleurPatientRDV.RdvController;
+import controller.ControlleurPrendreRdv.PrendreRdv;
 import controller.Login.ControlleurLoginDetails;
 import view.*;
 
@@ -59,7 +60,7 @@ public class ControlleurPatient {
     private static void onPrendreRDVButtonClicked() {
         view.dispose(); // Close the ViewPatient window
 
-        ControlleurLoginDetails.ShowLoginDetails();
+        PrendreRdv.showPrendreRdvWindow();
     }
 
     private static void onConsultRDVButtonClicked() {
