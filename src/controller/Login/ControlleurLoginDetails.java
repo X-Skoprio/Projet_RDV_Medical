@@ -10,26 +10,18 @@ import java.sql.SQLException;
 
 import model.Login;
 
+import static model.CliniqueImpl.*;
+
 public class ControlleurLoginDetails {
     private static ViewLoginDetails LoginDetails;
     private Runnable onSendLoginButtonClicked;
 
-    public static CliniqueImpl clinique;
-
-    static {
-        try {
-            clinique = new CliniqueImpl();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     public ControlleurLoginDetails(ViewLoginDetails LoginDetails) throws SQLException, ClassNotFoundException {
         ControlleurLoginDetails.LoginDetails = LoginDetails;
         initListeners();
+
     }
     private void initListeners() {
         // Patient button action listener
@@ -55,22 +47,20 @@ public class ControlleurLoginDetails {
         String password = new String(LoginDetails.getPasswordField().getPassword());
         System.out.println(email + "  " + password);
 
+
         //envoie mail et mdp à la base de donnée et evalue si correct ou no afin d'ensuite d'établir une connexion.
-        clinique.checkEmailAndPassword(email,password);
+        checkEmailAndPassword(email,password);
 
-        if (clinique.checkEmailAndPassword(email, password))
-        {
-            Login.setEmail(email);
-        }
-
-        if(clinique.checkEmailInEmploye(email))
+        if(checkEmailInEmploye(email) && checkEmailAndPassword(email,password))
         {
             ControlleurViewEmploye.showEmployeWindow();
+            Login.setEmail(email);
             LoginDetails.dispose();
         }
-        else if(clinique.checkEmailInPatient(email))
+        else if(checkEmailInPatient(email) && checkEmailAndPassword(email,password) )
         {
             ControlleurPatient.showPatientWindow();
+            Login.setEmail(email);
             LoginDetails.dispose();
         }
         System.out.println(Login.getEmail());

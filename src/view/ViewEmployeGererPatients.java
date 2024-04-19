@@ -2,63 +2,56 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ViewEmployeGererPatients extends JFrame{
+public class ViewEmployeGererPatients extends JFrame {
+    private JButton creationNouveauxPatient;
+    private JButton ConsulterLesPatients;
 
-    public ViewEmployeGererPatients(){
+    public ViewEmployeGererPatients() {
+        initializeUI();
+    }
 
-        setTitle("Page du Site");
-        setSize(600, 400);
+    private void initializeUI() {
+        setTitle("Gestion des Patients");
+        setSize(new Dimension(600, 400));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-
-        // Création du panel pour les boutons
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 10)); // 2 lignes, 1 colonne avec espacement vertical de 10 pixels
-
-        // Bouton pour la création de nouveaux patients
-        JButton nouveauPatientButton = new JButton("Création nouveaux patients");
-        nouveauPatientButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Code à exécuter lorsque le bouton Création nouveaux patients est cliqué
-                // Ajoutez votre logique ici
-                System.out.println("Création nouveaux patients");
-                new ViewEmployeCreationPatients();
+        JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image backgroundImage = new ImageIcon("src/view/fond.png").getImage();
+                g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
             }
-        });
+        };
+        this.setContentPane(backgroundPanel);
 
-        // Bouton pour ouvrir les anciens patients
-        JButton ancienPatientButton = new JButton("Ouvrir anciens patients");
-        ancienPatientButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Code à exécuter lorsque le bouton Ouvrir anciens patients est cliqué
-                // Ajoutez votre logique ici
-                System.out.println("Ouvrir anciens patients");
-            }
-        });
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 50, 10, 50);
 
-        // Ajout des boutons au panel
-        buttonPanel.add(nouveauPatientButton);
-        buttonPanel.add(ancienPatientButton);
+        creationNouveauxPatient = new JButton("Creation nouveaux patients");
+        ConsulterLesPatients = new JButton("Consulter les patients");
 
-        // Ajout du panel à la fenêtre
-        add(buttonPanel, BorderLayout.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        backgroundPanel.add(creationNouveauxPatient, gbc);
+        gbc.gridy = 1;
+        backgroundPanel.add(ConsulterLesPatients, gbc);
 
-        // Affichage de la fenêtre
-        setVisible(true);
+        this.pack();
+        this.setVisible(true);
+    }
 
+    public JButton getcreationNouveauxPatientButton() {
+        return creationNouveauxPatient;
+    }
+
+    public JButton getConsulterLesPatientsButton() {
+        return ConsulterLesPatients;
     }
 
 
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new ViewEmployeGererPatients(); // Crée une instance de la fenêtre avec les noms et emails spécifiés
-            }
-        });
-
-    }
-    }
-
+}

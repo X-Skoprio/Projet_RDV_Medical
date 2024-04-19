@@ -65,9 +65,7 @@ public class ControlleurPatient {
     private static void onConsultRDVButtonClicked() {
 
         view.dispose(); // Close the ViewPatient window
-
-        RdvController rdvController = new RdvController();
-        rdvController.ShowPatientRdvWindow();
+        RdvController.ShowPatientRdvWindow();
     }
 
 

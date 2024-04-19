@@ -17,6 +17,7 @@ class MainController extends JFrame {
     private static ViewEmploye viewEmploye;
 
     public MainController() {
+
     }
 
 

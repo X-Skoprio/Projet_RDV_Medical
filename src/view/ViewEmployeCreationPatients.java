@@ -2,79 +2,80 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ViewEmployeCreationPatients extends JFrame{
+public class ViewEmployeCreationPatients extends JFrame {
+    private JTextField textFieldNom, textFieldPrenom, textFieldAge, textFieldEmail;
+    private JPasswordField passwordField;
+    private JTextArea textAreaDetails;
+    private JButton boutonSoumettre, boutonAnnuler;
 
-    public ViewEmployeCreationPatients(){
+    public ViewEmployeCreationPatients() {
+        initializeUI();
+    }
 
-        setTitle("Page du Site");
+    private void initializeUI() {
+        setTitle("Création de Patient");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
+        setLocationRelativeTo(null);
 
+        JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image backgroundImage = new ImageIcon("src/view/fond.png").getImage();
+                g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+            }
+        };
+        this.setContentPane(backgroundPanel);
 
-        // Création du panel pour le formulaire
-        JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10)); // 6 lignes, 2 colonnes avec espacement de 10 pixels
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 10, 5, 10);
 
-        // Labels et champs de texte pour les informations du patient
-        JLabel labelNom = new JLabel("Nom :");
-        JTextField textFieldNom = new JTextField();
-        JLabel labelPrenom = new JLabel("Prénom :");
-        JTextField textFieldPrenom = new JTextField();
-        JLabel labelAge = new JLabel("Âge :");
-        JTextField textFieldAge = new JTextField();
-        JLabel labelEmail = new JLabel("Email :");
-        JTextField textFieldEmail = new JTextField();
-        JLabel labelMdp = new JLabel("Mot de passe :");
-        JPasswordField passwordField = new JPasswordField();
-        JLabel labelDetails = new JLabel("Détails :");
-        JTextArea textAreaDetails = new JTextArea();
+        // Form panel
+        JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        textFieldNom = new JTextField();
+        textFieldPrenom = new JTextField();
+        textFieldAge = new JTextField();
+        textFieldEmail = new JTextField();
+        passwordField = new JPasswordField();
+        textAreaDetails = new JTextArea();
 
-        // Ajout des composants au panel du formulaire
-        formPanel.add(labelNom);
+        formPanel.add(new JLabel("Nom :"));
         formPanel.add(textFieldNom);
-        formPanel.add(labelPrenom);
+        formPanel.add(new JLabel("Prénom :"));
         formPanel.add(textFieldPrenom);
-        formPanel.add(labelAge);
+        formPanel.add(new JLabel("Âge :"));
         formPanel.add(textFieldAge);
-        formPanel.add(labelEmail);
+        formPanel.add(new JLabel("Email :"));
         formPanel.add(textFieldEmail);
-        formPanel.add(labelMdp);
+        formPanel.add(new JLabel("Mot de passe :"));
         formPanel.add(passwordField);
-        formPanel.add(labelDetails);
+        formPanel.add(new JLabel("Détails :"));
         formPanel.add(textAreaDetails);
 
-        // Boutons pour soumettre et annuler le formulaire
-        JButton boutonSoumettre = new JButton("Soumettre");
-        JButton boutonAnnuler = new JButton("Annuler");
-
-
-        // Ajout d'un ActionListener pour le bouton Soumettre
-
-
-        // Création du panel pour les boutons
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10)); // 1 ligne, 2 colonnes avec espacement de 10 pixels
+        // Buttons panel
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        boutonSoumettre = new JButton("Soumettre");
+        boutonAnnuler = new JButton("Annuler");
         buttonPanel.add(boutonSoumettre);
         buttonPanel.add(boutonAnnuler);
 
-        // Ajout des panels de formulaire et de boutons à la fenêtre
-        add(formPanel, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.SOUTH);
+        backgroundPanel.add(formPanel, gbc);
+        gbc.gridy++;
+        backgroundPanel.add(buttonPanel, gbc);
 
-        // Affichage de la fenêtre
+        pack();
         setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public JButton getBoutonSoumettre() {
+        return boutonSoumettre;
+    }
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new ViewEmployeCreationPatients(); // Crée une instance de la fenêtre avec les noms et emails spécifiés
-            }
-        });
-
+    public JButton getBoutonAnnuler() {
+        return boutonAnnuler;
     }
 }
-

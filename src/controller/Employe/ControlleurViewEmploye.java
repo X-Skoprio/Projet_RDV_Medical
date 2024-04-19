@@ -2,10 +2,12 @@ package controller.Employe;
 
 import model.CliniqueImpl;
 import view.ViewEmploye;
-
+import controller.Employe.ControlleurEmployeGererPatients;
 
 import javax.swing.*;
 import java.sql.SQLException;
+
+import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
 
 public class ControlleurViewEmploye {
     private ViewEmploye viewEmploye;
@@ -33,11 +35,12 @@ public class ControlleurViewEmploye {
     private void gererMedecin() {
         System.out.println("Gérer Médecin button clicked");
         // Add logic to handle doctor management
+
     }
 
     private void gererPatient() {
         System.out.println("Gérer Patient button clicked");
-        // Add logic to handle patient management
+        showEmployeGererPatientWindow();
     }
 
     public static void showEmployeWindow() {

@@ -184,7 +184,7 @@ public class CliniqueImpl implements Clinique {
             preparedStatement.executeUpdate();
         }
     }
-    public boolean checkEmailAndPassword(String email, String password) {
+    public static boolean checkEmailAndPassword(String email, String password) {
 
         // Liste des noms de table
         String[] tableNames = {"employe", "patient"};
@@ -278,7 +278,7 @@ public class CliniqueImpl implements Clinique {
         return details;
     }
 
-    public boolean checkEmailInPatient(String email) {
+    public static boolean checkEmailInPatient(String email) {
         // Nom de la table à vérifier
         String tableName = "patient";
 
@@ -329,7 +329,7 @@ public class CliniqueImpl implements Clinique {
         return rendezVousList;
     }
 
-    public boolean checkEmailInEmploye(String email) {
+    public static boolean checkEmailInEmploye(String email) {
         // Nom de la table à vérifier
         String tableName = "employe";
 
