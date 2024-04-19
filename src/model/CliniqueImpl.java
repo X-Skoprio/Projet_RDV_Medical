@@ -348,15 +348,21 @@ public class CliniqueImpl {
         return false; // L'email n'existe pas
     }
 
-    public static boolean RdvDispoTest(String emailMedecin, Timestamp startTime) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM rdv WHERE emailMedecin = ? AND dateDebut = ?";
+    public List<LocalDateTime> rdvIndispo(String doctorEmail, LocalDateTime date) {
+        List<LocalDateTime> bookedTimes = new ArrayList<>();
+        String sql = "SELECT dateDebut FROM rdv WHERE emailMedecin = ? AND DATE(dateDebut) = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, emailMedecin);
-            pstmt.setTimestamp(2, startTime);
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            return rs.getInt(1) == 0;
+            pstmt.setString(1, doctorEmail);
+            pstmt.setTimestamp(1, java.sql.Timestamp.valueOf(date));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    bookedTimes.add(rs.getTimestamp("dateDebut").toLocalDateTime());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return bookedTimes;
     }
 
 
