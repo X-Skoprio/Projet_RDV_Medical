@@ -68,7 +68,7 @@ public class ControlleurLoginDetails {
             ControlleurViewEmploye.showEmployeWindow();
             LoginDetails.dispose();
         }
-        else if(clinique.checkEmailInPatient(email))
+        else if(clinique.checkEmailInPatient(email)) //rajouter check de mdp
         {
             ControlleurPatient.showPatientWindow();
             LoginDetails.dispose();

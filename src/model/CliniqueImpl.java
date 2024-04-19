@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CliniqueImpl implements Clinique {
+public class CliniqueImpl {
 
     private static Connection connection;
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -19,8 +19,7 @@ public class CliniqueImpl implements Clinique {
     }
 
 
-    @Override
-    public void connect()
+    public static void connect()
             throws SQLException, ClassNotFoundException {
 
         // Chargement du pilote JDBC
@@ -32,15 +31,15 @@ public class CliniqueImpl implements Clinique {
 
     }
 
-    @Override
-    public void disconnect() throws SQLException {
+
+    public static void disconnect() throws SQLException {
         if (connection != null) {
             connection.close();
         }
     }
 
-    @Override
-    public List<Employe> getAllEmploye() throws SQLException {
+
+    public static List<Employe> getAllEmploye() throws SQLException {
         List<Employe> employeList = new ArrayList<>();
         String query = "SELECT * FROM employe";
 
@@ -60,8 +59,8 @@ public class CliniqueImpl implements Clinique {
         return employeList;
     }
 
-    @Override
-    public void insertEmploye(Employe employe) throws SQLException {
+
+    public static void insertEmploye(Employe employe) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -74,8 +73,8 @@ public class CliniqueImpl implements Clinique {
     }
 
 
-    @Override
-    public List<Medecin> getAllMedecin() throws SQLException {
+
+    public static List<Medecin> getAllMedecin() throws SQLException {
         List<Medecin> medecinList = new ArrayList<>();
         String query = "SELECT * FROM medecin";
 
@@ -95,8 +94,7 @@ public class CliniqueImpl implements Clinique {
         return medecinList;
     }
 
-    @Override
-    public void insertMedecin(Medecin medecin) throws SQLException {
+    public static void insertMedecin(Medecin medecin) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -109,8 +107,7 @@ public class CliniqueImpl implements Clinique {
     }
 
 
-    @Override
-    public List<Patient> getAllPatient() throws SQLException {
+    public static List<Patient> getAllPatient() throws SQLException {
         List<Patient> patientList = new ArrayList<>();
         String query = "SELECT * FROM patient";
 
@@ -132,8 +129,7 @@ public class CliniqueImpl implements Clinique {
         return patientList;
     }
 
-    @Override
-    public void insertPatient(Patient patient) throws SQLException {
+    public static void insertPatient(Patient patient) throws SQLException {
         String query = "INSERT INTO patient (nom, prenom, age, email, mdp, details) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -147,8 +143,7 @@ public class CliniqueImpl implements Clinique {
         }
     }
 
-    @Override
-    public List<RendezVous> getAllRendezVous() throws SQLException {
+    public static List<RendezVous> getAllRendezVous() throws SQLException {
         List<RendezVous> RDVList = new ArrayList<>();
         String query = "SELECT * FROM rdv";
 
@@ -170,8 +165,7 @@ public class CliniqueImpl implements Clinique {
         return RDVList;
     }
 
-    @Override
-    public void insertRDV(RendezVous rdv) throws SQLException {
+    public static void Prendre1Rdv(RendezVous rdv) throws SQLException {
         String query = "INSERT INTO rdv (dateDebut, dateFin, emailPatient, emailMedecin, description) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -184,7 +178,7 @@ public class CliniqueImpl implements Clinique {
             preparedStatement.executeUpdate();
         }
     }
-    public boolean checkEmailAndPassword(String email, String password) {
+    public static boolean checkEmailAndPassword(String email, String password) {
 
         // Liste des noms de table
         String[] tableNames = {"employe", "patient"};
@@ -354,6 +348,16 @@ public class CliniqueImpl implements Clinique {
         return false; // L'email n'existe pas
     }
 
+    public static boolean RdvDispoTest(String emailMedecin, Timestamp startTime) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM rdv WHERE emailMedecin = ? AND dateDebut = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, emailMedecin);
+            pstmt.setTimestamp(2, startTime);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            return rs.getInt(1) == 0;
+        }
+    }
 
 
 }
