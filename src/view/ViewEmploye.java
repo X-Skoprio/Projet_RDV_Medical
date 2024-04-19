@@ -8,13 +8,26 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Cette classe fournit un interface graphique que l'Employe verra après sa connexion.
+ */
+
 public class ViewEmploye extends JFrame {
     private JButton gererMedecinButton;
     private JButton gererPatientButton;
 
+    /**
+     * Construit la fenêtre principale avec tous les composants UI nécessaires.
+     */
     public ViewEmploye() {
         initializeUI();
     }
+
+    /**
+     * Initialise l'interface Employe de {@code ViewEmploye}.
+     * Cette méthode configure le layout, ajoute les composants UI
+     * et définit les paramètres du cadre.
+     */
 
     private void initializeUI() {
         // Custom JPanel with background image
@@ -56,10 +69,21 @@ public class ViewEmploye extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Retourne le bouton de gestion des médecins.
+     *
+     * @return Le bouton {@code gererMedecinButton}.
+     */
+
     public JButton getGererMedecinButton() {
         return gererMedecinButton;
     }
 
+    /**
+     * Retourne le bouton de gestion des patients.
+     *
+     * @return Le bouton {@code gererPatientButton}.
+     */
     public JButton getGererPatientButton() {
         return gererPatientButton;
     }

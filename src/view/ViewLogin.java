@@ -3,11 +3,24 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le {@code ViewLogin} classe permet à l'utilisateur de se connecter.
+ * Le processus est lancé à l'aide d'un seul bouton LOGIN
+ * On se connecte à l'aide du mail et du mot de passe
+ * @author JOUD PREVOST MAAREK
+ */
+
 public class ViewLogin extends JFrame {
     private JButton loginButton;
 
+
+    /**
+     * Construit une nouvelle vue de connexion en configurant les composants de l'interface utilisateur.
+     */
+
     public ViewLogin() {
         this.setLayout(new BorderLayout()); // Use BorderLayout for the JFrame
+
 
         // Background panel with null layout for absolute positioning of components
         JPanel backgroundPanel = new JPanel(null) {
@@ -40,6 +53,11 @@ public class ViewLogin extends JFrame {
          // Make the window visible
     }
 
+    /**
+     * Obtient le bouton de connexion.
+     *
+     * @return Le bouton de connexion pour renvoyer les infos
+     */
     public JButton getLoginButton() {
         return loginButton;
     }
