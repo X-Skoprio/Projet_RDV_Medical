@@ -28,7 +28,7 @@ public class ControlleurLoginDetails {
         LoginDetails.getLoginButton().addActionListener(e -> {
             try {
                 onSendLoginButtonClicked();
-            } catch (SQLException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
         });
@@ -41,7 +41,8 @@ public class ControlleurLoginDetails {
         }
     }
 
-    private static void onSendLoginButtonClicked() throws SQLException {
+    private static void onSendLoginButtonClicked() throws SQLException, ClassNotFoundException {
+        connect();
          // Close the ViewLogin window
         String email = LoginDetails.getEmailField().getText();
         String password = new String(LoginDetails.getPasswordField().getPassword());
@@ -64,6 +65,7 @@ public class ControlleurLoginDetails {
             LoginDetails.dispose();
         }
         System.out.println(Login.getEmail());
+
     }
 
 
@@ -79,7 +81,7 @@ public class ControlleurLoginDetails {
             LoginDetails.getLoginButton().addActionListener(e -> {
                 try {
                     onSendLoginButtonClicked();
-                } catch (SQLException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
             });
