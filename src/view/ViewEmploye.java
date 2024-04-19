@@ -9,6 +9,8 @@ public class ViewEmploye extends JFrame {
 
     private JButton GererPatientsButton;
     private JButton GererMedecinButton;
+    private Runnable OUI;
+    private Runnable NON;
 
     public ViewEmploye() {
         String nom = "John Doe";
@@ -50,6 +52,7 @@ public class ViewEmploye extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Default close operation
         // Make the window visible
 
+        //Affichage de la fenètre sur tt la longueur de l'écran
 
     }
 
@@ -61,6 +64,7 @@ public class ViewEmploye extends JFrame {
     public JButton getGererMedecinButton() {
         return GererMedecinButton;
     }
+
 
 
 /*
