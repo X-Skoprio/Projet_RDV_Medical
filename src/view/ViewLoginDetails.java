@@ -3,15 +3,27 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe {@code ViewLoginDetails} est une interface graphique pour se connecter via le mail
+ * On affiche le formulaire avec le bouton.
+ */
+
 public class ViewLoginDetails extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton sendLoginButton;
 
+    /**
+     * Construit une nouvelle instance de {@code ViewLoginDetails} et initialise l'interface utilisateur.
+     */
     public ViewLoginDetails() {
         initializeUI();
     }
 
+    /**
+     * Initialise les composants de l'interface utilisateur et configure les paramètres de mise en page.
+     * Avec cette méthode, on va afficher le formulaire, le texte les décrivant et les boutons.
+     */
     private void initializeUI() {
         // Create the custom JPanel with background image
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
@@ -70,14 +82,29 @@ public class ViewLoginDetails extends JFrame {
     }
 
     // Getter methods
+    /**
+     * Retourne le champ de texte pour l'email.
+     *
+     * @return le champ de texte pour l'email.
+     */
     public JTextField getEmailField() {
         return emailField;
     }
 
+    /**
+     * Retourne le champ pour le mot de passe.
+     *
+     * @return le champ pour le mot de passe.
+     */
     public JPasswordField getPasswordField() {
         return passwordField;
     }
 
+    /**
+     * Retourne le bouton pour lancer la connexion.
+     *
+     * @return le bouton pour lancer la connexion.
+     */
     public JButton getLoginButton() {
         return sendLoginButton;
     }
