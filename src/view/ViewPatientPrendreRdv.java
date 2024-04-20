@@ -25,6 +25,7 @@ public class ViewPatientPrendreRdv extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(scrollPane, BorderLayout.CENTER);
+        this.setLocationRelativeTo(null); // Center on screen
     }
 
     public void displayDoctors(List<Medecin> doctors, ActionListener actionListener) {

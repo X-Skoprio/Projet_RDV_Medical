@@ -8,10 +8,12 @@ import view.ViewChoixHorairesRdv;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+
 
 public class ChoixHorairesRdv {
 
@@ -34,7 +36,11 @@ public class ChoixHorairesRdv {
     }
 
     private void updateHours() {
-        view.setHours(getAvailableHours());
+        String selectedDay = view.getSelectedDay();
+        LocalDate date = LocalDate.parse(selectedDay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        List<String> hours = getAvailableHours();
+        List<LocalDateTime> bookedTimes = CliniqueImpl.rdvIndispo(PrendreRdv.getEmailMedecin(), date);
+        view.setHours(hours, bookedTimes);
     }
 
     private void enableConfirmation() {
@@ -44,26 +50,32 @@ public class ChoixHorairesRdv {
     private void confirmAppointment() {
         String selectedDay = view.getSelectedDay();
         String selectedHour = view.getSelectedHour();
-        if (selectedDay != null && selectedHour != null) {
-
-            LocalDateTime startTime = LocalDateTime.parse(selectedDay + "T" + selectedHour + ":00", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            LocalDateTime endTime = startTime.plusHours(1);
-
-            String description = "Routine check-up";
-
-            JOptionPane.showMessageDialog(view, "Vous avez planifié un rdv le " + selectedDay + " at " + selectedHour + ".");
-            RendezVous rdv = new RendezVous(Login.getEmail(), PrendreRdv.getEmailMedecin(), startTime, endTime, description);
-            try {
-                CliniqueImpl.Prendre1Rdv(rdv);
-            }
-            catch(SQLException e){
-                throw new RuntimeException(e);
-            }
-        } else {
-            JOptionPane.showMessageDialog(view, "Merci de selectionner un jour et un horaire.", "Selection incomplete", JOptionPane.ERROR_MESSAGE);
+        if(selectedHour != null && selectedHour.contains("(booked)")) {
+            JOptionPane.showMessageDialog(view, "Horaire indisponible");
         }
-        view.dispose();
-        ControlleurPatient.showPatientWindow();
+        else{
+                if (selectedDay != null && selectedHour != null) {
+
+                    LocalDateTime startTime = LocalDateTime.parse(selectedDay + "T" + selectedHour + ":00", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    LocalDateTime endTime = startTime.plusHours(1);
+
+                    String description = "Routine check-up";
+
+                    JOptionPane.showMessageDialog(view, "Vous avez planifié un rdv le " + selectedDay + " at " + selectedHour + ".");
+                    RendezVous rdv = new RendezVous(Login.getEmail(), PrendreRdv.getEmailMedecin(), startTime, endTime, description);
+                    try {
+                        CliniqueImpl.Prendre1Rdv(rdv);
+                    }
+                    catch(SQLException e){
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(view, "Merci de selectionner un jour et un horaire.", "Selection incomplete", JOptionPane.ERROR_MESSAGE);
+                }
+            view.dispose();
+            ControlleurPatient.showPatientWindow();
+        }
+
     }
 
     private void goBack() {
@@ -80,7 +92,7 @@ public class ChoixHorairesRdv {
         return days;
     }
 
-    public List<String> getAvailableHours() {
+    public static List<String> getAvailableHours() {
         List<String> hours = new ArrayList<>();
         for (int i = 8; i <= 18; i++) {
             hours.add(String.format("%02d:00", i));

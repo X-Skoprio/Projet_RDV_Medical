@@ -17,6 +17,7 @@ public class RdvView {
 
         tabbedPane = new JTabbedPane();
         frame.add(tabbedPane);
+        frame.setLocationRelativeTo(null); // Center on screen
     }
 
     public void addRdvTable(String tabName, Object[][] data, String[] columnNames) {

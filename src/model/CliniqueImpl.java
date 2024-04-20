@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -348,12 +349,13 @@ public class CliniqueImpl {
         return false; // L'email n'existe pas
     }
 
-    public List<LocalDateTime> rdvIndispo(String doctorEmail, LocalDateTime date) {
+    public static List<LocalDateTime> rdvIndispo(String emailMedecin, LocalDate date) {
         List<LocalDateTime> bookedTimes = new ArrayList<>();
         String sql = "SELECT dateDebut FROM rdv WHERE emailMedecin = ? AND DATE(dateDebut) = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, doctorEmail);
-            pstmt.setTimestamp(1, java.sql.Timestamp.valueOf(date));
+            pstmt.setString(1, emailMedecin);
+            //pstmt.setDate(2, Date.valueOf(date));
+            pstmt.setDate(2, Date.valueOf(date));
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     bookedTimes.add(rs.getTimestamp("dateDebut").toLocalDateTime());

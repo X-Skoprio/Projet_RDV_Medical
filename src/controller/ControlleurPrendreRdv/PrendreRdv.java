@@ -20,9 +20,6 @@ import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.lang.*;
 
-import static model.CliniqueImpl.connect;
-import static model.CliniqueImpl.disconnect;
-
 public class PrendreRdv {
 
     private static ViewPatientPrendreRdv view;
@@ -62,12 +59,5 @@ public class PrendreRdv {
 
     public static String getEmailMedecin(){return emailMedecin;}
 
-//    public static void main(String[] args) throws SQLException, ClassNotFoundException{
-//
-//        connect();
-//        view = new ViewPatientPrendreRdv(); // Create the ViewLogin window
-//        new PrendreRdv(view);
-//
-//    }
 }
 
