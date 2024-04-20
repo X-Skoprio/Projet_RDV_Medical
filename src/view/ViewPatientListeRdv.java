@@ -4,13 +4,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import controller.ControlleurPatientRDV.*;
 
-import java.awt.*;
-
-public class RdvView {
+public class ViewPatientListeRdv {
     private JFrame frame;
     private JTabbedPane tabbedPane;
 
-    public RdvView() {
+    public ViewPatientListeRdv() {
         frame = new JFrame("Rendez-vous Details");
         frame.setSize(1000, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
