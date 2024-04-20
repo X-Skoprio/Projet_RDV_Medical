@@ -361,6 +361,27 @@ public class CliniqueImpl {
     }
 
 
+    public static boolean supprimerPatient(String email) throws SQLException {
+        // SQL statement to delete a patient based on email
+        String query = "DELETE FROM patient WHERE email = ?";
+
+        // Try-with-resources statement to auto-close the PreparedStatement
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Set the email parameter in the SQL query
+            preparedStatement.setString(1, email);
+
+            // Execute the update
+            int affectedRows = preparedStatement.executeUpdate();
+
+            // Return true if the row is deleted
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.err.println("Error when attempting to delete patient: " + e.getMessage());
+            throw e;  // Rethrow the exception to handle it outside if necessary
+        }
+    }
+
+
 }
 
 
