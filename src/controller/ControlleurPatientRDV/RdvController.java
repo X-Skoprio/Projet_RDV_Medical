@@ -37,7 +37,6 @@ public class RdvController {
 
     public static void ShowPatientRdvWindow() {
         SwingUtilities.invokeLater(() -> {
-
             ViewPatientListeRdv view = new ViewPatientListeRdv();
             new RdvController(view);
         });
@@ -46,4 +45,6 @@ public class RdvController {
     public static ViewPatientListeRdv getViewPatientListeRdv() {
         return view;
     }
+
+
 }

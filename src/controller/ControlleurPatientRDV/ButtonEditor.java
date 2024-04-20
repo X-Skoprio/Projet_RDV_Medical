@@ -2,6 +2,7 @@ package controller.ControlleurPatientRDV;
 
 import model.CliniqueImpl;
 import model.Patient;
+import model.RendezVous;
 import view.ViewEmployeConsulterPatients;
 import view.ViewPatientListeRdv;
 
@@ -19,6 +20,7 @@ import static model.CliniqueImpl.checkEmailInPatient;
 import static model.CliniqueImpl.supprimerPatient;
 import static view.ViewEmployeConsulterPatients.getModel;
 import static view.ViewPatientListeRdv.getModelListeRdv;
+
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
@@ -85,8 +87,34 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     private void modifier(int row) {
-        System.out.println("Modifier Action at row: " + row);
-        // Code pour la modification
+        String currentDescription = (String) table.getModel().getValueAt(row, 4);
+        String newDescription = JOptionPane.showInputDialog(table, "Modifier la description:", currentDescription);
+
+        if (newDescription != null && !newDescription.equals(currentDescription)) {
+            try {
+                // Prend des donnees des colonnes necessaires pour la modification dans la bdd
+                LocalDateTime dateDebut = (LocalDateTime) table.getModel().getValueAt(row, 0);
+                String emailMedecin = (String) table.getModel().getValueAt(row, 3);
+
+                CliniqueImpl.updateRdvDescription(dateDebut, emailMedecin, newDescription);
+
+                // Update and refresh the table row
+                updateAndRefreshRow(row, newDescription);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(table, "Error updating RDV: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateAndRefreshRow(int row, String description) {
+        // Assuming you have access to the table model and it's a DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        model.setValueAt(description, row, 4);
+
+        // notifier la table que la valeur de la ligne a changé
+        model.fireTableRowsUpdated(row, row);
     }
 
     private void supprimer(int row) {
