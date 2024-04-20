@@ -368,6 +368,24 @@ public class CliniqueImpl {
     }
 
 
+
+    public static void SupprimerRdv(LocalDateTime dateDebut, String emailMedecin){
+        String sql = "DELETE FROM rdv WHERE emailMedecin = ? AND dateDebut = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, emailMedecin);
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(dateDebut));
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Deleting rdv failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

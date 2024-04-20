@@ -1,9 +1,14 @@
 package controller.ControlleurPatientRDV;
 
+import model.CliniqueImpl;
+import model.RendezVous;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
@@ -58,7 +63,34 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     private void supprimer(int row) {
-        System.out.println("Supprimer Action at row: " + row);
-        // Code pour la suppression
+        // Assuming dateDebut is stored as LocalDateTime and is in the first column (index 0)
+        Object dateDebutObject = table.getValueAt(row, 0);
+        LocalDateTime dateDebut = null;
+        if (dateDebutObject instanceof LocalDateTime) {
+            dateDebut = (LocalDateTime) dateDebutObject;
+        } else {
+            // Handle the case where dateDebut is not a LocalDateTime
+            System.out.println("DateDebut is not an instance of LocalDateTime");
+        }
+
+// Assuming emailMedecin is a String and is in the fourth column (index 3)
+        Object emailMedecinObject = table.getValueAt(row, 3);
+        String emailMedecin = null;
+        if (emailMedecinObject instanceof String) {
+            emailMedecin = (String) emailMedecinObject;
+        } else {
+            // Handle the case where emailMedecin is not a String
+            System.out.println("EmailMedecin is not an instance of String");
+        }
+
+        if(emailMedecin == null && dateDebut == null)
+        {
+            throw new IllegalArgumentException("Le rdv doit exister dans la base de donnee");
+        }
+        else
+        {
+            CliniqueImpl.SupprimerRdv(dateDebut, emailMedecin);
+            System.out.println("le rdv du : " + dateDebut + " a ete suprrime avec succes ! ");
+        }
     }
 }
