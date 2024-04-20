@@ -4,9 +4,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import controller.ControlleurPatientRDV.*;
 
-public class ViewPatientListeRdv {
+public class ViewPatientListeRdv extends JFrame{
     private JFrame frame;
     private JTabbedPane tabbedPane;
+    private static DefaultTableModel model;
 
     public ViewPatientListeRdv() {
         frame = new JFrame("Rendez-vous Details");
@@ -19,7 +20,7 @@ public class ViewPatientListeRdv {
     }
 
     public void addRdvTable(String tabName, Object[][] data, String[] columnNames) {
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+        model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column >= 5;  // Les boutons sont éditables
@@ -52,6 +53,14 @@ public class ViewPatientListeRdv {
     }
     public void display() {
         frame.setVisible(true);
+    }
+
+    public void removeRow(DefaultTableModel model, int rowIndex) {
+        model.removeRow(rowIndex);
+    }
+
+    public static DefaultTableModel getModelListeRdv() {
+        return model;
     }
 }
 

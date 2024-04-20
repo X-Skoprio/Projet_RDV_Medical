@@ -42,4 +42,8 @@ public class RdvController {
             new RdvController(view);
         });
     }
+
+    public static ViewPatientListeRdv getViewPatientListeRdv() {
+        return view;
+    }
 }

@@ -3,6 +3,7 @@ package controller.ControlleurPatientRDV;
 import model.CliniqueImpl;
 import model.Patient;
 import view.ViewEmployeConsulterPatients;
+import view.ViewPatientListeRdv;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,10 +13,12 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import static controller.ControlleurPatientRDV.RdvController.getViewPatientListeRdv;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
 import static model.CliniqueImpl.checkEmailInPatient;
 import static model.CliniqueImpl.supprimerPatient;
 import static view.ViewEmployeConsulterPatients.getModel;
+import static view.ViewPatientListeRdv.getModelListeRdv;
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
@@ -24,7 +27,7 @@ public class ButtonEditor extends DefaultCellEditor {
     private JTable table;
 
     private ViewEmployeConsulterPatients viewEmployeConsulterPatient = getViewEmployeConsulterPatients();
-
+    private ViewPatientListeRdv viewPatientListeRdv = getViewPatientListeRdv();
     public ButtonEditor(JCheckBox checkBox, String label) {
         super(checkBox);
         this.label = label;
@@ -114,6 +117,7 @@ public class ButtonEditor extends DefaultCellEditor {
         else
         {
             CliniqueImpl.SupprimerRdv(dateDebut, emailMedecin);
+            viewPatientListeRdv.removeRow(getModelListeRdv(), row);
             System.out.println("le rdv du : " + dateDebut + " a ete suprrime avec succes ! ");
         }
     }
