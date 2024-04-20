@@ -11,8 +11,7 @@ import java.util.List;
 
 import static controller.Employe.ControlleurEmployeCreationPatients.showEmployeCreationPatientWindow;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.showViewEmployeConsulterPatientWindow;
-import static model.CliniqueImpl.getAllPatient;
-import static view.ViewEmployeConsulterPatients.getTableModel;
+
 
 
 public class ControlleurEmployeGererPatients {
@@ -50,23 +49,7 @@ public class ControlleurEmployeGererPatients {
 
     }
 
-    public static  void remplirTableau(List<Patient> patients) {
 
-        DefaultTableModel tableModel = getTableModel();
-        tableModel.setRowCount(1);
-        for (Patient patient : patients) {
-            Object[] rowData = {
-                    patient.getNom(),
-                    patient.getPrenom(),
-                    patient.getAge(),
-                    patient.getEmail(),
-                    patient.getMdp(),
-                    patient.getDetails(),
-                    "Supprimer"
-            };
-            tableModel.addRow(rowData);
-        }
-    }
 
     public static void showEmployeGererPatientWindow() {
         SwingUtilities.invokeLater(() -> {
@@ -81,11 +64,7 @@ public class ControlleurEmployeGererPatients {
 
             initListeners();
             // It's assumed that event listeners are set up elsewhere in the controller's constructor or a similar setup method
-            try {
-                remplirTableau(getAllPatient());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+
         });
     }
 }

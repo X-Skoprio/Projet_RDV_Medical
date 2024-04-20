@@ -1,57 +1,57 @@
 package controller.Employe;
 
-import model.Patient;
-import view.ViewEmployeConsulterPatients;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.sql.SQLException;
-import java.util.List;
+import controller.ControlleurPatientRDV.RdvController;
+import view.*;
+import model.*;
 
-import static model.CliniqueImpl.getAllPatient;
+import javax.swing.*;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.List;
+import view.ViewEmployeConsulterPatients.*;
 
 public class ControlleurViewEmployeConsulterPatients {
-    private static ViewEmployeConsulterPatients viewEmployeConsulterPatients;
 
-    public ControlleurViewEmployeConsulterPatients(ViewEmployeConsulterPatients view) {
-        this.viewEmployeConsulterPatients = view;
-        initListeners();
+    private List<RendezVous> ListRdv;
+    private static ViewEmployeConsulterPatients view;
+
+
+    public ControlleurViewEmployeConsulterPatients(ViewEmployeConsulterPatients view) throws SQLException {
+        this.view = view;
+
+        initView();
     }
 
-    private void initListeners() {
-        // Implement listeners if needed for other buttons or interactions
+    private void initView() throws SQLException {
+
+        //a refaire adapter sans l'objet patient
+        String[] columnNames = {"Nom", "Prenom", "Age","Email", "Mot de passe", "Details", "Voir RDV", "Supprimer"};
+        Object[][] data = CliniqueImpl.getAllPatient().stream().map(patient -> new Object[] {
+                patient.getNom(),
+                patient.getPrenom(),
+                patient.getAge(),
+                patient.getEmail(),
+                patient.getMdp(),
+                patient.getDetails(),
+                "Voir RDV",
+                "supprimer"
+        }).toArray(Object[][]::new);
+
+        view.addListPatientTable("Liste des patients", data, columnNames);
+        view.display();
     }
 
-    public void remplirTableau(List<Patient> patients) {
-        DefaultTableModel tableModel = viewEmployeConsulterPatients.getTableModel();
-        tableModel.setRowCount(0);
-        for (Patient patient : patients) {
-            Object[] rowData = {
-                    patient.getNom(),
-                    patient.getPrenom(),
-                    patient.getAge(),
-                    patient.getEmail(),
-                    patient.getMdp(),
-                    patient.getDetails(),
-                    "Supprimer"
-            };
-            tableModel.addRow(rowData);
-        }
-    }
-
-    public static void showViewEmployeConsulterPatientWindow() throws SQLException {
+    public static void showViewEmployeConsulterPatientWindow() {
         SwingUtilities.invokeLater(() -> {
-            viewEmployeConsulterPatients = new ViewEmployeConsulterPatients();
-            new ControlleurViewEmployeConsulterPatients(viewEmployeConsulterPatients);
-            viewEmployeConsulterPatients.setTitle("Consulter Patients Window");
-            viewEmployeConsulterPatients.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            viewEmployeConsulterPatients.setLocationRelativeTo(null);
-            viewEmployeConsulterPatients.setVisible(true);
+
+            //patientCharge.ajouterRendezVous(new RendezVous("patient@email.com", "medecin@email.com", LocalDateTime.parse("2023-01-10 09:00"), LocalDateTime.parse("2023-01-10 10:00"),  "Consultation"));
+            //patientCharge.ajouterRendezVous(new RendezVous("another@email.com", "anothermed@email.com",LocalDateTime.parse("2023-02-15 11:00"), LocalDateTime.parse("2023-02-15 12:00"),  "Follow-up"));
+
+            ViewEmployeConsulterPatients view = new ViewEmployeConsulterPatients();
             try {
-                List<Patient> patients = getAllPatient();
-                viewEmployeConsulterPatients.getTableModel().setRowCount(0); // Clear table first
-                new ControlleurViewEmployeConsulterPatients(viewEmployeConsulterPatients).remplirTableau(patients);
+                new ControlleurViewEmployeConsulterPatients(view);
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
     }

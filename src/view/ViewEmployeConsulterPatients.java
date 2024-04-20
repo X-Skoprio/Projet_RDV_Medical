@@ -1,53 +1,61 @@
 package view;
 
-import controller.ControlleurPatientRDV.ButtonEditor;
-import controller.ControlleurPatientRDV.ButtonRenderer;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import controller.ControlleurPatientRDV.*;
+
 import java.awt.*;
 
-public class ViewEmployeConsulterPatients extends JFrame {
-    private JTable patientsTable;
-    private static DefaultTableModel tableModel;
+public class ViewEmployeConsulterPatients {
+    private JFrame frame;
+    private JTabbedPane tabbedPane;
 
     public ViewEmployeConsulterPatients() {
-        initializeUI();
+        frame = new JFrame("Consulter les patients");
+        frame.setSize(1000, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        tabbedPane = new JTabbedPane();
+        frame.add(tabbedPane);
     }
 
-    private void initializeUI() {
-        setTitle("Consulter les Patients");
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        tableModel = new DefaultTableModel() {
+    public void addListPatientTable(String tabName, Object[][] data, String[] columnNames) {
+        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 6;
+                return column >= 6;  // Les boutons sont éditables
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 6) {
-                    return JButton.class;
-                } else {
-                    return String.class;
-                }
+                return (columnIndex >= 6) ? JButton.class : String.class;
             }
         };
 
-        tableModel.setColumnIdentifiers(new String[]{"Nom", "Prenom", "Age", "Email", "Mdp", "Details", "Action"});
-        patientsTable = new JTable(tableModel);
-        patientsTable.getColumn("Action").setCellRenderer(new ButtonRenderer());
-        patientsTable.getColumn("Action").setCellEditor(new ButtonEditor(new JCheckBox(), "label"));
+        JTable table = new JTable(model);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setFillsViewportHeight(true);
 
-        JScrollPane scrollPane = new JScrollPane(patientsTable);
-        add(scrollPane, BorderLayout.CENTER);
+        // Configuration de la hauteur des lignes pour une meilleure visibilité
+        table.setRowHeight(30);
+
+
+        // Setting up button columns
+        setUpButtonColumn(table, 6, "Voir RDV");
+        setUpButtonColumn(table, 7, "Supprimer");
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        tabbedPane.addTab(tabName, scrollPane);
     }
 
-    public static DefaultTableModel getTableModel() {
-        return tableModel;
+
+
+    private void setUpButtonColumn(JTable table, int column, String label) {
+        table.getColumn(table.getColumnName(column)).setCellRenderer(new ButtonRenderer());
+        table.getColumn(table.getColumnName(column)).setCellEditor(new ButtonEditor(new JCheckBox(), label));
+    }
+    public void display() {
+        frame.setVisible(true);
     }
 }
+
