@@ -4,16 +4,15 @@ import view.*;
 import model.*;
 
 import javax.swing.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class RdvController {
 
     private List<RendezVous> ListRdv;
-    private static RdvView view;
+    private static ViewPatientListeRdv view;
 
 
-    public RdvController(RdvView view) {
+    public RdvController(ViewPatientListeRdv view) {
         this.view = view;
 
         initView();
@@ -21,7 +20,6 @@ public class RdvController {
 
     private void initView() {
 
-        //a refaire adapter sans l'objet patient
        String[] columnNames = {"Date Debut", "Date Fin", "Email Patient", "Email Medecin", "Description", "Modifier", "Supprimer"};
         Object[][] data = CliniqueImpl.getRendezVousByEmailPatient(Login.getEmail()).stream().map(rdv -> new Object[] {
                 rdv.getDateDebut(),
@@ -40,10 +38,7 @@ public class RdvController {
     public static void ShowPatientRdvWindow() {
         SwingUtilities.invokeLater(() -> {
 
-            //patientCharge.ajouterRendezVous(new RendezVous("patient@email.com", "medecin@email.com", LocalDateTime.parse("2023-01-10 09:00"), LocalDateTime.parse("2023-01-10 10:00"),  "Consultation"));
-            //patientCharge.ajouterRendezVous(new RendezVous("another@email.com", "anothermed@email.com",LocalDateTime.parse("2023-02-15 11:00"), LocalDateTime.parse("2023-02-15 12:00"),  "Follow-up"));
-
-            RdvView view = new RdvView();
+            ViewPatientListeRdv view = new ViewPatientListeRdv();
             new RdvController(view);
         });
     }

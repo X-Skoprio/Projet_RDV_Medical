@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -349,15 +350,22 @@ public class CliniqueImpl {
         return false; // L'email n'existe pas
     }
 
-    public static boolean RdvDispoTest(String emailMedecin, Timestamp startTime) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM rdv WHERE emailMedecin = ? AND dateDebut = ?";
+    public static List<LocalDateTime> rdvIndispo(String emailMedecin, LocalDate date) {
+        List<LocalDateTime> bookedTimes = new ArrayList<>();
+        String sql = "SELECT dateDebut FROM rdv WHERE emailMedecin = ? AND DATE(dateDebut) = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, emailMedecin);
-            pstmt.setTimestamp(2, startTime);
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            return rs.getInt(1) == 0;
+            //pstmt.setDate(2, Date.valueOf(date));
+            pstmt.setDate(2, Date.valueOf(date));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    bookedTimes.add(rs.getTimestamp("dateDebut").toLocalDateTime());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return bookedTimes;
     }
 
 
@@ -378,6 +386,22 @@ public class CliniqueImpl {
         } catch (SQLException e) {
             System.err.println("Error when attempting to delete patient: " + e.getMessage());
             throw e;  // Rethrow the exception to handle it outside if necessary
+        }
+    }
+
+    public static void SupprimerRdv(LocalDateTime dateDebut, String emailMedecin){
+        String sql = "DELETE FROM rdv WHERE emailMedecin = ? AND dateDebut = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, emailMedecin);
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(dateDebut));
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Deleting rdv failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
