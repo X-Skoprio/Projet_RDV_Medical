@@ -4,6 +4,7 @@ import model.CliniqueImpl;
 import model.Patient;
 import view.ViewEmployeConsulterPatients;
 import view.ViewPatientListeRdv;
+import view.ViewEmployeGererMedecins;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,10 +16,11 @@ import java.time.LocalDateTime;
 
 import static controller.ControlleurPatientRDV.RdvController.getViewPatientListeRdv;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
-import static model.CliniqueImpl.checkEmailInPatient;
-import static model.CliniqueImpl.supprimerPatient;
+import static controller.Employe.ControlleurViewEmployeGererMedecins.getViewEmployeGererMedecins;
+import static model.CliniqueImpl.*;
 import static view.ViewEmployeConsulterPatients.getModel;
 import static view.ViewPatientListeRdv.getModelListeRdv;
+import static view.ViewEmployeGererMedecins.getModelMedecin;
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
@@ -27,6 +29,8 @@ public class ButtonEditor extends DefaultCellEditor {
     private JTable table;
 
     private ViewEmployeConsulterPatients viewEmployeConsulterPatient = getViewEmployeConsulterPatients();
+    private ViewEmployeGererMedecins viewEmployeGererMedecins = getViewEmployeGererMedecins();
+
     private ViewPatientListeRdv viewPatientListeRdv = getViewPatientListeRdv();
     public ButtonEditor(JCheckBox checkBox, String label) {
         super(checkBox);
@@ -71,6 +75,14 @@ public class ButtonEditor extends DefaultCellEditor {
                     throw new RuntimeException(e);
                 }
             }
+            else if ("Supprimer Medecin".equals(label)) {
+                try {
+                    supprimerMedecintButton(row);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             else if("Voir RDV".equals(label))
             {
                 try {
@@ -124,10 +136,7 @@ public class ButtonEditor extends DefaultCellEditor {
 
     private void supprimerPatientButton(int row) throws SQLException {
 
-
-        System.out.println("Supprimer Action at row: " + row);
-        System.out.println("Le button voir rdv a été cliqué sur la ligne : " + row);
-
+        System.out.println("Le button suppriemr patient a été cliqué sur la ligne: " + row);
 
         //récupére la case email du row correspodnant au button cliqué
         Object emailData = (table.getModel().getValueAt(row, 3));
@@ -154,6 +163,35 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     private void voirRDV(int row) throws SQLException {
+    }
+
+    private void supprimerMedecintButton(int row) throws SQLException {
+
+
+        System.out.println("Supprimer Action at row: " + row);
+
+        //récupére la case email du row correspodnant au button cliqué
+        Object emailData = (table.getModel().getValueAt(row, 2));
+        String emailString = null;
+
+        if (emailData instanceof String) {
+            emailString = (String) emailData;
+            System.out.println("l'email est " + emailString);
+        } else {
+            System.out.println("La data dans la colonne email est pas du bon type" + "null");
+        }
+        if(emailString == null && !checkEmailInMedecin(emailString))
+        {
+            throw new IllegalArgumentException("L'email ne peut etre null et doit exister dans la base de donnee");
+        }
+        else
+        {
+            supprimerMedecin(emailString);
+            viewEmployeGererMedecins.removeRow(getModelMedecin(), row);
+            System.out.println("le patient avec le mail : " + emailString + "a ete suprrime avec succes ! ");
+        }
+
 
     }
+
 }

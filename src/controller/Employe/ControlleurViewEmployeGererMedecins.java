@@ -21,38 +21,39 @@ public class ControlleurViewEmployeGererMedecins {
     public static void iniViewEmployeConsulterPatients() throws SQLException {
 
         //a refaire adapter sans l'objet patient
-        String[] columnNames = {"Nom", "Prenom", "Age","Email", "Mot de passe", "Details", "Voir RDV", "Supprimer Patient"};
-        Object[][] data = CliniqueImpl.getAllPatient().stream().map(patient -> new Object[] {
-                patient.getNom(),
-                patient.getPrenom(),
-                patient.getAge(),
-                patient.getEmail(),
-                patient.getMdp(),
-                patient.getDetails(),
+        String[] columnNames = {"Nom", "Prenom", "Email", "Specialisation", "Voir RDV", "Supprimer Medecins"};
+        Object[][] data = CliniqueImpl.getAllMedecin().stream().map(Medecin -> new Object[] {
+                Medecin.getNom(),
+                Medecin.getPrenom(),
+                Medecin.getEmail(),
+                Medecin.getSpecialisation(),
+
                 "Voir RDV",
-                "Supprimer Patient"
+                "Supprimer Medecin"
         }).toArray(Object[][]::new);
 
-        view.addListPatientTable("Liste des patients", data, columnNames);
+        view.addListPatientTable("Liste des Medecins", data, columnNames);
         view.display();
 
     }
 
 
-    public static void showViewEmployeConsulterPatientWindow() {
+    public static void showViewEmployeGererMedecinWindow() {
         SwingUtilities.invokeLater(() -> {
 
             //patientCharge.ajouterRendezVous(new RendezVous("patient@email.com", "medecin@email.com", LocalDateTime.parse("2023-01-10 09:00"), LocalDateTime.parse("2023-01-10 10:00"),  "Consultation"));
             //patientCharge.ajouterRendezVous(new RendezVous("another@email.com", "anothermed@email.com",LocalDateTime.parse("2023-02-15 11:00"), LocalDateTime.parse("2023-02-15 12:00"),  "Follow-up"));
 
-            ViewEmployeConsulterPatients view = new ViewEmployeConsulterPatients();
+            ViewEmployeGererMedecins view = new ViewEmployeGererMedecins();
             try {
-                new ControlleurViewEmployeConsulterPatients(view);
+                new ControlleurViewEmployeGererMedecins(view);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-
+    public static ViewEmployeGererMedecins getViewEmployeGererMedecins() {
+        return view;
+    }
 }

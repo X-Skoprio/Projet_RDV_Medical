@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
+import static controller.Employe.ControlleurViewEmployeGererMedecins.showViewEmployeGererMedecinWindow;
 
 public class ControlleurViewEmploye {
     private ViewEmploye viewEmploye;
@@ -33,7 +34,7 @@ public class ControlleurViewEmploye {
 
     private void gererMedecin() {
         System.out.println("Gérer Medecin button clicked");
-
+        showViewEmployeGererMedecinWindow();
 
     }
 

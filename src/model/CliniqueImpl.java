@@ -405,7 +405,52 @@ public class CliniqueImpl {
         }
     }
 
+    public static boolean supprimerMedecin(String email) throws SQLException {
+        // SQL statement to delete a patient based on email
+        String query = "DELETE FROM medecin WHERE email = ?";
 
+        // Try-with-resources statement to auto-close the PreparedStatement
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Set the email parameter in the SQL query
+            preparedStatement.setString(1, email);
+
+            // Execute the update
+            int affectedRows = preparedStatement.executeUpdate();
+
+            // Return true if the row is deleted
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la suppression de medecin: " + e.getMessage());
+            throw e;  // Rethrow the exception to handle it outside if necessary
+        }
+
+    }
+
+
+    public static boolean checkEmailInMedecin(String email) {
+        // Nom de la table à vérifier
+        String tableName = "medecin";
+
+        // Requête SQL pour vérifier l'existence de l'email dans la table
+        String query = "SELECT 1 FROM " + tableName + " WHERE email = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Remplacement du paramètre email dans la requête SQL
+            preparedStatement.setString(1, email);
+
+            // Exécution de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Si une ligne est retournée, cela signifie que l'email existe
+            if (resultSet.next()) {
+                return true; // L'email existe
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false; // L'email n'existe pas
+    }
 }
 
 
