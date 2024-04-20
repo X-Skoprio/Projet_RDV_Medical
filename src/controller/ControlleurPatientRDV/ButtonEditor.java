@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import static controller.ControlleurPatientRDV.RdvController.ShowPatientRdvWindow;
 import static controller.ControlleurPatientRDV.RdvController.getViewPatientListeRdv;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
 import static controller.Employe.ControlleurViewEmployeGererMedecins.getViewEmployeGererMedecins;
@@ -98,28 +99,28 @@ public class ButtonEditor extends DefaultCellEditor {
 
     private void modifier(int row) {
         System.out.println("Modifier Action at row: " + row);
-        // Code pour la modification
+
     }
 
     private void supprimer(int row) {
-        // Assuming dateDebut is stored as LocalDateTime and is in the first column (index 0)
+
         Object dateDebutObject = table.getValueAt(row, 0);
         LocalDateTime dateDebut = null;
         if (dateDebutObject instanceof LocalDateTime) {
             dateDebut = (LocalDateTime) dateDebutObject;
         } else {
-            // Handle the case where dateDebut is not a LocalDateTime
+
             System.out.println("DateDebut is not an instance of LocalDateTime");
         }
 
-// Assuming emailMedecin is a String and is in the fourth column (index 3)
+
         Object emailMedecinObject = table.getValueAt(row, 3);
         String emailMedecin = null;
         if (emailMedecinObject instanceof String) {
             emailMedecin = (String) emailMedecinObject;
         } else {
             // Handle the case where emailMedecin is not a String
-            System.out.println("EmailMedecin is not an instance of String");
+            System.out.println("Email Medecin is not an instance of String");
         }
 
         if(emailMedecin == null && dateDebut == null)
@@ -163,6 +164,30 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     private void voirRDV(int row) throws SQLException {
+
+        System.out.println("Le button voir rdv patient a été cliqué sur la ligne: " + row);
+
+        //récupére la case email du row correspodnant au button cliqué
+        Object emailData = (table.getModel().getValueAt(row, 4));
+        String emailString = null;
+
+        if (emailData instanceof String) {
+            emailString = (String) emailData;
+            System.out.println("l'email est " + emailString);
+        } else {
+            System.out.println("La data dans la colonne email est pas du bon type" + "null");
+        }
+        if(emailString == null && !checkEmailInPatient(emailString))
+        {
+            throw new IllegalArgumentException("L'email ne peut etre null et doit exister dans la base de donnee");
+        }
+        else
+        {
+
+            ShowPatientRdvWindow(emailString);
+            System.out.println("Voir les rendez vous du patient avec le mail : " + emailString );
+        }
+
     }
 
     private void supprimerMedecintButton(int row) throws SQLException {
