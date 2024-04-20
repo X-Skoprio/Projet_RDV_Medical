@@ -23,7 +23,7 @@ public class ButtonEditor extends DefaultCellEditor {
     private boolean isPushed;
     private JTable table;
 
-    private ViewEmployeConsulterPatients view = getViewEmployeConsulterPatients();
+    private ViewEmployeConsulterPatients viewEmployeConsulterPatient = getViewEmployeConsulterPatients();
 
     public ButtonEditor(JCheckBox checkBox, String label) {
         super(checkBox);
@@ -142,7 +142,7 @@ public class ButtonEditor extends DefaultCellEditor {
         else
         {
             supprimerPatient(emailString);
-            view.removeRow(getModel(), row);
+            viewEmployeConsulterPatient.removeRow(getModel(), row);
             System.out.println("le patient avec le mail : " + emailString + "a ete suprrime avec succes ! ");
         }
 
