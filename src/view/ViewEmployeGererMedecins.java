@@ -24,7 +24,7 @@ public class ViewEmployeGererMedecins extends JFrame {
         model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column >= 5;  // Les boutons sont éditables
+                return column >= 4;  // Les boutons sont éditables
             }
 
             @Override
@@ -42,7 +42,7 @@ public class ViewEmployeGererMedecins extends JFrame {
 
 
         // Setting up button columns
-        setUpButtonColumn(table, 4, "Voir RDV");
+        setUpButtonColumn(table, 4, "Voir RDV Medecin");
         setUpButtonColumn(table, 5, "Supprimer Medecin");
 
         JScrollPane scrollPane = new JScrollPane(table);

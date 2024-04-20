@@ -64,7 +64,7 @@ public class ControlleurEmployeGererPatients {
             viewEmployeGererPatients.setVisible(true); // Make the window visible
 
             initListeners();
-            // It's assumed that event listeners are set up elsewhere in the controller's constructor or a similar setup method
+
 
         });
     }

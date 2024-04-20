@@ -92,6 +92,14 @@ public class ButtonEditor extends DefaultCellEditor {
                     throw new RuntimeException(e);
                 }
             }
+            else if("Voir RDV Medecin".equals(label))
+            {
+                try {
+                    voirRDVMedecin(row);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         isPushed = false;
         return label;
@@ -190,6 +198,33 @@ public class ButtonEditor extends DefaultCellEditor {
 
     }
 
+    private void voirRDVMedecin(int row) throws SQLException {
+
+        System.out.println("Le button voir rdv Medecin a été cliqué sur la ligne: " + row);
+
+        //récupére la case email du row correspodnant au button cliqué
+        Object emailData = (table.getModel().getValueAt(row, 2));
+        String emailString = null;
+
+        if (emailData instanceof String) {
+            emailString = (String) emailData;
+            System.out.println("l'email est " + emailString);
+        } else {
+            System.out.println("La data dans la colonne email est pas du bon type" + "null");
+        }
+        if(emailString == null && !checkEmailInPatient(emailString))
+        {
+            throw new IllegalArgumentException("L'email ne peut etre null et doit exister dans la base de donnee");
+        }
+        else
+        {
+
+            ShowPatientRdvWindow(emailString, "");
+
+            System.out.println("Voir les rendez vous du medecin avec le mail : " + emailString );
+        }
+
+    }
     private void supprimerMedecintButton(int row) throws SQLException {
 
 

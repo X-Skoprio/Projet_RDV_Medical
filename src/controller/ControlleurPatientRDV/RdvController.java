@@ -24,6 +24,12 @@ public class RdvController {
         initView(email);
     }
 
+    public RdvController(ViewPatientListeRdv view,String email, String vide) {
+        this.view = view;
+
+        initView(email,"");
+    }
+
     private void initView(String email) {
 
         String[] columnNames = {"Date Debut", "Date Fin", "Email Patient", "Email Medecin", "Description", "Modifier", "Supprimer"};
@@ -38,6 +44,23 @@ public class RdvController {
         }).toArray(Object[][]::new);
 
         view.addRdvTable("Rendez-vous", data, columnNames);
+        view.display();
+    }
+
+    private void initView(String email, String vide) {
+
+        String[] columnNames = {"Date Debut", "Date Fin", "Email Patient", "Email Medecin", "Description", "Modifier RDV", "Supprimer RDV"};
+        Object[][] data = CliniqueImpl.getRendezVousByEmailMedecin(email).stream().map(rdv -> new Object[] {
+                rdv.getDateDebut(),
+                rdv.getDateFin(),
+                rdv.getEmailPatient(),
+                rdv.getEmailMedecin(),
+                rdv.getDescription(),
+                "Modifier RDV",
+                "Supprimer RDV"
+        }).toArray(Object[][]::new);
+
+        view.addRdvTable("Rendez-vous des medecins", data, columnNames);
         view.display();
     }
 
@@ -71,6 +94,14 @@ public class RdvController {
 
             ViewPatientListeRdv view = new ViewPatientListeRdv();
             new RdvController(view,email);
+        });
+    }
+
+    public static void ShowPatientRdvWindow(String email,String vide) {
+        SwingUtilities.invokeLater(() -> {
+
+            ViewPatientListeRdv view = new ViewPatientListeRdv();
+            new RdvController(view,email, vide);
         });
     }
 

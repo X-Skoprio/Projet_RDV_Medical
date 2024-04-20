@@ -451,6 +451,39 @@ public class CliniqueImpl {
 
         return false; // L'email n'existe pas
     }
+
+    public static List<RendezVous> getRendezVousByEmailMedecin(String emailMedecin) {
+        List<RendezVous> rendezVousList = new ArrayList<>();
+        String sql = "SELECT * FROM rdv WHERE emailMedecin = ?";
+
+        try (
+              PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, emailMedecin);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                LocalDateTime dateDebut = rs.getTimestamp("dateDebut").toLocalDateTime();
+                LocalDateTime dateFin = rs.getTimestamp("dateFin").toLocalDateTime();
+                String emailPatient = rs.getString("emailPatient");
+                String description = rs.getString("description");
+
+                RendezVous rdv = new RendezVous(emailPatient, emailMedecin, dateDebut, dateFin, description);
+                rendezVousList.add(rdv);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur SQL : " + e.getMessage());
+        }
+
+        for(RendezVous rdv:rendezVousList)
+        {
+            rdv.toString();
+        }
+        return rendezVousList;
+
+
+    }
+
 }
 
 

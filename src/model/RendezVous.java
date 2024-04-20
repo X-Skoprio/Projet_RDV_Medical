@@ -8,8 +8,6 @@ import model.Patient;
 public class RendezVous {
 
     private List<RendezVous> listRendezVousTotal;
-    public static int dernierId=0;
-    public static int id;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private String emailPatient;
@@ -20,7 +18,6 @@ public class RendezVous {
 
     // Constructeur
     public RendezVous(String emailPatient, String emailMedecin, LocalDateTime dateDebut, LocalDateTime dateFin, String description) {
-        this.id = ++dernierId;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.emailPatient = emailPatient;
@@ -81,5 +78,17 @@ public class RendezVous {
     //Setter
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "RendezVous{" +
+                "listRendezVousTotal=" + listRendezVousTotal +
+                ", dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin +
+                ", emailPatient='" + emailPatient + '\'' +
+                ", emailMedecin='" + emailMedecin + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
