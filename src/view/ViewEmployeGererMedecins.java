@@ -6,13 +6,13 @@ import controller.ControlleurPatientRDV.*;
 
 import java.awt.*;
 
-public class ViewEmployeConsulterPatients extends JFrame {
+public class ViewEmployeGererMedecins extends JFrame {
     private JFrame frame;
     private JTabbedPane tabbedPane;
 
     private static DefaultTableModel model;
 
-    public ViewEmployeConsulterPatients() {
+    public ViewEmployeGererMedecins() {
         frame = new JFrame("Consulter les patients");
         frame.setSize(1000, 600);
 
@@ -21,7 +21,7 @@ public class ViewEmployeConsulterPatients extends JFrame {
     }
 
     public void addListPatientTable(String tabName, Object[][] data, String[] columnNames) {
-         model = new DefaultTableModel(data, columnNames) {
+        model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column >= 6;  // Les boutons sont éditables
@@ -43,7 +43,7 @@ public class ViewEmployeConsulterPatients extends JFrame {
 
         // Setting up button columns
         setUpButtonColumn(table, 6, "Voir RDV");
-        setUpButtonColumn(table, 7, "Supprimer Patient");
+        setUpButtonColumn(table, 7, "Supprimer Medecin");
 
         JScrollPane scrollPane = new JScrollPane(table);
         tabbedPane.addTab(tabName, scrollPane);

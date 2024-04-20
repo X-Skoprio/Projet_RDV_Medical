@@ -1,21 +1,27 @@
 package controller.ControlleurPatientRDV;
 
 import model.Patient;
+import view.ViewEmployeConsulterPatients;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
 import static model.CliniqueImpl.checkEmailInPatient;
 import static model.CliniqueImpl.supprimerPatient;
+import static view.ViewEmployeConsulterPatients.getModel;
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
     private String label;
     private boolean isPushed;
     private JTable table;
+
+    private ViewEmployeConsulterPatients view = getViewEmployeConsulterPatients();
 
     public ButtonEditor(JCheckBox checkBox, String label) {
         super(checkBox);
@@ -53,7 +59,13 @@ public class ButtonEditor extends DefaultCellEditor {
             } else if ("Supprimer".equals(label)) {
                 supprimer(row);
             }
-
+            else if ("Supprimer Patient".equals(label)) {
+                try {
+                    supprimerPatientButton(row);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             else if("Voir RDV".equals(label))
             {
                 try {
@@ -77,14 +89,14 @@ public class ButtonEditor extends DefaultCellEditor {
         // Code pour la suppression
     }
 
-    private void supprimerPatientButton(int row) {
-        System.out.println("Supprimer Action at row: " + row);
-        // Code pour la suppression
-    }
+    private void supprimerPatientButton(int row) throws SQLException {
 
-    private void voirRDV(int row) throws SQLException {
+
+        System.out.println("Supprimer Action at row: " + row);
         System.out.println("Le button voir rdv a été cliqué sur la ligne : " + row);
 
+
+        //récupére la case email du row correspodnant au button cliqué
         Object emailData = (table.getModel().getValueAt(row, 3));
         String emailString = null;
 
@@ -101,8 +113,14 @@ public class ButtonEditor extends DefaultCellEditor {
         else
         {
             supprimerPatient(emailString);
+            view.removeRow(getModel(), row);
             System.out.println("le patient avec le mail : " + emailString + "a ete suprrime avec succes ! ");
         }
+
+
+    }
+
+    private void voirRDV(int row) throws SQLException {
 
     }
 }

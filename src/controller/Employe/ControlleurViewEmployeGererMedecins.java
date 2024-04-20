@@ -1,23 +1,19 @@
 package controller.Employe;
 
-import controller.ControlleurPatientRDV.RdvController;
 import view.*;
 import model.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.List;
-import view.ViewEmployeConsulterPatients.*;
 
-public class ControlleurViewEmployeConsulterPatients {
+public class ControlleurViewEmployeGererMedecins {
 
 
-    private static ViewEmployeConsulterPatients view;
+    private static ViewEmployeGererMedecins view;
 
 
-    public ControlleurViewEmployeConsulterPatients(ViewEmployeConsulterPatients view) throws SQLException {
-        ControlleurViewEmployeConsulterPatients.view = view;
+    public ControlleurViewEmployeGererMedecins(ViewEmployeGererMedecins view) throws SQLException {
+        ControlleurViewEmployeGererMedecins.view = view;
 
         iniViewEmployeConsulterPatients();
     }
@@ -58,7 +54,5 @@ public class ControlleurViewEmployeConsulterPatients {
         });
     }
 
-    public static ViewEmployeConsulterPatients getViewEmployeConsulterPatients() {
-        return view;
-    }
+
 }

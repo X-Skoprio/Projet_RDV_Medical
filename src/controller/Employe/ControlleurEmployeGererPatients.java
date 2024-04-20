@@ -45,11 +45,12 @@ public class ControlleurEmployeGererPatients {
         System.out.println("Consulter nouveau patient Clicked");
         showViewEmployeConsulterPatientWindow();
 
-
-
     }
 
-
+    public static void disposeViewEmployeConsulterPatientWindow()
+    {
+        viewEmployeGererPatients.dispose();
+    }
 
     public static void showEmployeGererPatientWindow() {
         SwingUtilities.invokeLater(() -> {
