@@ -4,12 +4,18 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Affichage graphique des informations du patient
+ * Affiche les boutons pour lui permettre de faire différente actions.
+ * Toutes les actions sont après géré dans le controlleur.
+ */
 public class ViewPatient extends JFrame{
 
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
-
+    /**
+     * Construicteur des composantes graphiques etc etc
+     */
     public ViewPatient() {
 
 
@@ -56,6 +62,11 @@ public class ViewPatient extends JFrame{
         setVisible(true); // Make it visible
     }
 
+    /**
+     * Methode qui va afficher les info du patient etc.
+     * @param panel composantes graphique
+     * @param gbc composantes graphiques
+     */
     private void displayPatientInfo(JPanel panel, GridBagConstraints gbc) {
         String nom = CliniqueImpl.getNomPatient(Login.getEmail());
         String prenom = CliniqueImpl.getPrenomPatient(Login.getEmail());
@@ -80,7 +91,10 @@ public class ViewPatient extends JFrame{
         panel.add(ageLabel, gbc);
     }
 
-
+    /**
+     * Va permettre de prendre un rdv pour le patient.
+     * @return bouton pour prendre RDV
+     */
     public JButton getPrendreRDVButton() {
         return prendreRDVButton;
     }

@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * La classe affiche l'interface graphique permettant à un patient de prendre un rendez-vous.
+ */
 public class ViewPatientPrendreRdv extends JFrame {
     private JComboBox<Medecin> doctorComboBox;
     private JList<String> dateList;
@@ -19,7 +22,9 @@ public class ViewPatientPrendreRdv extends JFrame {
     private JPanel doctorPanel = new JPanel(new GridLayout(0, 1));
     private JScrollPane scrollPane = new JScrollPane(doctorPanel);
     private JButton returnButton;
-
+    /**
+     * Constructeur qui va initialiser les composants graphiques.
+     */
     public ViewPatientPrendreRdv() {
         setTitle("Patient - Prise de RDV");
         setSize(500, 500);
@@ -64,7 +69,11 @@ public class ViewPatientPrendreRdv extends JFrame {
         setVisible(true);
     }
 
-
+    /**
+     * Affiche les docteurs disponibles
+     * @param doctors liste des docteurs.
+     * @param actionListener    action à effectuer qd on va selectionner un medecin.
+     */
     public void displayDoctors(List<Medecin> doctors, ActionListener actionListener) {
         doctorPanel.removeAll();  // Enlever les boutons précédents s'il y en a
         for (Medecin doctor : doctors) {
@@ -78,11 +87,19 @@ public class ViewPatientPrendreRdv extends JFrame {
         doctorPanel.revalidate();
         doctorPanel.repaint();
     }
-
+    /**
+     * Affiche un message
+     *
+     * @param message Le message à afficher.
+     */
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 
+    /**
+     * Met en place le bouton retour pour revenir à la page d'avant.
+     * @return le bouton retour
+     */
     public JButton getReturnButton() {
         return returnButton;
     }
