@@ -1,5 +1,6 @@
 package controller.ControlleurPrendreRdv;
 
+import controller.Patient.ControlleurPatient;
 import model.CliniqueImpl;
 import model.Login;
 import model.Medecin;
@@ -35,6 +36,7 @@ public class PrendreRdv {
     private void initView() {
         try {
             view.displayDoctors(CliniqueImpl.getAllMedecin(), this::handleDoctorSelection);
+            view.getReturnButton().addActionListener(this::handleReturnAction); // Setup return button listener
             view.setVisible(true);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,6 +51,10 @@ public class PrendreRdv {
         ChoixHorairesRdv.ShowChoixHorairesWindow();
     }
 
+    private void handleReturnAction(ActionEvent e) {
+        view.dispose(); // Or navigate back to another screen
+        ControlleurPatient.showPatientWindow();
+    }
 
     public static void showPrendreRdvWindow() {
         SwingUtilities.invokeLater(() -> {

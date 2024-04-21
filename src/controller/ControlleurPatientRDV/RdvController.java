@@ -56,8 +56,8 @@ public class RdvController {
                 rdv.getEmailPatient(),
                 rdv.getEmailMedecin(),
                 rdv.getDescription(),
-                "modifier",
-                "supprimer"
+                "Modifier",
+                "Supprimer"
         }).toArray(Object[][]::new);
 
         view.addRdvTable("Rendez-vous", data, columnNames);

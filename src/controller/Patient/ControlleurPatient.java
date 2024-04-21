@@ -47,7 +47,7 @@ public class ControlleurPatient {
             view = new ViewPatient(); // Create the ViewLogin window
             view.setTitle("Patient Window"); // Optional: Set the window title
             view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set the default close operation
-            view.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
+
             view.setLocationRelativeTo(null); // Center the window on the screen
             view.setVisible(true); // Make the window visible
 
