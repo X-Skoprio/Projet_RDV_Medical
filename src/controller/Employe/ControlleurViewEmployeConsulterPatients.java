@@ -13,11 +13,11 @@ import view.ViewEmployeConsulterPatients.*;
 public class ControlleurViewEmployeConsulterPatients {
 
 
-    private static ViewEmployeConsulterPatients view;
+    public static ViewEmployeConsulterPatients viewEmployeConsulterPatients;
 
 
     public ControlleurViewEmployeConsulterPatients(ViewEmployeConsulterPatients view) throws SQLException {
-        ControlleurViewEmployeConsulterPatients.view = view;
+        ControlleurViewEmployeConsulterPatients.viewEmployeConsulterPatients = view;
 
         iniViewEmployeConsulterPatients();
     }
@@ -37,8 +37,8 @@ public class ControlleurViewEmployeConsulterPatients {
                 "Supprimer Patient"
         }).toArray(Object[][]::new);
 
-        view.addListPatientTable("Liste des patients", data, columnNames);
-        view.display();
+        viewEmployeConsulterPatients.addListPatientTable("Liste des patients", data, columnNames);
+        viewEmployeConsulterPatients.display();
 
     }
 
@@ -59,6 +59,6 @@ public class ControlleurViewEmployeConsulterPatients {
     }
 
     public static ViewEmployeConsulterPatients getViewEmployeConsulterPatients() {
-        return view;
+        return viewEmployeConsulterPatients;
     }
 }

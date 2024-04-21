@@ -20,7 +20,7 @@ public class ViewEmployeCreationPatient extends JFrame {
         setTitle("Creation de Patient");
         setSize(500, 400); // Augmentation de la taille de la fenêtre pour mieux accommoder les champs
         setLocationRelativeTo(null); // Centrer la fenêtre
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
             @Override

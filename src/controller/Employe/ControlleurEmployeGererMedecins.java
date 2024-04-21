@@ -17,7 +17,7 @@ import static controller.Employe.ControlleurViewEmployeGererMedecins.showViewEmp
 
 
 public class ControlleurEmployeGererMedecins {
-    private static ViewEmployeGererMedecinsMenu viewEmployeGererMedecinsMenu;
+    public static ViewEmployeGererMedecinsMenu viewEmployeGererMedecinsMenu;
 
 
     public ControlleurEmployeGererMedecins(ViewEmployeGererMedecinsMenu view) {

@@ -4,18 +4,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import model.Patient;
+import view.ViewEmployeConsulterPatients;
 import view.ViewEmployeGererPatients;
 
 import java.sql.SQLException;
 import java.util.List;
 
+import static controller.Employe.ControlleurEmployeCreationPatients.employeCreationPatientView;
 import static controller.Employe.ControlleurEmployeCreationPatients.showEmployeCreationPatientWindow;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.showViewEmployeConsulterPatientWindow;
-
+import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
 
 
 public class ControlleurEmployeGererPatients {
-    private static ViewEmployeGererPatients viewEmployeGererPatients;
+    public static ViewEmployeGererPatients viewEmployeGererPatients;
 
 
     public ControlleurEmployeGererPatients(ViewEmployeGererPatients view) {
@@ -39,18 +41,31 @@ public class ControlleurEmployeGererPatients {
     private static void onCreationNouveauxPatientClicked()
     {
         System.out.println("Creation nouveau patient Clicked");
-        showEmployeCreationPatientWindow();
+        viewEmployeGererPatients.dispose();
+
+        if(employeCreationPatientView== null)
+        {
+            showEmployeCreationPatientWindow();
+        }
+        else
+        {
+            employeCreationPatientView.setVisible(true);
+        }
     }
+
+
     private static void onConsulterPatientButtonClicked() throws SQLException {
         System.out.println("Consulter nouveau patient Clicked");
-        showViewEmployeConsulterPatientWindow();
-
-    }
-
-    public static void disposeViewEmployeConsulterPatientWindow()
-    {
         viewEmployeGererPatients.dispose();
+
+
+
+            showViewEmployeConsulterPatientWindow();
+
+
+
     }
+
 
     public static void showEmployeGererPatientWindow() {
         SwingUtilities.invokeLater(() -> {
@@ -58,7 +73,7 @@ public class ControlleurEmployeGererPatients {
                 viewEmployeGererPatients = new ViewEmployeGererPatients(); // Create the window if it doesn't exist
             }
             viewEmployeGererPatients.setTitle("Gerer Patients Window"); // Set the window title
-            viewEmployeGererPatients.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
+      // Set the default close operation
             viewEmployeGererPatients.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
             viewEmployeGererPatients.setLocationRelativeTo(null); // Center the window on the screen
             viewEmployeGererPatients.setVisible(true); // Make the window visible

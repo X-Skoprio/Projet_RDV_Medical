@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
+import static controller.Employe.ControlleurEmployeGererPatients.viewEmployeGererPatients;
 import static model.CliniqueImpl.insertPatient;
 
 public class ControlleurEmployeCreationPatients {
-    private static ViewEmployeCreationPatient employeCreationPatientView;
+    public static ViewEmployeCreationPatient employeCreationPatientView;
 
     public ControlleurEmployeCreationPatients(ViewEmployeCreationPatient employeCreationPatientView) throws SQLException, ClassNotFoundException {
         this.employeCreationPatientView = employeCreationPatientView;
@@ -66,7 +67,9 @@ public class ControlleurEmployeCreationPatients {
         // Logique pour retourner à la fenêtre précédente
 
         employeCreationPatientView.dispose();
-        showEmployeGererPatientWindow();
+
+
+        viewEmployeGererPatients.setVisible(true);
     }
 
 
@@ -74,7 +77,7 @@ public class ControlleurEmployeCreationPatients {
         SwingUtilities.invokeLater(() -> {
             employeCreationPatientView = new ViewEmployeCreationPatient(); // Create the patient creation window
             employeCreationPatientView.setTitle("Creation de Patient"); // Set the window title
-            employeCreationPatientView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
+
             employeCreationPatientView.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
             employeCreationPatientView.setLocationRelativeTo(null); // Center the window on the screen
             employeCreationPatientView.setVisible(true); // Make the window visible

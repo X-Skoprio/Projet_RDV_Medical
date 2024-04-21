@@ -6,7 +6,9 @@ import view.ViewEmploye;
 import javax.swing.*;
 import java.sql.SQLException;
 
+import static controller.Employe.ControlleurEmployeGererMedecins.viewEmployeGererMedecinsMenu;
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
+import static controller.Employe.ControlleurEmployeGererPatients.viewEmployeGererPatients;
 import static controller.Employe.ControlleurViewEmployeGererMedecins.showViewEmployeGererMedecinWindow;
 
 public class ControlleurViewEmploye {
@@ -34,19 +36,39 @@ public class ControlleurViewEmploye {
 
     private void gererMedecin() {
         System.out.println("Gérer Medecin button clicked");
-        showViewEmployeGererMedecinWindow();
+
+
+
+        if(viewEmployeGererMedecinsMenu == null)
+        {
+            showViewEmployeGererMedecinWindow();
+        }
+        else
+        {
+            viewEmployeGererMedecinsMenu.setVisible(true);
+        }
+
+
 
     }
 
     private void gererPatient() {
         System.out.println("Gerer Patient button clicked");
-        showEmployeGererPatientWindow();
+
+        if(viewEmployeGererPatients == null)
+        {
+            showEmployeGererPatientWindow();
+        }
+        else
+        {
+            viewEmployeGererPatients.setVisible(true);
+        }
     }
 
     public static void showEmployeWindow() {
         SwingUtilities.invokeLater(() -> {
             ViewEmploye view = new ViewEmploye();
-            view.setTitle("Employe Management Window");
+            view.setTitle("Fenetre Employe ");
             view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             view.pack();
             view.setLocationRelativeTo(null);
