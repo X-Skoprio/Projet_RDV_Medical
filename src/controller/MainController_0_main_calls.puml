@@ -1,0 +1,278 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "controller.MainController#main(String[])",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "controller.MainController",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_104069929 { 
+   	label=model
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_549335029 { 
+   	label=CliniqueImpl
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   CliniqueImpl104069929XXXcheckEmailAndPassword2013066710[
+	label="+ checkEmailAndPassword()"
+	style=filled
+	fillcolor=white
+	tooltip="CliniqueImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+CliniqueImpl104069929XXXcheckEmailInEmploye1808118735[
+	label="+ checkEmailInEmploye()"
+	style=filled
+	fillcolor=white
+	tooltip="CliniqueImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+CliniqueImpl104069929XXXcheckEmailInPatient1808118735[
+	label="+ checkEmailInPatient()"
+	style=filled
+	fillcolor=white
+	tooltip="CliniqueImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+CliniqueImpl104069929XXXconnect0[
+	label="+ connect()"
+	style=filled
+	fillcolor=white
+	tooltip="CliniqueImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+CliniqueImpl104069929XXXdisconnect0[
+	label="+ disconnect()"
+	style=filled
+	fillcolor=white
+	tooltip="CliniqueImpl
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_40584311 { 
+   	label=Employe
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_515051640 { 
+   	label=ControlleurViewEmploye
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ControlleurViewEmploye981443547XXXshowEmployeWindow0[
+	label="+ showEmployeWindow()"
+	style=filled
+	fillcolor=white
+	tooltip="ControlleurViewEmploye
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_637428636 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1873577703 { 
+   	label=MainController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   MainController637428636XXXmain1859653459[
+	label="+ main()"
+	style=filled
+	fillcolor=white
+	tooltip="MainController
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_73596745 { 
+   	label=Login
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_212844845 { 
+   	label=ControlleurLogin
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ControlleurLogin946460041XXXshowLoginWindow0[
+	label="+ showLoginWindow()"
+	style=filled
+	fillcolor=white
+	tooltip="ControlleurLogin
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_437547947 { 
+   	label=ControlleurLoginDetails
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ControlleurLoginDetails946460041XXXShowLoginDetails0[
+	label="+ ShowLoginDetails()"
+	style=filled
+	fillcolor=white
+	tooltip="ControlleurLoginDetails
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_873235173 { 
+   	label=Patient
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1447190061 { 
+   	label=ControlleurPatient
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ControlleurPatient148792685XXXshowPatientWindow0[
+	label="+ showPatientWindow()"
+	style=filled
+	fillcolor=white
+	tooltip="ControlleurPatient
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+'edges    
+ControlleurLogin946460041XXXshowLoginWindow0 -> ControlleurLoginDetails946460041XXXShowLoginDetails0;
+ControlleurLoginDetails946460041XXXShowLoginDetails0 -> CliniqueImpl104069929XXXcheckEmailAndPassword2013066710;
+ControlleurLoginDetails946460041XXXShowLoginDetails0 -> CliniqueImpl104069929XXXcheckEmailInEmploye1808118735;
+ControlleurLoginDetails946460041XXXShowLoginDetails0 -> CliniqueImpl104069929XXXcheckEmailInPatient1808118735;
+ControlleurLoginDetails946460041XXXShowLoginDetails0 -> CliniqueImpl104069929XXXconnect0;
+ControlleurLoginDetails946460041XXXShowLoginDetails0 -> ControlleurPatient148792685XXXshowPatientWindow0;
+ControlleurLoginDetails946460041XXXShowLoginDetails0 -> ControlleurViewEmploye981443547XXXshowEmployeWindow0;
+MainController637428636XXXmain1859653459 -> CliniqueImpl104069929XXXconnect0;
+MainController637428636XXXmain1859653459 -> CliniqueImpl104069929XXXdisconnect0;
+MainController637428636XXXmain1859653459 -> ControlleurLogin946460041XXXshowLoginWindow0;
+    
+}
+@enduml
