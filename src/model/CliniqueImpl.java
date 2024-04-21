@@ -1,14 +1,14 @@
 package model;
 
-import com.mysql.cj.protocol.Message;
-import com.mysql.cj.protocol.x.XMessage;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui contrôle toutes les fonctions SQL. C'est la classe mère qui va controler tout le projet.
+ */
 public class CliniqueImpl {
 
     private static Connection connection;
@@ -17,12 +17,18 @@ public class CliniqueImpl {
     private static final String USER = "root";
     private static final String PASS = "";
 
-
+    /**
+     * Implementation de la clinique, lieu où sont stocké toutes les informations.
+     * @throws SQLException  si la base de donnée de fonctionne pas
+     * @throws ClassNotFoundException si la classe est introuvable.
+     */
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
         connect();
     }
 
-
+    /**
+     * Connection à la base de donnée.
+     */
     public static void connect()
             throws SQLException, ClassNotFoundException {
 
@@ -35,14 +41,21 @@ public class CliniqueImpl {
 
     }
 
-
+    /**
+     * Deconnexion de la Base de données.
+     * @throws SQLException si la base SQL ne fonctionne pas
+     */
     public static void disconnect() throws SQLException {
         if (connection != null) {
             connection.close();
         }
     }
 
-
+    /**
+     * Recupère tous les Employe de la BDD
+     * @return tous les employés sous forme d'une liste
+     * @throws SQLException si la BDD ne fonctionne pas
+     */
     public static List<Employe> getAllEmploye() throws SQLException {
         List<Employe> employeList = new ArrayList<>();
         String query = "SELECT * FROM employe";
@@ -63,7 +76,11 @@ public class CliniqueImpl {
         return employeList;
     }
 
-
+    /**
+     * Permet de rajouter un employe au tableau
+     * @param employe Employe que l'on veut insérer
+     * @throws SQLException si la base SQL ne fonctionne pas
+     */
     public static void insertEmploye(Employe employe) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
@@ -77,7 +94,11 @@ public class CliniqueImpl {
     }
 
 
-
+    /**
+     * Recupère tous les Medecins de la BDD
+     * @return tous les medecins sous forme d'une liste
+     * @throws SQLException si la base de données ne fonctionne pas
+     */
     public static List<Medecin> getAllMedecin() throws SQLException {
         List<Medecin> medecinList = new ArrayList<>();
         String query = "SELECT * FROM medecin";
@@ -98,6 +119,15 @@ public class CliniqueImpl {
         return medecinList;
     }
 
+    /**
+     * Permet à l'employe de rajouter un medecin à la BDD
+     * @param nom nom du medecin
+     * @param prenom prenom du medecin
+     * @param email mail du medecin
+     * @param specialisation spe du medecin
+     * @return un bool qui confirme qu'on a bien inserer le medecin à la BDD
+     * @throws SQLException
+     */
     public static boolean  insertMedecin(String nom, String prenom, String email, String specialisation) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
@@ -116,7 +146,11 @@ public class CliniqueImpl {
         }
     }
 
-
+    /**
+     * récupere une liste de tout les patients de la BDD
+     * @return liste des patients
+     * @throws SQLException si la bdd ne fonctionne pas
+     */
     public static List<Patient> getAllPatient() throws SQLException {
         List<Patient> patientList = new ArrayList<>();
         String query = "SELECT * FROM patient";
@@ -139,6 +173,17 @@ public class CliniqueImpl {
         return patientList;
     }
 
+    /**
+     * Permet de rajouter un patient à la liste.
+     * @param nom nom du patient
+     * @param prenom prenom du patient
+     * @param age age du patient
+     * @param email mail du patient
+     * @param password mdp du patient
+     * @param details details concernant le patient
+     * @return bool qui confirme si on a bien insérer le patient à la liste
+     * @throws SQLException si la BDD fonctionne pas
+     */
     public static boolean insertPatient(String nom, String prenom, int age, String email, String password, String details) throws SQLException {
         String query = "INSERT INTO patient (nom, prenom, age, email, mdp, details) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -154,6 +199,11 @@ public class CliniqueImpl {
         return true;
     }
 
+    /**
+     * Récupère tous les rendez-vous de la base de données.
+     * @return Une liste contenant tous les rendez-vous.
+     * @throws SQLException En cas d'erreur SQL.
+     */
     public static List<RendezVous> getAllRendezVous() throws SQLException {
         List<RendezVous> RDVList = new ArrayList<>();
         String query = "SELECT * FROM rdv";
@@ -176,6 +226,11 @@ public class CliniqueImpl {
         return RDVList;
     }
 
+    /**
+     * rajoute un nouveau rdv à la bdd
+     * @param rdv Le rendez-vous à insérer.
+     * @throws SQLException En cas d'erreur SQL.
+     */
     public static void Prendre1Rdv(RendezVous rdv) throws SQLException {
         String query = "INSERT INTO rdv (dateDebut, dateFin, emailPatient, emailMedecin, description) VALUES (?, ?, ?, ?, ?)";
 
@@ -189,6 +244,13 @@ public class CliniqueImpl {
             preparedStatement.executeUpdate();
         }
     }
+
+    /**
+     * Vérifie que le mail et le mdp correspondent aux informations de la BDD
+     * @param email mail en question
+     * @param password mpd pour se connecter à la bdd
+     * @return boolean qui va annoncer si le mail et le mdp correspondent
+     */
     public static boolean checkEmailAndPassword(String email, String password) {
 
         // Liste des noms de table
@@ -228,11 +290,16 @@ public class CliniqueImpl {
 
     }
 
-
+    /**
+     * Récupère une information spécifique d'un patient
+     * @param column info que l'on désire.
+     * @param email mail du patient que l'on recherche
+     * @return la colonne que l'on veut
+     */
     private static String getAttributePatient(String column, String email) {
         String sql = "SELECT " + column + " FROM patient WHERE email = ?";
         try (
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -244,7 +311,11 @@ public class CliniqueImpl {
         return null;
     }
 
-
+    /**
+     * SOus programme déja créer pour trouver plus facilement le nom
+     * @param email mail du patient que l'on désire
+     * @return le nom du patient
+     */
     public static String getNomPatient(String email) {
 
         String nom = getAttributePatient("nom", email);
@@ -252,6 +323,11 @@ public class CliniqueImpl {
         return nom;
     }
 
+    /**
+     * SOus programme déja créer pour trouver plus facilement le prénom
+     * @param email mail du patient que l'on désire
+     * @return le prénom du patient
+     */
     public static String getPrenomPatient(String email) {
 
         String prenom = getAttributePatient("prenom", email);
@@ -259,16 +335,26 @@ public class CliniqueImpl {
         return prenom;
     }
 
+    /**
+     * SOus programme déja créer pour trouver plus facilement son age
+     * @param email mail du patient que l'on désire
+     * @return age du patient
+     */
     public static int getAgePatient(String email) {
-            try {
-                int age = Integer.parseInt(getAttributePatient("age", email));
-                return age;
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            };
-            return 0;
+        try {
+            int age = Integer.parseInt(getAttributePatient("age", email));
+            return age;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        };
+        return 0;
     }
 
+    /**
+     * SOus programme déja créer pour trouver plus facilement le mdp
+     * @param email mail du patient que l'on désire
+     * @return le mdp du patient
+     */
     public static String getMdpPatient(String email) {
 
         String mdp = getAttributePatient("mdp", email);
@@ -276,6 +362,11 @@ public class CliniqueImpl {
         return mdp;
     }
 
+    /**
+     * SOus programme déja créer pour trouver plus facilement les détails
+     * @param email mail du patient que l'on désire
+     * @return les détails du patient
+     */
     public static String getDetailsPatient(String email) {
 
         String details = getAttributePatient("details", email);
@@ -283,6 +374,11 @@ public class CliniqueImpl {
         return details;
     }
 
+    /**
+     * On vérifie les informations du patient sont correcte et correspondent
+     * @param email mail du patient
+     * @return boolean qui vérifie
+     */
     public static boolean checkEmailInPatient(String email) {
         // Nom de la table à vérifier
         String tableName = "patient";
@@ -334,6 +430,11 @@ public class CliniqueImpl {
         return rendezVousList;
     }
 
+    /**
+     * On vérifie les informations de l'employe sont correcte et correspondent
+     * @param email mail de l'employe
+     * @return boolean qui vérifie
+     */
     public static boolean checkEmailInEmploye(String email) {
         // Nom de la table à vérifier
         String tableName = "employe";
@@ -359,6 +460,12 @@ public class CliniqueImpl {
         return false; // L'email n'existe pas
     }
 
+    /**
+     * Récupère les heures de rendez-vous indisponibles pour un médecin pour une date précise
+     * @param emailMedecin L'email du médecin.
+     * @param date La date des rendez-vous.
+     * @return liste localTime qui correspond aux tranches horaires indisponibles
+     */
     public static List<LocalDateTime> rdvIndispo(String emailMedecin, LocalDate date) {
         List<LocalDateTime> bookedTimes = new ArrayList<>();
         String sql = "SELECT dateDebut FROM rdv WHERE emailMedecin = ? AND DATE(dateDebut) = ?";
@@ -377,7 +484,12 @@ public class CliniqueImpl {
         return bookedTimes;
     }
 
-
+    /**
+     * Supprime un patient de la base de données.
+     * @param email L'email du patient à supprimer.
+     * @return true si le patient est supprimé avec succès, sinon false.
+     * @throws SQLException En cas d'erreur SQL.
+     */
     public static boolean supprimerPatient(String email) throws SQLException {
         // SQL statement to delete a patient based on email
         String query = "DELETE FROM patient WHERE email = ?";
@@ -397,7 +509,12 @@ public class CliniqueImpl {
             throw e;  // Rethrow the exception to handle it outside if necessary
         }
     }
-
+/**
+ * Supprime un rendez-vous de la base de données.
+ * @param dateDebut La date de début du rendez-vous à supprimer.
+ * @param emailMedecin L'email du médecin associé au rendez-vous.
+ * @throws SQLException En cas d'erreur SQL.
+ */
     public static void SupprimerRdv(LocalDateTime dateDebut, String emailMedecin){
         String sql = "DELETE FROM rdv WHERE emailMedecin = ? AND dateDebut = ?";
 
@@ -413,7 +530,12 @@ public class CliniqueImpl {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Supprime un médecin de la base de données.
+     * @param email L'email du médecin à supprimer.
+     * @return true si le médecin est supprimé avec succès, sinon false.
+     * @throws SQLException En cas d'erreur SQL.
+     */
     public static boolean supprimerMedecin(String email) throws SQLException {
         // SQL statement to delete a patient based on email
         String query = "DELETE FROM medecin WHERE email = ?";
@@ -435,7 +557,11 @@ public class CliniqueImpl {
 
     }
 
-
+    /**
+     * Vérifie si un email appartient à un médecin enregistré dans la base de données.
+     * @param email L'email à vérifier.
+     * @return true si l'email appartient à un médecin, sinon false.
+     */
     public static boolean checkEmailInMedecin(String email) {
         // Nom de la table à vérifier
         String tableName = "medecin";
@@ -460,13 +586,17 @@ public class CliniqueImpl {
 
         return false; // L'email n'existe pas
     }
-
+    /**
+     * Récupère tous les rendez-vous d'un médecin à partir de son email.
+     * @param emailMedecin L'email du médecin.
+     * @return Une liste contenant tous les rendez-vous du médecin.
+     */
     public static List<RendezVous> getRendezVousByEmailMedecin(String emailMedecin) {
         List<RendezVous> rendezVousList = new ArrayList<>();
         String sql = "SELECT * FROM rdv WHERE emailMedecin = ?";
 
         try (
-              PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, emailMedecin);
             ResultSet rs = pstmt.executeQuery();
@@ -493,7 +623,13 @@ public class CliniqueImpl {
 
     }
 
-
+    /**
+     * Met à jour la description d'un rendez-vous dans la base de données.
+     * @param dateDebut La date de début du rendez-vous.
+     * @param emailMedecin L'email du médecin associé au rendez-vous.
+     * @param description La nouvelle description du rendez-vous.
+     * @throws SQLException En cas d'erreur SQL.
+     */
     public static void updateRdvDescription(LocalDateTime dateDebut, String emailMedecin, String description) throws SQLException {
         String sql = "UPDATE rdv SET description = ? WHERE emailMedecin = ? AND dateDebut = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -508,11 +644,3 @@ public class CliniqueImpl {
     }
 
 }
-
-
-
-
-
-
-
-
