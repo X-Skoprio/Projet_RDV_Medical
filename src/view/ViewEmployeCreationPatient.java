@@ -3,6 +3,10 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Porgramme qui va gerer le formulaire de création du patient
+ * Va controler le graphique du formulaire en renvoyant les informations vers le controleur.
+ */
 public class ViewEmployeCreationPatient extends JFrame {
 
     private JButton validationCreationNouveauPatientButton;
@@ -14,7 +18,10 @@ public class ViewEmployeCreationPatient extends JFrame {
     private JTextField passwordField;
     private JTextField detailsField;
 
-    // Constructeur
+    /**
+     * Constructeur de la classe
+     * Initialise la fenêtre et ses composants graphiques pour la création d'un nouveay patient.
+     */
     public ViewEmployeCreationPatient() {
         // Initialisation de la fenêtre
         setTitle("Creation de Patient");
@@ -83,38 +90,83 @@ public class ViewEmployeCreationPatient extends JFrame {
         return jTextField;
     }
 
+    /**
+     * Renvoie le nom saisi dans le champ correspondant.
+     *
+     * @return Le nom du nouveau patient.
+     */
     public String getNom() {
         return nomField.getText();
     }
 
+    /**
+     * Renvoie le prénom saisi dans le champ correspondant.
+     *
+     * @return Le prénom du nouveau patient.
+     */
     public String getPrenom() {
         return prenomField.getText();
     }
+
+    /**
+     * Renvoie l'âge saisi dans le champ correspondant.
+     *
+     * @return L'âge du nouveau patient.
+     */
 
     public String getAge() {
         return ageField.getText();
     }
 
+    /**
+     * Renvoie l'email saisi dans le champ correspondant.
+     *
+     * @return L'email du nouveau patient.
+     */
     public String getEmail() {
         return emailField.getText();
     }
 
+    /**
+     * Renvoie le mot de passe saisi dans le champ correspondant.
+     *
+     * @return Le mot de passe du nouveau patient.
+     */
     public String getPassword() {
         return passwordField.getText();
     }
 
+    /**
+     * Renvoie les détails saisis dans le champ correspondant.
+     *
+     * @return Les détails du nouveau patient.
+     */
     public String getDetails() {
         return detailsField.getText();
     }
 
+    /**
+     * Renvoie le bouton de validation de la création du nouveau patient.
+     *
+     * @return Le bouton de validation de la création du nouveau patient.
+     */
     public JButton getValidationCreationNouveauPatientButton() {
         return validationCreationNouveauPatientButton;
     }
 
+    /**
+     * Renvoie le bouton de retour à la page précédente.
+     *
+     * @return Le bouton de retour à la page précédente.
+     */
     public JButton getRetourPagePrecedenteButton() {
         return retourPagePrecedenteButton;
     }
 
+    /**
+     * Permet de tester le programme avec l'affichage graphique.
+     * @param args
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             new ViewEmployeCreationPatient().setVisible(true);
