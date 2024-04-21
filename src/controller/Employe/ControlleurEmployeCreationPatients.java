@@ -4,12 +4,14 @@ import view.ViewEmployeCreationPatient;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
+import static controller.Employe.ControlleurEmployeGererPatients.viewEmployeGererPatients;
 import static model.CliniqueImpl.insertPatient;
 
 public class ControlleurEmployeCreationPatients {
-    private static ViewEmployeCreationPatient employeCreationPatientView;
+    public static ViewEmployeCreationPatient employeCreationPatientView;
 
     public ControlleurEmployeCreationPatients(ViewEmployeCreationPatient employeCreationPatientView) throws SQLException, ClassNotFoundException {
         this.employeCreationPatientView = employeCreationPatientView;
@@ -33,17 +35,27 @@ public class ControlleurEmployeCreationPatients {
 
     private void onCreateNewPatient() throws SQLException, ClassNotFoundException {
         // Ici, insérer la logique pour créer un nouveau patient en base de données
+        int age;
         String nom = employeCreationPatientView.getNom();
         String prenom = employeCreationPatientView.getPrenom();
-        int age = Integer.parseInt(employeCreationPatientView.getAge());
+        try
+        {
+            age = Integer.parseInt(employeCreationPatientView.getAge());
+
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("Age n'est pas un int");
+            throw e;
+        }
         String email = employeCreationPatientView.getEmail();
         String password = employeCreationPatientView.getPassword();
         String details = employeCreationPatientView.getDetails();
 
         // Supposons que vous ayez une méthode pour insérer ces données dans la base de données
-        boolean success = insertPatient(nom, prenom, age, email, password, details);
+         insertPatient(nom, prenom, age, email, password, details);
 
-        if (success) {
+        if (!Objects.equals(nom,"") && !Objects.equals(prenom,"") && !Objects.equals(email,"") &&!Objects.equals(password,"")  && age >= 0) {
             JOptionPane.showMessageDialog(employeCreationPatientView, "Patient cree avec succes.", "Succès", JOptionPane.INFORMATION_MESSAGE);
             employeCreationPatientView.dispose(); // Ferme la fenêtre après création
         } else {
@@ -53,9 +65,9 @@ public class ControlleurEmployeCreationPatients {
 
     private void onReturnPreviousPage() {
         // Logique pour retourner à la fenêtre précédente
-        employeCreationPatientView.dispose();
 
-        showEmployeGererPatientWindow();
+        employeCreationPatientView.dispose();
+        viewEmployeGererPatients.setVisible(true);
     }
 
 
@@ -63,7 +75,6 @@ public class ControlleurEmployeCreationPatients {
         SwingUtilities.invokeLater(() -> {
             employeCreationPatientView = new ViewEmployeCreationPatient(); // Create the patient creation window
             employeCreationPatientView.setTitle("Creation de Patient"); // Set the window title
-            employeCreationPatientView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
             employeCreationPatientView.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
             employeCreationPatientView.setLocationRelativeTo(null); // Center the window on the screen
             employeCreationPatientView.setVisible(true); // Make the window visible

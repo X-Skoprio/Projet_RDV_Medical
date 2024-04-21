@@ -3,17 +3,18 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewEmployeGererPatients extends JFrame {
-    private JButton creationNouveauxPatientButton;
-    private JButton ConsulterLesPatientsButton;
+public class ViewEmployeGererMedecinsMenu extends JFrame {
+    private JButton creationNouveauxMedecinsButton;
+    private JButton ConsulterLesMedecinsButton;
 
-    public ViewEmployeGererPatients() {
+    public ViewEmployeGererMedecinsMenu() {
         initializeUI();
     }
 
     private void initializeUI() {
         setTitle("Gestion des Patients");
         setSize(new Dimension(600, 400));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
@@ -31,25 +32,25 @@ public class ViewEmployeGererPatients extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 50, 10, 50);
 
-        creationNouveauxPatientButton = new JButton("Creation nouveaux patients");
-        ConsulterLesPatientsButton = new JButton("Consulter les patients");
+        creationNouveauxMedecinsButton = new JButton("Creation nouveaux Medecins");
+        ConsulterLesMedecinsButton = new JButton("Consulter les Medecins");
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        backgroundPanel.add(creationNouveauxPatientButton, gbc);
+        backgroundPanel.add(creationNouveauxMedecinsButton, gbc);
         gbc.gridy = 1;
-        backgroundPanel.add(ConsulterLesPatientsButton, gbc);
+        backgroundPanel.add(ConsulterLesMedecinsButton, gbc);
 
         this.pack();
         this.setVisible(true);
     }
 
-    public JButton getCreationNouveauxPatientButton() {
-        return creationNouveauxPatientButton;
+    public JButton getCreationNouveauxMedecinsButton() {
+        return creationNouveauxMedecinsButton;
     }
 
-    public JButton getConsulterLesPatientsButton() {
-        return ConsulterLesPatientsButton;
+    public JButton getConsulterLesMedecinsButton() {
+        return ConsulterLesMedecinsButton;
     }
 
 

@@ -1,5 +1,8 @@
 package model;
 
+import com.mysql.cj.protocol.Message;
+import com.mysql.cj.protocol.x.XMessage;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -95,15 +98,21 @@ public class CliniqueImpl {
         return medecinList;
     }
 
-    public static void insertMedecin(Medecin medecin) throws SQLException {
+    public static boolean  insertMedecin(String nom, String prenom, String email, String specialisation) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, medecin.getNom());
-            preparedStatement.setString(2, medecin.getPrenom());
-            preparedStatement.setString(3, medecin.getEmail());
-            preparedStatement.setString(4, medecin.getSpecialisation());
+            preparedStatement.setString(1, nom);
+            preparedStatement.setString(2, prenom);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, specialisation);
             preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (Exception e)
+        {
+            System.out.println("Erreur insertion medecin ");
+            return false;
         }
     }
 

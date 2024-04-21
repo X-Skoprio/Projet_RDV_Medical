@@ -3,23 +3,22 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewEmployeCreationPatient extends JFrame {
+public class ViewEmployeCreationMedecins extends JFrame {
 
-    private JButton validationCreationNouveauPatientButton;
+    private JButton validationCreationNouveauMedecinButton;
     private JButton retourPagePrecedenteButton;
     private JTextField nomField;
     private JTextField prenomField;
-    private JTextField ageField;
     private JTextField emailField;
-    private JTextField passwordField;
-    private JTextField detailsField;
+    private JTextField specialisationField;
 
     // Constructeur
-    public ViewEmployeCreationPatient() {
+    public ViewEmployeCreationMedecins() {
         // Initialisation de la fenêtre
-        setTitle("Creation de Patient");
+        setTitle("Creation de Medecin");
         setSize(500, 400); // Augmentation de la taille de la fenêtre pour mieux accommoder les champs
         setLocationRelativeTo(null); // Centrer la fenêtre
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
             @Override
@@ -42,22 +41,20 @@ public class ViewEmployeCreationPatient extends JFrame {
         // Champs de texte et leurs labels
         nomField = addLabelAndTextField("Nom :", 0);
         prenomField = addLabelAndTextField("Prenom :", 1);
-        ageField = addLabelAndTextField("Age :", 2);
-        emailField = addLabelAndTextField("Email :", 3);
-        passwordField = addLabelAndTextField("Mot de passe :", 4);
-        detailsField = addLabelAndTextField("Details :", 5);
+        emailField = addLabelAndTextField("Email :", 2);
+        specialisationField = addLabelAndTextField("Specialisation :", 3);
 
         // Boutons
-        validationCreationNouveauPatientButton = new JButton("Creer Patient");
+        validationCreationNouveauMedecinButton = new JButton("Creer Medecin");
         retourPagePrecedenteButton = new JButton("Retour");
 
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 5;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER; // Centrage des boutons
-        add(validationCreationNouveauPatientButton, constraints);
+        add(validationCreationNouveauMedecinButton, constraints);
 
-        constraints.gridy = 7;
+        constraints.gridy = 6;
         add(retourPagePrecedenteButton, constraints);
     }
 
@@ -89,25 +86,16 @@ public class ViewEmployeCreationPatient extends JFrame {
     public String getPrenom() {
         return prenomField.getText();
     }
-
-    public String getAge() {
-        return ageField.getText();
-    }
-
     public String getEmail() {
         return emailField.getText();
     }
 
-    public String getPassword() {
-        return passwordField.getText();
-    }
-
-    public String getDetails() {
-        return detailsField.getText();
+    public String getSpecialisation() {
+        return specialisationField.getText();
     }
 
     public JButton getValidationCreationNouveauPatientButton() {
-        return validationCreationNouveauPatientButton;
+        return validationCreationNouveauMedecinButton;
     }
 
     public JButton getRetourPagePrecedenteButton() {
@@ -116,7 +104,7 @@ public class ViewEmployeCreationPatient extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            new ViewEmployeCreationPatient().setVisible(true);
+            new ViewEmployeCreationMedecins().setVisible(true);
         });
     }
 }
