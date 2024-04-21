@@ -101,14 +101,14 @@ public class ButtonEditor extends DefaultCellEditor {
                 // Update and refresh the table row
                 updateAndRefreshRow(row, newDescription);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(table, "Error updating RDV: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(table, "Erreur MAJ RDV: " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         }
     }
 
     private void updateAndRefreshRow(int row, String description) {
-        // Assuming you have access to the table model and it's a DefaultTableModel
+        // Avec l'acces au modele table en DefaultTableModel
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 
         model.setValueAt(description, row, 4);
@@ -118,24 +118,24 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     private void supprimer(int row) {
-        // Assuming dateDebut is stored as LocalDateTime and is in the first column (index 0)
+        // Avec dateDebut stocke en LocalDateTime dans la colonne 1 (index 0)
         Object dateDebutObject = table.getValueAt(row, 0);
         LocalDateTime dateDebut = null;
         if (dateDebutObject instanceof LocalDateTime) {
             dateDebut = (LocalDateTime) dateDebutObject;
         } else {
-            // Handle the case where dateDebut is not a LocalDateTime
-            System.out.println("DateDebut is not an instance of LocalDateTime");
+            // Gestion exception pas une LocalDateTime
+            System.out.println("DateDebut n'est pas une instance de LocalDateTime");
         }
 
-// Assuming emailMedecin is a String and is in the fourth column (index 3)
+        // Avec emailMedecin un String dans la colonne 4 (index 3)
         Object emailMedecinObject = table.getValueAt(row, 3);
         String emailMedecin = null;
         if (emailMedecinObject instanceof String) {
             emailMedecin = (String) emailMedecinObject;
         } else {
             // Handle the case where emailMedecin is not a String
-            System.out.println("EmailMedecin is not an instance of String");
+            System.out.println("EmailMedecin n'est pas une instance de String");
         }
 
         if(emailMedecin == null && dateDebut == null)
