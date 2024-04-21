@@ -10,18 +10,28 @@ import java.time.LocalDateTime;
 import java.util.List;
 import view.ViewEmployeConsulterPatients.*;
 
+/**
+ * Contrôleur pour la vue de consultation des patients par les employés.
+ */
 public class ControlleurViewEmployeConsulterPatients {
 
 
     public static ViewEmployeConsulterPatients viewEmployeConsulterPatients;
 
-
+    /**
+     * Constructeur du contrôleur pour la vue de consultation des patients.
+     * @param view La vue pour la consultation des patients.
+     * @throws SQLException En cas d'erreur SQL.
+     */
     public ControlleurViewEmployeConsulterPatients(ViewEmployeConsulterPatients view) throws SQLException {
         ControlleurViewEmployeConsulterPatients.viewEmployeConsulterPatients = view;
 
         iniViewEmployeConsulterPatients();
     }
-
+/**
+ * Initialise la vue pour la consultation des patients.
+ * @throws SQLException si erreur SQL.
+ */
     public static void iniViewEmployeConsulterPatients() throws SQLException {
 
         //a refaire adapter sans l'objet patient
@@ -42,7 +52,9 @@ public class ControlleurViewEmployeConsulterPatients {
 
     }
 
-
+    /**
+     * Affiche la fenêtre de consultation des patients par les employés.
+     */
     public static void showViewEmployeConsulterPatientWindow() {
         SwingUtilities.invokeLater(() -> {
 
@@ -57,7 +69,10 @@ public class ControlleurViewEmployeConsulterPatients {
             }
         });
     }
-
+    /**
+     * Récupère la vue pour la consultation des patients.
+     * @return La vue pour la consultation des patients.
+     */
     public static ViewEmployeConsulterPatients getViewEmployeConsulterPatients() {
         return viewEmployeConsulterPatients;
     }
