@@ -6,14 +6,14 @@ import model.*;
 import javax.swing.*;
 import java.sql.SQLException;
 
-public class ControlleurViewEmployeGererMedecins {
+public class ControlleurViewEmployeConsulterMedecins {
 
 
-    public static ViewEmployeGererMedecins viewEmployeGererMedecins;
+    public static ViewEmployeConsulterMedecins viewEmployeConsulterMedecins;
 
 
-    public ControlleurViewEmployeGererMedecins(ViewEmployeGererMedecins view) throws SQLException {
-        ControlleurViewEmployeGererMedecins.viewEmployeGererMedecins = view;
+    public ControlleurViewEmployeConsulterMedecins(ViewEmployeConsulterMedecins view) throws SQLException {
+        ControlleurViewEmployeConsulterMedecins.viewEmployeConsulterMedecins = view;
         iniViewEmployeConsulterMedecins();
     }
 
@@ -30,25 +30,25 @@ public class ControlleurViewEmployeGererMedecins {
                 "Supprimer Medecin"
         }).toArray(Object[][]::new);
 
-        viewEmployeGererMedecins.addListPatientTable("Liste des Medecins", data, columnNames);
-        viewEmployeGererMedecins.display();
+        viewEmployeConsulterMedecins.addListPatientTable("Liste des Medecins", data, columnNames);
+        viewEmployeConsulterMedecins.display();
 
     }
 
 
-    public static void showViewEmployeGererMedecinWindow() throws SQLException {
+    public static void showViewEmployeConsulterMedecinWindow() throws SQLException {
         SwingUtilities.invokeLater(() -> {
 
-            ViewEmployeGererMedecins view = new ViewEmployeGererMedecins();
+            ViewEmployeConsulterMedecins view = new ViewEmployeConsulterMedecins();
             try {
-                new ControlleurViewEmployeGererMedecins(view);
+                new ControlleurViewEmployeConsulterMedecins(view);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    public static ViewEmployeGererMedecins getViewEmployeGererMedecins() {
-        return viewEmployeGererMedecins;
+    public static ViewEmployeConsulterMedecins getViewEmployeConsulterMedecins() {
+        return viewEmployeConsulterMedecins;
     }
 }

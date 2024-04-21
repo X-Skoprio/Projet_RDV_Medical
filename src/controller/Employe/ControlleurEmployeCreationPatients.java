@@ -75,7 +75,6 @@ public class ControlleurEmployeCreationPatients {
         SwingUtilities.invokeLater(() -> {
             employeCreationPatientView = new ViewEmployeCreationPatient(); // Create the patient creation window
             employeCreationPatientView.setTitle("Creation de Patient"); // Set the window title
-            employeCreationPatientView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
             employeCreationPatientView.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
             employeCreationPatientView.setLocationRelativeTo(null); // Center the window on the screen
             employeCreationPatientView.setVisible(true); // Make the window visible
