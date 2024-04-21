@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * La classe affiche l'interface graphique permettant à un patient de prendre un rendez-vous.
+ */
 public class ViewPatientPrendreRdv extends JFrame {
     private JComboBox<Medecin> doctorComboBox;
     private JList<String> dateList;
@@ -19,6 +22,9 @@ public class ViewPatientPrendreRdv extends JFrame {
     private JPanel doctorPanel = new JPanel(new GridLayout(0, 1));
     private JScrollPane scrollPane = new JScrollPane(doctorPanel);
 
+    /**
+     * Constructeur qui va initialiser les composants graphiques.
+     */
     public ViewPatientPrendreRdv() {
         setTitle("Patient - Prise de rdv");
         setSize(500, 700);
@@ -28,6 +34,11 @@ public class ViewPatientPrendreRdv extends JFrame {
         this.setLocationRelativeTo(null); // Center on screen
     }
 
+    /**
+     * Affiche les docteurs disponibles
+     * @param doctors liste des docteurs.
+     * @param actionListener    action à effectuer qd on va selectionner un medecin.
+     */
     public void displayDoctors(List<Medecin> doctors, ActionListener actionListener) {
         for (Medecin doctor : doctors) {
             String nomBoutton = doctor.getPrenom() + " " + doctor.getNom() + "       spé : " + doctor.getSpecialisation();
@@ -39,7 +50,12 @@ public class ViewPatientPrendreRdv extends JFrame {
         validate();
         repaint();
     }
-
+    /**
+     * Affiche les créneaux horaires disponibles pour le rendez-vous sélectionné.
+     *
+     * @param slots La liste des créneaux horaires disponibles.
+     * @param actionListener L'action à effectuer lorsqu'un créneau horaire est sélectionné.
+     */
     public void displayTimeSlots(List<String> slots, ActionListener actionListener) {
         JPanel timePanel = new JPanel(new GridLayout(0, 1));
         for (String slot : slots) {
@@ -52,6 +68,11 @@ public class ViewPatientPrendreRdv extends JFrame {
         repaint();
     }
 
+    /**
+     * Affiche un message
+     *
+     * @param message Le message à afficher.
+     */
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }

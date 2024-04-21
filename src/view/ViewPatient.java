@@ -5,11 +5,19 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Affichage graphique des informations du patient
+ * Affiche les boutons pour lui permettre de faire différente actions.
+ * Toutes les actions sont après géré dans le controlleur.
+ */
 public class ViewPatient extends JFrame{
 
     private JButton prendreRDVButton;
     private JButton  consultRDVButton;
 
+    /**
+     * Construicteur des composantes graphiques etc etc
+     */
     public ViewPatient() {
 
 
@@ -51,10 +59,18 @@ public class ViewPatient extends JFrame{
         textArea.setText(ppatient);
     }
 
-
+    /**
+     * Va permettre de prendre un rdv pour le patient.
+     * @return bouton pour prendre RDV
+     */
     public JButton getPrendreRDVButton() {
         return prendreRDVButton;
     }
+
+    /**
+     * Affiche le boutton qui permet de consulter les RDV du patient en question
+     * @return bouton pour afficher les RDV.
+     */
     public JButton getConsultRDVButton(){
         return consultRDVButton;
     }
