@@ -58,14 +58,13 @@ public class ControlleurPatient {
     }
 
     private static void onPrendreRDVButtonClicked() {
-        view.dispose(); // Close the ViewPatient window
 
         PrendreRdv.showPrendreRdvWindow();
     }
 
     private static void onConsultRDVButtonClicked() {
 
-        view.dispose(); // Close the ViewPatient window
+
         RdvController.ShowPatientRdvWindow();
     }
 

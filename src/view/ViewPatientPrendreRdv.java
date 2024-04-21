@@ -23,7 +23,7 @@ public class ViewPatientPrendreRdv extends JFrame {
     public ViewPatientPrendreRdv() {
         setTitle("Patient - Prise de RDV");
         setSize(500, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setLocationRelativeTo(null);
 
         // Création d'un JPanel personnalisé pour le fond

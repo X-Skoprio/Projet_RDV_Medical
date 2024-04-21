@@ -2,8 +2,9 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import controller.ControlleurPatientRDV.*;
+import static controller.ControlleurPatientRDV.RdvController.DisposeView;
 import controller.Patient.ControlleurPatient;
+import controller.ControlleurPatientRDV.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,40 +14,17 @@ public class ViewPatientListeRdv extends JFrame{
     private JFrame frame;
     private JTabbedPane tabbedPane;
 
-    private JPanel bottomPanel;
-    private JButton menuButton;
     private static DefaultTableModel model;
 
     public ViewPatientListeRdv() {
         frame = new JFrame("Rendez-vous Details");
         frame.setSize(1000, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout()); // Use BorderLayout for the frame
 
 
         tabbedPane = new JTabbedPane();
         frame.add(tabbedPane);
-
-        // Initialize and add the bottom panel
-        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // FlowLayout for simplicity
-        menuButton = new JButton("Menu");
-        menuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onMenuButtonClicked(); // Method called when button is clicked
-            }
-        });
-        bottomPanel.add(menuButton);
-        frame.add(bottomPanel, BorderLayout.SOUTH); // Add panel at the bottom of the frame
-
-        frame.setLocationRelativeTo(null); // Center on screen
-    }
-
-    private void onMenuButtonClicked() {
-
-        System.out.println("Menu button clicked");
-        this.dispose();
-        ControlleurPatient.showPatientWindow();
 
     }
 

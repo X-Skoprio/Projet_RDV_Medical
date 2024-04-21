@@ -27,7 +27,7 @@ public class ViewChoixHorairesRdv extends JFrame{
     public ViewChoixHorairesRdv() {
         super("Choisir une horaire pour le rdv");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
             @Override

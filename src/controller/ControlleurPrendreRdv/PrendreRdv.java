@@ -53,7 +53,7 @@ public class PrendreRdv {
 
     private void handleReturnAction(ActionEvent e) {
         view.dispose(); // Or navigate back to another screen
-        ControlleurPatient.showPatientWindow();
+
     }
 
     public static void showPrendreRdvWindow() {

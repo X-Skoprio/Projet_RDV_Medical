@@ -110,4 +110,8 @@ public class RdvController {
     public static ViewPatientListeRdv getViewPatientListeRdv() {
         return view;
     }
+
+    public static void DisposeView(){
+        view.dispose();
+    }
 }
