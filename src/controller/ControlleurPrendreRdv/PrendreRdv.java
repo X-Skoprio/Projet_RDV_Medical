@@ -20,18 +20,27 @@ import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.lang.*;
 
+/**
+ * Classe qui permet de prendre un RDV et de le renvoyer à la base de donnée.
+ */
 public class PrendreRdv {
 
     private static ViewPatientPrendreRdv view;
     private String selectedDoctorEmail;
     private static String emailMedecin;
 
+    /**
+     * Constructeur des composants graphiques.
+     * @param view
+     */
     public PrendreRdv(ViewPatientPrendreRdv view) {
         this.view = view;
         initView();
     }
 
-
+    /**
+     * Initialise l'affichage graphique.
+     */
     private void initView() {
         try {
             view.displayDoctors(CliniqueImpl.getAllMedecin(), this::handleDoctorSelection);
@@ -43,6 +52,10 @@ public class PrendreRdv {
         }
     }
 
+    /**
+     * Permet de choisir le medecin que l'on veut à l'aide d'un action listener.
+     * @param e action listener.
+     */
     private void handleDoctorSelection(ActionEvent e) {
         emailMedecin = e.getActionCommand();
         view.showMessage("Choisir ce medecin");
@@ -50,11 +63,18 @@ public class PrendreRdv {
         ChoixHorairesRdv.ShowChoixHorairesWindow();
     }
 
+    /**
+     * Utilisation du bouton retour et donc on efface l'écran.
+     * @param e si l'action listener e est activé.
+     */
     private void handleReturnAction(ActionEvent e) {
         view.dispose(); // Or navigate back to another screen
 
     }
 
+    /**
+     * Affichage de la fenetre prise de RDV.
+     */
     public static void showPrendreRdvWindow() {
         SwingUtilities.invokeLater(() -> {
             view = new ViewPatientPrendreRdv(); // Create the ViewLogin window
@@ -62,6 +82,10 @@ public class PrendreRdv {
         });
     }
 
+    /**
+     * Retrouve le mail du Medecin lors de la prise de RDV/
+     * @return email du Medecin
+     */
     public static String getEmailMedecin(){return emailMedecin;}
 
 }

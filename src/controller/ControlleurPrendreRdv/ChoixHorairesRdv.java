@@ -14,17 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-
+/**
+ * Classe qui va nous permettre de choisir l'heure du RDV selon les dipso.
+ *
+ *
+ */
 public class ChoixHorairesRdv {
 
     private static ViewChoixHorairesRdv view;
 
+    /**
+     * Constructeur de la classe qui récuprère le composant graphique.
+     * @param view
+     */
     public ChoixHorairesRdv(ViewChoixHorairesRdv view) {
 
         this.view = view;
         initView();
     }
 
+    /**
+     * Initialise l'affichage du temps et des deux boutons : confirmer et retour arrière.
+     */
     private void initView() {
 
         view.setDays(getAvailableDays());
@@ -35,6 +46,10 @@ public class ChoixHorairesRdv {
         view.display();
     }
 
+    /**
+     * Met à jour le temps en fonction du temps actuel.
+     * Utilise une liste.
+     */
     private void updateHours() {
         String selectedDay = view.getSelectedDay();
         LocalDate date = LocalDate.parse(selectedDay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -47,6 +62,10 @@ public class ChoixHorairesRdv {
 
     }
 
+    /**
+     * Va confirmer le rendez vous en vérifiant que la tranche horaire est dispo.
+     * Utilise une excpetion pour renvoyer un message d'erreur.
+     */
     private void confirmAppointment() {
         String selectedDay = view.getSelectedDay();
         String selectedHour = view.getSelectedHour();
@@ -78,11 +97,19 @@ public class ChoixHorairesRdv {
 
     }
 
+    /**
+     * Initialise le bouton RETOUR
+     */
     private void goBack() {
         // Handle going back, could refresh view or change view state
         view.dispose();
         PrendreRdv.showPrendreRdvWindow();
     }
+
+    /**
+     * Recupere les jours disponibles en fonction de l'emploi du temps.
+     * @return les jours disponibles
+     */
     public static List<String> getAvailableDays() {
         List<String> days = new ArrayList<>();
         LocalDateTime today = LocalDateTime.now();
@@ -92,6 +119,10 @@ public class ChoixHorairesRdv {
         return days;
     }
 
+    /**
+     * Recupere les heures dispo en fonction de l'emploi du temps.
+     * @return les heures disponibles
+     */
     public static List<String> getAvailableHours() {
         List<String> hours = new ArrayList<>();
         for (int i = 8; i <= 18; i++) {
@@ -100,6 +131,9 @@ public class ChoixHorairesRdv {
         return hours;
     }
 
+    /**
+     * Affiche le choix des heures disponibles à l'écran.
+     */
     public static void ShowChoixHorairesWindow() {
         SwingUtilities.invokeLater(() -> {
             view = new ViewChoixHorairesRdv();
