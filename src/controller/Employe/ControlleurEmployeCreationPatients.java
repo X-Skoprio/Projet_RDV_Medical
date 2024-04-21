@@ -10,14 +10,27 @@ import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGere
 import static controller.Employe.ControlleurEmployeGererPatients.viewEmployeGererPatients;
 import static model.CliniqueImpl.insertPatient;
 
+/**
+ * Classe qui va créer de nouveaux patient en étant un employe.
+ * Va gerer les action listener et le renvoie vers l'affichage graphique.
+ */
 public class ControlleurEmployeCreationPatients {
     public static ViewEmployeCreationPatient employeCreationPatientView;
 
+    /**
+     * COnstructeur de la classe
+     * @param employeCreationPatientView la vue creation patient.
+     * @throws SQLException en cas d'erreur SQL
+     * @throws ClassNotFoundException si la classe est introuvable.
+     */
     public ControlleurEmployeCreationPatients(ViewEmployeCreationPatient employeCreationPatientView) throws SQLException, ClassNotFoundException {
         this.employeCreationPatientView = employeCreationPatientView;
         initListeners();
     }
 
+    /**
+     * Initialise les action listener qui gere les boutons.
+     */
     private void initListeners() {
         // Bouton de validation de la création d'un nouveau patient
         employeCreationPatientView.getValidationCreationNouveauPatientButton().addActionListener(e -> {
@@ -33,6 +46,11 @@ public class ControlleurEmployeCreationPatients {
         employeCreationPatientView.getRetourPagePrecedenteButton().addActionListener(e -> onReturnPreviousPage());
     }
 
+    /**
+     * Créer un nouveau patient qui va être envoyé vers la base de donnée.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     private void onCreateNewPatient() throws SQLException, ClassNotFoundException {
         // Ici, insérer la logique pour créer un nouveau patient en base de données
         int age;
@@ -63,6 +81,9 @@ public class ControlleurEmployeCreationPatients {
         }
     }
 
+    /**
+     * Retour à la page précédente.
+     */
     private void onReturnPreviousPage() {
         // Logique pour retourner à la fenêtre précédente
 
@@ -70,7 +91,9 @@ public class ControlleurEmployeCreationPatients {
         viewEmployeGererPatients.setVisible(true);
     }
 
-
+    /**
+     * Affichage de la fenètre création patient.
+     */
     public static void showEmployeCreationPatientWindow() {
         SwingUtilities.invokeLater(() -> {
             employeCreationPatientView = new ViewEmployeCreationPatient(); // Create the patient creation window
