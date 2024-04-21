@@ -30,6 +30,23 @@ public class RdvController {
         initView(email,"");
     }
 
+    private void initView() {
+
+        String[] columnNames = {"Date Debut", "Date Fin", "Email Patient", "Email Medecin", "Description", "Modifier", "Supprimer"};
+        Object[][] data = CliniqueImpl.getRendezVousByEmailPatient(Login.getEmail()).stream().map(rdv -> new Object[] {
+                rdv.getDateDebut(),
+                rdv.getDateFin(),
+                rdv.getEmailPatient(),
+                rdv.getEmailMedecin(),
+                rdv.getDescription(),
+                "modifier",
+                "supprimer"
+        }).toArray(Object[][]::new);
+
+        view.addRdvTable("Rendez-vous", data, columnNames);
+        view.display();
+    }
+
     private void initView(String email) {
 
         String[] columnNames = {"Date Debut", "Date Fin", "Email Patient", "Email Medecin", "Description", "Modifier", "Supprimer"};
@@ -64,22 +81,7 @@ public class RdvController {
         view.display();
     }
 
-    private void initView() {
 
-       String[] columnNames = {"Date Debut", "Date Fin", "Email Patient", "Email Medecin", "Description", "Modifier", "Supprimer"};
-        Object[][] data = CliniqueImpl.getRendezVousByEmailPatient(Login.getEmail()).stream().map(rdv -> new Object[] {
-                rdv.getDateDebut(),
-                rdv.getDateFin(),
-                rdv.getEmailPatient(),
-                rdv.getEmailMedecin(),
-                rdv.getDescription(),
-                "modifier",
-                "supprimer"
-        }).toArray(Object[][]::new);
-
-        view.addRdvTable("Rendez-vous", data, columnNames);
-        view.display();
-    }
 
     public static void ShowPatientRdvWindow() {
         SwingUtilities.invokeLater(() -> {
