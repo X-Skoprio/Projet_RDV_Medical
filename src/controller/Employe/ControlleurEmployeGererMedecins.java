@@ -7,6 +7,7 @@ import view.ViewEmployeGererMedecins;
 import java.sql.SQLException;
 
 import static controller.Employe.ControlleurEmployeCreationMedecins.showEmployeCreationMedecinsWindow;
+import static controller.Employe.ControlleurViewEmployeConsulterMedecins.showViewEmployeConsulterMedecinWindow;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.showViewEmployeConsulterPatientWindow;
 
 
@@ -39,7 +40,7 @@ public class ControlleurEmployeGererMedecins {
     }
     private static void onConsulterPatientButtonClicked() throws SQLException {
         System.out.println("Consulter nouveau Medecin Clicked");
-        showViewEmployeConsulterPatientWindow();
+        showViewEmployeConsulterMedecinWindow();
 
     }
 
@@ -47,13 +48,12 @@ public class ControlleurEmployeGererMedecins {
     public static void showEmployeGererMedecinsWindow() {
         SwingUtilities.invokeLater(() -> {
             if (viewEmployeGererMedecins == null) {
-                viewEmployeGererMedecins = new ViewEmployeGererMedecins(); // Create the window if it doesn't exist
+                viewEmployeGererMedecins = new ViewEmployeGererMedecins();
             }
-            viewEmployeGererMedecins.setTitle("Gerer Medecin Window"); // Set the window title
-            viewEmployeGererMedecins.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
-            viewEmployeGererMedecins.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
-            viewEmployeGererMedecins.setLocationRelativeTo(null); // Center the window on the screen
-            viewEmployeGererMedecins.setVisible(true); // Make the window visible
+            viewEmployeGererMedecins.setTitle("Gerer Medecin Window");
+            viewEmployeGererMedecins.pack();
+            viewEmployeGererMedecins.setLocationRelativeTo(null);
+            viewEmployeGererMedecins.setVisible(true);
 
             initListeners();
 

@@ -14,7 +14,6 @@ public class ViewEmployeGererMedecins extends JFrame {
     private void initializeUI() {
         setTitle("Gestion des Patients");
         setSize(new Dimension(600, 400));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
