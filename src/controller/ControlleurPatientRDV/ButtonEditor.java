@@ -2,6 +2,7 @@ package controller.ControlleurPatientRDV;
 
 import model.CliniqueImpl;
 import model.Patient;
+import model.RendezVous;
 import view.ViewEmployeConsulterPatients;
 import view.ViewPatientListeRdv;
 import view.ViewEmployeGererMedecins;
@@ -22,6 +23,8 @@ import static model.CliniqueImpl.*;
 import static view.ViewEmployeConsulterPatients.getModel;
 import static view.ViewPatientListeRdv.getModelListeRdv;
 import static view.ViewEmployeGererMedecins.getModelMedecin;
+import static model.CliniqueImpl.checkEmailInPatient;
+import static model.CliniqueImpl.supprimerPatient;
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
@@ -106,29 +109,55 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     private void modifier(int row) {
-        System.out.println("Modifier Action at row: " + row);
+        String currentDescription = (String) table.getModel().getValueAt(row, 4);
+        String newDescription = JOptionPane.showInputDialog(table, "Modifier la description:", currentDescription);
 
+        if (newDescription != null && !newDescription.equals(currentDescription)) {
+            try {
+                // Prend des donnees des colonnes necessaires pour la modification dans la bdd
+                LocalDateTime dateDebut = (LocalDateTime) table.getModel().getValueAt(row, 0);
+                String emailMedecin = (String) table.getModel().getValueAt(row, 3);
+
+                CliniqueImpl.updateRdvDescription(dateDebut, emailMedecin, newDescription);
+
+                // Update and refresh the table row
+                updateAndRefreshRow(row, newDescription);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(table, "Erreur MAJ RDV: " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateAndRefreshRow(int row, String description) {
+        // Avec l'acces au modele table en DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        model.setValueAt(description, row, 4);
+
+        // notifier la table que la valeur de la ligne a changé
+        model.fireTableRowsUpdated(row, row);
     }
 
     private void supprimer(int row) {
-
+        // Avec dateDebut stocke en LocalDateTime dans la colonne 1 (index 0)
         Object dateDebutObject = table.getValueAt(row, 0);
         LocalDateTime dateDebut = null;
         if (dateDebutObject instanceof LocalDateTime) {
             dateDebut = (LocalDateTime) dateDebutObject;
         } else {
-
-            System.out.println("DateDebut is not an instance of LocalDateTime");
+            // Gestion exception pas une LocalDateTime
+            System.out.println("DateDebut n'est pas une instance de LocalDateTime");
         }
 
-
+        // Avec emailMedecin un String dans la colonne 4 (index 3)
         Object emailMedecinObject = table.getValueAt(row, 3);
         String emailMedecin = null;
         if (emailMedecinObject instanceof String) {
             emailMedecin = (String) emailMedecinObject;
         } else {
             // Handle the case where emailMedecin is not a String
-            System.out.println("Email Medecin is not an instance of String");
+            System.out.println("EmailMedecin n'est pas une instance de String");
         }
 
         if(emailMedecin == null && dateDebut == null)

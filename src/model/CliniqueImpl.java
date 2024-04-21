@@ -484,6 +484,20 @@ public class CliniqueImpl {
 
     }
 
+
+    public static void updateRdvDescription(LocalDateTime dateDebut, String emailMedecin, String description) throws SQLException {
+        String sql = "UPDATE rdv SET description = ? WHERE emailMedecin = ? AND dateDebut = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, description);
+            pstmt.setString(2, emailMedecin);
+            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(dateDebut));
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Updating the RDV failed, no rows affected.");
+            }
+        }
+    }
+
 }
 
 
