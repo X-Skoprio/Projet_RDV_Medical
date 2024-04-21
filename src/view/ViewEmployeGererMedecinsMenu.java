@@ -3,14 +3,24 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe qui va nous permettre de choisir entre créer un nouveau medecin ou en utiliser un ancien
+ * Le choix se fait à l'aide du bouton en tant qu'employe.
+ */
 public class ViewEmployeGererMedecinsMenu extends JFrame {
     private JButton creationNouveauxMedecinsButton;
     private JButton ConsulterLesMedecinsButton;
 
+    /**
+     * Constructeur de la classe
+     */
     public ViewEmployeGererMedecinsMenu() {
         initializeUI();
     }
 
+    /**
+     * Implementation des compsants graphiques avec le fond etc
+     */
     private void initializeUI() {
         setTitle("Gestion des Patients");
         setSize(new Dimension(600, 400));
@@ -45,10 +55,17 @@ public class ViewEmployeGererMedecinsMenu extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * bouton nouveau Medecin
+     * @return retourne si on clique dessus
+     */
     public JButton getCreationNouveauxMedecinsButton() {
         return creationNouveauxMedecinsButton;
     }
-
+    /**
+     * bouton consulter Medecin
+     * @return retourne si on clique dessus
+     */
     public JButton getConsulterLesMedecinsButton() {
         return ConsulterLesMedecinsButton;
     }

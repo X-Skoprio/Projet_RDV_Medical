@@ -3,6 +3,9 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Fenêtre de création de médecins destinée aux employés.
+ */
 public class ViewEmployeCreationMedecins extends JFrame {
 
     private JButton validationCreationNouveauMedecinButton;
@@ -12,7 +15,10 @@ public class ViewEmployeCreationMedecins extends JFrame {
     private JTextField emailField;
     private JTextField specialisationField;
 
-    // Constructeur
+    /**
+     * Constructeur de la fenêtre de création de médecins.
+     * Initialise la fenêtre et ses composants.
+     */
     public ViewEmployeCreationMedecins() {
         // Initialisation de la fenêtre
         setTitle("Creation de Medecin");
@@ -79,28 +85,54 @@ public class ViewEmployeCreationMedecins extends JFrame {
         return jTextField;
     }
 
+    /**
+     * Récupère le nom saisi dans le champ correspondant.
+     * @return Le nom du médecin.
+     */
     public String getNom() {
         return nomField.getText();
     }
 
+    /**
+     * Récupère le prénom saisi dans le champ correspondant.
+     * @return Le prénom du médecin.
+     */
     public String getPrenom() {
         return prenomField.getText();
     }
+
+    /**
+     * Récupère l'email saisi dans le champ correspondant.
+     * @return L'email du médecin.
+     */
     public String getEmail() {
         return emailField.getText();
     }
 
+    /**
+     * Récupère la spécialisation saisie dans le champ correspondant.
+     * @return La spécialisation du médecin.
+     */
     public String getSpecialisation() {
         return specialisationField.getText();
     }
 
+    /**
+     * Obtient le bouton de validation pour la création du médecin.
+     * @return Le bouton de validation.
+     */
     public JButton getValidationCreationNouveauPatientButton() {
         return validationCreationNouveauMedecinButton;
     }
 
+    /**
+     * Obtient le bouton de retour à la page précédente.
+     * @return Le bouton de retour.
+     */
     public JButton getRetourPagePrecedenteButton() {
         return retourPagePrecedenteButton;
     }
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
