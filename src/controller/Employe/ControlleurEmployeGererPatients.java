@@ -15,16 +15,24 @@ import static controller.Employe.ControlleurEmployeCreationPatients.showEmployeC
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.showViewEmployeConsulterPatientWindow;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
 
-
+/**
+ * Classe qui va nous permettre de choisir entre créer un nouveau patient ou en consulter un ancien patient
+ */
 public class ControlleurEmployeGererPatients {
     public static ViewEmployeGererPatients viewEmployeGererPatients;
 
-
+    /**
+     * Constructeur de la classe EmployeGererPatient.
+     * @param view
+     */
     public ControlleurEmployeGererPatients(ViewEmployeGererPatients view) {
         ControlleurEmployeGererPatients.viewEmployeGererPatients = view;
         initListeners();
     }
 
+    /**
+     * Initialisation des actions listeners.
+     */
     private static void initListeners() {
 
         viewEmployeGererPatients.getCreationNouveauxPatientButton().addActionListener(e -> onCreationNouveauxPatientClicked());
@@ -37,7 +45,10 @@ public class ControlleurEmployeGererPatients {
         });
     }
 
-
+    /**
+     * Contrôle du bouton de la creation du nouveau patient.
+     * Efface également l'écran pour afficher une nouvelle fenètre.
+     */
     private static void onCreationNouveauxPatientClicked()
     {
         System.out.println("Creation nouveau patient Clicked");
@@ -53,13 +64,18 @@ public class ControlleurEmployeGererPatients {
         }
     }
 
-
+    /**
+     * Contrôle du bouton de la consulation de l'ancien patient.
+     * Efface également l'écran pour afficher une nouvelle fenètre.
+     */
     private static void onConsulterPatientButtonClicked() throws SQLException {
         System.out.println("Consulter nouveau patient Clicked");
         viewEmployeGererPatients.dispose();
             showViewEmployeConsulterPatientWindow();
     }
-
+    /**
+     * Gere l'affichage graphique de la fenetre GererMedecin.
+     */
     public static void showEmployeGererPatientWindow() {
         SwingUtilities.invokeLater(() -> {
             if (viewEmployeGererPatients == null) {

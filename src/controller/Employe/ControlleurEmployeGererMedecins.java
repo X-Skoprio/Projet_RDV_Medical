@@ -15,16 +15,24 @@ import static controller.Employe.ControlleurEmployeCreationPatients.showEmployeC
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.showViewEmployeConsulterPatientWindow;
 import static controller.Employe.ControlleurViewEmployeGererMedecins.showViewEmployeGererMedecinWindow;
 
-
+/**
+ * Classe qui va nous permettre de choisir entre créer un nouveau Medecin ou en consulter un ancien Medecin
+ */
 public class ControlleurEmployeGererMedecins {
     public static ViewEmployeGererMedecinsMenu viewEmployeGererMedecinsMenu;
 
-
+    /**
+     * Constructeur de l'affichage graphique
+     * @param view
+     */
     public ControlleurEmployeGererMedecins(ViewEmployeGererMedecinsMenu view) {
         ControlleurEmployeGererMedecins.viewEmployeGererMedecinsMenu = view;
         initListeners();
     }
 
+    /**
+     * Initialisation des action listener
+     */
     private static void initListeners() {
 
         viewEmployeGererMedecinsMenu.getCreationNouveauxMedecinsButton().addActionListener(e -> onCreationNouveauxMedecinsClicked());
@@ -37,23 +45,34 @@ public class ControlleurEmployeGererMedecins {
         });
     }
 
-
+    /**
+     * Controle du bouton et donc de l'action de créer un nouveay medecin.
+     */
     private static void onCreationNouveauxMedecinsClicked()
     {
         System.out.println("Creation nouveau Medecin Clicked");
         showEmployeCreationMedecinsWindow();
     }
+    /**
+     * Controle du bouton et donc de l'action de consulter un ancien medecin.
+     */
     private static void onConsulterPatientButtonClicked() throws SQLException {
         System.out.println("Consulter nouveau Medecin Clicked");
         showViewEmployeGererMedecinWindow();
 
     }
 
+    /**
+     * Va effacer l'écran de la fenètre précédente.
+     */
     public static void disposeViewEmployeConsulterPatientWindow()
     {
         viewEmployeGererMedecinsMenu.dispose();
     }
 
+    /**
+     * Gere l'affichage graphique de la fenetre GererMedecin.
+     */
     public static void showEmployeGererMedecinsWindow() {
         SwingUtilities.invokeLater(() -> {
             if (viewEmployeGererMedecinsMenu == null) {
