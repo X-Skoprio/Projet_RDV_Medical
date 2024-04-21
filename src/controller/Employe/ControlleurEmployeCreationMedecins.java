@@ -8,11 +8,13 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
+import static controller.Employe.ControlleurViewEmployeGererMedecinsMenu.showEmployeGererMedecinWindow;
+import static controller.Employe.ControlleurViewEmployeGererMedecinsMenu.viewEmployeGererMedecinsMenu;
 import static model.CliniqueImpl.insertMedecin;
 import static model.CliniqueImpl.insertPatient;
 
 public class ControlleurEmployeCreationMedecins {
-    private static ViewEmployeCreationMedecins viewEmployeCreationMedecins;
+    public static ViewEmployeCreationMedecins viewEmployeCreationMedecins;
 
     public ControlleurEmployeCreationMedecins(ViewEmployeCreationMedecins viewEmployeCreationMedecins) throws SQLException, ClassNotFoundException {
         this.viewEmployeCreationMedecins = viewEmployeCreationMedecins;
@@ -56,15 +58,15 @@ public class ControlleurEmployeCreationMedecins {
     private void onReturnPreviousPage() {
         // Logique pour retourner à la fenêtre précédente
         viewEmployeCreationMedecins.dispose();
+        viewEmployeGererMedecinsMenu.setVisible(true);
 
-        showEmployeGererPatientWindow();
     }
 
 
     public static void showEmployeCreationMedecinsWindow() {
         SwingUtilities.invokeLater(() -> {
             viewEmployeCreationMedecins = new ViewEmployeCreationMedecins(); // Create the patient creation window
-            viewEmployeCreationMedecins.setTitle("Creation de Patient"); // Set the window title
+            viewEmployeCreationMedecins.setTitle("Creation de Medecin"); // Set the window title
             viewEmployeCreationMedecins.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
             viewEmployeCreationMedecins.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
             viewEmployeCreationMedecins.setLocationRelativeTo(null); // Center the window on the screen

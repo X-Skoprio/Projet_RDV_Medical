@@ -1,19 +1,14 @@
 package controller.Employe;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
-import model.Patient;
-import view.ViewEmployeConsulterPatients;
 import view.ViewEmployeGererPatients;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import static controller.Employe.ControlleurEmployeCreationPatients.employeCreationPatientView;
 import static controller.Employe.ControlleurEmployeCreationPatients.showEmployeCreationPatientWindow;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.showViewEmployeConsulterPatientWindow;
-import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
 
 
 public class ControlleurEmployeGererPatients {
@@ -57,7 +52,7 @@ public class ControlleurEmployeGererPatients {
     private static void onConsulterPatientButtonClicked() throws SQLException {
         System.out.println("Consulter nouveau patient Clicked");
         viewEmployeGererPatients.dispose();
-            showViewEmployeConsulterPatientWindow();
+        showViewEmployeConsulterPatientWindow();
     }
 
     public static void showEmployeGererPatientWindow() {

@@ -18,7 +18,6 @@ public class ControlleurViewEmployeConsulterPatients {
 
     public ControlleurViewEmployeConsulterPatients(ViewEmployeConsulterPatients view) throws SQLException {
         ControlleurViewEmployeConsulterPatients.viewEmployeConsulterPatients = view;
-
         iniViewEmployeConsulterPatients();
     }
 
@@ -45,9 +44,6 @@ public class ControlleurViewEmployeConsulterPatients {
 
     public static void showViewEmployeConsulterPatientWindow() {
         SwingUtilities.invokeLater(() -> {
-
-            //patientCharge.ajouterRendezVous(new RendezVous("patient@email.com", "medecin@email.com", LocalDateTime.parse("2023-01-10 09:00"), LocalDateTime.parse("2023-01-10 10:00"),  "Consultation"));
-            //patientCharge.ajouterRendezVous(new RendezVous("another@email.com", "anothermed@email.com",LocalDateTime.parse("2023-02-15 11:00"), LocalDateTime.parse("2023-02-15 12:00"),  "Follow-up"));
 
             ViewEmployeConsulterPatients view = new ViewEmployeConsulterPatients();
             try {

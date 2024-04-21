@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import static controller.Employe.ControlleurEmployeGererMedecins.viewEmployeGererMedecinsMenu;
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
 import static controller.Employe.ControlleurEmployeGererPatients.viewEmployeGererPatients;
-import static controller.Employe.ControlleurViewEmployeGererMedecins.showViewEmployeGererMedecinWindow;
+
+import static controller.Employe.ControlleurViewEmployeGererMedecinsMenu.showEmployeGererMedecinWindow;
 
 public class ControlleurViewEmploye {
     private ViewEmploye viewEmploye;
@@ -38,7 +39,7 @@ public class ControlleurViewEmploye {
         System.out.println("Gérer Medecin button clicked");
         if(viewEmployeGererMedecinsMenu == null)
         {
-            showViewEmployeGererMedecinWindow();
+            showEmployeGererMedecinWindow();
         }
         else
         {

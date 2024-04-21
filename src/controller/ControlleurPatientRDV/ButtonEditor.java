@@ -58,7 +58,6 @@ public class ButtonEditor extends DefaultCellEditor {
             button.setForeground(table.getForeground());
             button.setBackground(table.getBackground());
         }
-        //label = (value == null) ? "" : value.toString();
         button.setText(label);
         return button;
     }

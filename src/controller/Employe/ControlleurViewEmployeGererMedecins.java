@@ -9,16 +9,15 @@ import java.sql.SQLException;
 public class ControlleurViewEmployeGererMedecins {
 
 
-    private static ViewEmployeGererMedecins view;
+    public static ViewEmployeGererMedecins viewEmployeGererMedecins;
 
 
     public ControlleurViewEmployeGererMedecins(ViewEmployeGererMedecins view) throws SQLException {
-        ControlleurViewEmployeGererMedecins.view = view;
-
-        iniViewEmployeConsulterPatients();
+        ControlleurViewEmployeGererMedecins.viewEmployeGererMedecins = view;
+        iniViewEmployeConsulterMedecins();
     }
 
-    public static void iniViewEmployeConsulterPatients() throws SQLException {
+    public static void iniViewEmployeConsulterMedecins() throws SQLException {
 
         //a refaire adapter sans l'objet patient
         String[] columnNames = {"Nom", "Prenom", "Email", "Specialisation", "Voir RDV Medecin", "Supprimer Medecin"};
@@ -31,17 +30,14 @@ public class ControlleurViewEmployeGererMedecins {
                 "Supprimer Medecin"
         }).toArray(Object[][]::new);
 
-        view.addListPatientTable("Liste des Medecins", data, columnNames);
-        view.display();
+        viewEmployeGererMedecins.addListPatientTable("Liste des Medecins", data, columnNames);
+        viewEmployeGererMedecins.display();
 
     }
 
 
-    public static void showViewEmployeGererMedecinWindow() {
+    public static void showViewEmployeGererMedecinWindow() throws SQLException {
         SwingUtilities.invokeLater(() -> {
-
-            //patientCharge.ajouterRendezVous(new RendezVous("patient@email.com", "medecin@email.com", LocalDateTime.parse("2023-01-10 09:00"), LocalDateTime.parse("2023-01-10 10:00"),  "Consultation"));
-            //patientCharge.ajouterRendezVous(new RendezVous("another@email.com", "anothermed@email.com",LocalDateTime.parse("2023-02-15 11:00"), LocalDateTime.parse("2023-02-15 12:00"),  "Follow-up"));
 
             ViewEmployeGererMedecins view = new ViewEmployeGererMedecins();
             try {
@@ -53,6 +49,6 @@ public class ControlleurViewEmployeGererMedecins {
     }
 
     public static ViewEmployeGererMedecins getViewEmployeGererMedecins() {
-        return view;
+        return viewEmployeGererMedecins;
     }
 }

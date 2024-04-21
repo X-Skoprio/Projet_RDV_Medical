@@ -18,10 +18,6 @@ class MainController extends JFrame {
     private static ViewLoginDetails viewLoginDetails;
     private static ViewEmploye viewEmploye;
 
-    public MainController() {
-
-    }
-
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
