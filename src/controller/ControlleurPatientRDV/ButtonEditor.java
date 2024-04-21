@@ -26,6 +26,11 @@ import static view.ViewEmployeGererMedecins.getModelMedecin;
 import static model.CliniqueImpl.checkEmailInPatient;
 import static model.CliniqueImpl.supprimerPatient;
 
+/**
+ * La classe va nous permettre d'éditer les cellules selon nos besoins dans un tableau.
+ * Elle va égalemenet editer les boutons.
+ * C'est la classe Mère du controles des boutons des tableaux.
+ */
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
     private String label;
@@ -36,6 +41,14 @@ public class ButtonEditor extends DefaultCellEditor {
     private ViewEmployeGererMedecins viewEmployeGererMedecins = getViewEmployeGererMedecins();
 
     private ViewPatientListeRdv viewPatientListeRdv = getViewPatientListeRdv();
+
+    /**
+     * Constructeur de la classe
+     * Initialise l'éditeur de cellule personnalisé pour les boutons.
+     *
+     * @param checkBox Le composant de case à cocher utilisé pour initialiser l'éditeur.
+     * @param label    Le texte affiché sur le bouton.
+     */
     public ButtonEditor(JCheckBox checkBox, String label) {
         super(checkBox);
         this.label = label;
@@ -48,7 +61,16 @@ public class ButtonEditor extends DefaultCellEditor {
             }
         });
     }
-
+    /**
+     * Renvoie le composant d'édition de cellule pour la cellule donnée.
+     *
+     * @param table       La table à éditer.
+     * @param value       La valeur de la cellule.
+     * @param isSelected  Indique si la cellule est sélectionnée.
+     * @param row         L'indice de la ligne de la cellule.
+     * @param column      L'indice de la colonne de la cellule.
+     * @return            Le composant d'édition de cellule pour la cellule donnée.
+     */
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         this.table = table;
         if (isSelected) {
@@ -63,6 +85,10 @@ public class ButtonEditor extends DefaultCellEditor {
         return button;
     }
 
+    /**
+     * Retourne la valeur de la cellule édité du tableau
+     * @return la valeur de la cellule
+     */
     public Object getCellEditorValue() {
         if (isPushed) {
             int row = table.convertRowIndexToModel(table.getEditingRow());
@@ -108,6 +134,11 @@ public class ButtonEditor extends DefaultCellEditor {
         return label;
     }
 
+    /**
+     * Implémente la logique de modification pour un RDV
+     *
+     * @param row L'indice de la ligne à modifier.
+     */
     private void modifier(int row) {
         String currentDescription = (String) table.getModel().getValueAt(row, 4);
         String newDescription = JOptionPane.showInputDialog(table, "Modifier la description:", currentDescription);
@@ -129,6 +160,12 @@ public class ButtonEditor extends DefaultCellEditor {
         }
     }
 
+    /**
+     * Permet d'actualiser le tableau après avoir fait différent changement
+     * Permet aussi de modifier la ligne que l'on désire.
+     * @param row  la ligne spécifié du tableau
+     * @param description  texte qui va êre envoyé dans le tableau.
+     */
     private void updateAndRefreshRow(int row, String description) {
         // Avec l'acces au modele table en DefaultTableModel
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -138,7 +175,11 @@ public class ButtonEditor extends DefaultCellEditor {
         // notifier la table que la valeur de la ligne a changé
         model.fireTableRowsUpdated(row, row);
     }
-
+    /**
+     * Va supprimer une ligne en fonction de l'indice qui va être envoyé.
+     *
+     * @param row L'indice de la ligne à modifier.
+     */
     private void supprimer(int row) {
         // Avec dateDebut stocke en LocalDateTime dans la colonne 1 (index 0)
         Object dateDebutObject = table.getValueAt(row, 0);
@@ -171,7 +212,12 @@ public class ButtonEditor extends DefaultCellEditor {
             System.out.println("le rdv du : " + dateDebut + " a ete suprrime avec succes ! ");
         }
     }
-
+    /**
+     * Suppression d'un patient pour la ligne spécifiée.
+     *
+     * @param row L'indice du patient à supprimer.
+     * @throws SQLException En cas d'erreur pour accéder à la base de données.
+     */
     private void supprimerPatientButton(int row) throws SQLException {
 
         System.out.println("Le button suppriemr patient a été cliqué sur la ligne: " + row);
@@ -200,6 +246,12 @@ public class ButtonEditor extends DefaultCellEditor {
 
     }
 
+    /**
+     * Voir le RDV d'un patient à partir du tableay.
+     *
+     * @param row L'indice du patient auquel on veut accéder.
+     * @throws SQLException En cas d'erreur pour accéder à la base de données.
+     */
     private void voirRDV(int row) throws SQLException {
 
         System.out.println("Le button voir rdv patient a été cliqué sur la ligne: " + row);
@@ -226,7 +278,12 @@ public class ButtonEditor extends DefaultCellEditor {
         }
 
     }
-
+    /**
+     * Voir des rendez-vous du médecin pour la ligne spécifiée.
+     *
+     * @param row L'indice de la ligne du médecin dont les rendez-vous doivent être vu.
+     * @throws SQLException En cas d'erreur pour accéder à la base de données.
+     */
     private void voirRDVMedecin(int row) throws SQLException {
 
         System.out.println("Le button voir rdv Medecin a été cliqué sur la ligne: " + row);
@@ -254,6 +311,13 @@ public class ButtonEditor extends DefaultCellEditor {
         }
 
     }
+
+    /**
+     * Suppression n d'un médecin pour la ligne spécifiée.
+     *
+     * @param row L'indice de la ligne correspondant au médecin à supprimer.
+     * @throws SQLException Si une erreur survient lors de l'accès à la base de données.
+     */
     private void supprimerMedecintButton(int row) throws SQLException {
 
 
