@@ -4,6 +4,7 @@ import view.ViewEmployeCreationPatient;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
 import static model.CliniqueImpl.insertPatient;
@@ -33,17 +34,27 @@ public class ControlleurEmployeCreationPatients {
 
     private void onCreateNewPatient() throws SQLException, ClassNotFoundException {
         // Ici, insérer la logique pour créer un nouveau patient en base de données
+        int age;
         String nom = employeCreationPatientView.getNom();
         String prenom = employeCreationPatientView.getPrenom();
-        int age = Integer.parseInt(employeCreationPatientView.getAge());
+        try
+        {
+            age = Integer.parseInt(employeCreationPatientView.getAge());
+
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("Age n'est pas un int");
+            throw e;
+        }
         String email = employeCreationPatientView.getEmail();
         String password = employeCreationPatientView.getPassword();
         String details = employeCreationPatientView.getDetails();
 
         // Supposons que vous ayez une méthode pour insérer ces données dans la base de données
-        boolean success = insertPatient(nom, prenom, age, email, password, details);
+         insertPatient(nom, prenom, age, email, password, details);
 
-        if (success) {
+        if (!Objects.equals(nom,"") && !Objects.equals(prenom,"") && !Objects.equals(email,"") &&!Objects.equals(password,"")  && age >= 0) {
             JOptionPane.showMessageDialog(employeCreationPatientView, "Patient cree avec succes.", "Succès", JOptionPane.INFORMATION_MESSAGE);
             employeCreationPatientView.dispose(); // Ferme la fenêtre après création
         } else {
@@ -53,8 +64,8 @@ public class ControlleurEmployeCreationPatients {
 
     private void onReturnPreviousPage() {
         // Logique pour retourner à la fenêtre précédente
-        employeCreationPatientView.dispose();
 
+        employeCreationPatientView.dispose();
         showEmployeGererPatientWindow();
     }
 
