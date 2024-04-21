@@ -6,11 +6,11 @@ import view.ViewEmploye;
 import javax.swing.*;
 import java.sql.SQLException;
 
-import static controller.Employe.ControlleurEmployeGererMedecins.viewEmployeGererMedecinsMenu;
+import static controller.Employe.ControlleurEmployeGererMedecins.showEmployeGererMedecinsWindow;
+import static controller.Employe.ControlleurEmployeGererMedecins.viewEmployeGererMedecins;
 import static controller.Employe.ControlleurEmployeGererPatients.showEmployeGererPatientWindow;
 import static controller.Employe.ControlleurEmployeGererPatients.viewEmployeGererPatients;
 
-import static controller.Employe.ControlleurViewEmployeGererMedecinsMenu.showEmployeGererMedecinWindow;
 
 public class ControlleurViewEmploye {
     private ViewEmploye viewEmploye;
@@ -37,13 +37,13 @@ public class ControlleurViewEmploye {
 
     private void gererMedecin() {
         System.out.println("Gérer Medecin button clicked");
-        if(viewEmployeGererMedecinsMenu == null)
+        if(viewEmployeGererMedecins == null)
         {
-            showEmployeGererMedecinWindow();
+            showEmployeGererMedecinsWindow();
         }
         else
         {
-            viewEmployeGererMedecinsMenu.setVisible(true);
+            viewEmployeGererMedecins.setVisible(true);
         }
     }
 

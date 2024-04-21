@@ -1,11 +1,9 @@
 package controller.ControlleurPatientRDV;
 
 import model.CliniqueImpl;
-import model.Patient;
-import model.RendezVous;
 import view.ViewEmployeConsulterPatients;
 import view.ViewPatientListeRdv;
-import view.ViewEmployeGererMedecins;
+import view.ViewEmployeConsulterMedecins;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,12 +15,14 @@ import java.time.LocalDateTime;
 
 import static controller.ControlleurPatientRDV.RdvController.ShowPatientRdvWindow;
 import static controller.ControlleurPatientRDV.RdvController.getViewPatientListeRdv;
+import static controller.Employe.ControlleurViewEmployeConsulterMedecins.getViewEmployeConsulterMedecins;
 import static controller.Employe.ControlleurViewEmployeConsulterPatients.*;
-import static controller.Employe.ControlleurViewEmployeGererMedecins.getViewEmployeGererMedecins;
+
+
 import static model.CliniqueImpl.*;
 import static view.ViewEmployeConsulterPatients.getModel;
 import static view.ViewPatientListeRdv.getModelListeRdv;
-import static view.ViewEmployeGererMedecins.getModelMedecin;
+import static view.ViewEmployeConsulterMedecins.getModelMedecin;
 import static model.CliniqueImpl.checkEmailInPatient;
 import static model.CliniqueImpl.supprimerPatient;
 
@@ -33,7 +33,8 @@ public class ButtonEditor extends DefaultCellEditor {
     private JTable table;
 
     private ViewEmployeConsulterPatients viewEmployeConsulterPatient = getViewEmployeConsulterPatients();
-    private ViewEmployeGererMedecins viewEmployeGererMedecins = getViewEmployeGererMedecins();
+
+    private ViewEmployeConsulterMedecins viewEmployeConsulterMedecins = getViewEmployeConsulterMedecins();
 
     private ViewPatientListeRdv viewPatientListeRdv = getViewPatientListeRdv();
     public ButtonEditor(JCheckBox checkBox, String label) {
@@ -275,7 +276,7 @@ public class ButtonEditor extends DefaultCellEditor {
         else
         {
             supprimerMedecin(emailString);
-            viewEmployeGererMedecins.removeRow(getModelMedecin(), row);
+            viewEmployeConsulterMedecins.removeRow(getModelMedecin(), row);
             System.out.println("le patient avec le mail : " + emailString + "a ete suprrime avec succes ! ");
         }
 

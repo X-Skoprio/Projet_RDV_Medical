@@ -1,14 +1,10 @@
 package controller.Employe;
 
-import controller.ControlleurPatientRDV.RdvController;
 import view.*;
 import model.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.List;
-import view.ViewEmployeConsulterPatients.*;
 
 public class ControlleurViewEmployeConsulterPatients {
 
