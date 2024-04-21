@@ -35,6 +35,7 @@ public class PrendreRdv {
     private void initView() {
         try {
             view.displayDoctors(CliniqueImpl.getAllMedecin(), this::handleDoctorSelection);
+            view.getReturnButton().addActionListener(this::handleReturnAction); // Setup return button listener
             view.setVisible(true);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,6 +50,10 @@ public class PrendreRdv {
         ChoixHorairesRdv.ShowChoixHorairesWindow();
     }
 
+    private void handleReturnAction(ActionEvent e) {
+        view.dispose(); // Or navigate back to another screen
+
+    }
 
     public static void showPrendreRdvWindow() {
         SwingUtilities.invokeLater(() -> {

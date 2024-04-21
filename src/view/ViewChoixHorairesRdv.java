@@ -27,8 +27,24 @@ public class ViewChoixHorairesRdv extends JFrame{
     public ViewChoixHorairesRdv() {
         super("Choisir une horaire pour le rdv");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+
+        JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Assume the path to the image is correct and it's loadable
+                Image backgroundImage = new ImageIcon("src/view/fond.png").getImage();
+                g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+            }
+        };
+        backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        setContentPane(backgroundPanel);
 
         JPanel dayPanel = new JPanel();
         dayPanel.add(new JLabel("Chosir un jour:"));
@@ -42,12 +58,13 @@ public class ViewChoixHorairesRdv extends JFrame{
         buttonPanel.add(backButton);
         buttonPanel.add(confirmButton);
 
-        add(dayPanel);
-        add(hourPanel);
-        add(buttonPanel);
+        backgroundPanel.add(dayPanel);
+        backgroundPanel.add(hourPanel);
+        backgroundPanel.add(buttonPanel);
         hourDropdown.setRenderer(new BookedTimeRenderer());
         this.setLocationRelativeTo(null); // Center on screen
     }
+
 
     // Custom renderer to gray out booked times
     private static class BookedTimeRenderer extends DefaultListCellRenderer {

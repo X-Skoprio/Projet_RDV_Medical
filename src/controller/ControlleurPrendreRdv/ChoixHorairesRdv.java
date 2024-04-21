@@ -73,7 +73,7 @@ public class ChoixHorairesRdv {
                     JOptionPane.showMessageDialog(view, "Merci de selectionner un jour et un horaire.", "Selection incomplete", JOptionPane.ERROR_MESSAGE);
                 }
             view.dispose();
-            ControlleurPatient.showPatientWindow();
+
         }
 
     }

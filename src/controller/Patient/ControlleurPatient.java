@@ -46,8 +46,8 @@ public class ControlleurPatient {
         SwingUtilities.invokeLater(() -> {
             view = new ViewPatient(); // Create the ViewLogin window
             view.setTitle("Patient Window"); // Optional: Set the window title
-            view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set the default close operation
-            view.pack(); // Size the window to fit the preferred size and layouts of its subcomponents
+            view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
+
             view.setLocationRelativeTo(null); // Center the window on the screen
             view.setVisible(true); // Make the window visible
 
@@ -58,14 +58,13 @@ public class ControlleurPatient {
     }
 
     private static void onPrendreRDVButtonClicked() {
-        view.dispose(); // Close the ViewPatient window
 
         PrendreRdv.showPrendreRdvWindow();
     }
 
     private static void onConsultRDVButtonClicked() {
 
-        view.dispose(); // Close the ViewPatient window
+
         RdvController.ShowPatientRdvWindow();
     }
 
