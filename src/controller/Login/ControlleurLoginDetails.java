@@ -12,17 +12,30 @@ import model.Login;
 
 import static model.CliniqueImpl.*;
 
+/**
+ * Contrôleur gérant la fenètre login et la suite.
+ * chaque controlleur gère une fenètre différente.
+ */
 public class ControlleurLoginDetails {
     private static ViewLoginDetails LoginDetails;
     private Runnable onSendLoginButtonClicked;
 
 
-
+    /**
+     * Construit un contrôleur pour gérer la fenêtre de détails de connexion.
+     *
+     * @param LoginDetails La vue de la connexion
+     * @throws SQLException Si une erreur de base de données se produit lors de la configuration des listeners.
+     * @throws ClassNotFoundException Si les classes JDBC ne sont pas trouvées.
+     */
     public ControlleurLoginDetails(ViewLoginDetails LoginDetails) throws SQLException, ClassNotFoundException {
         ControlleurLoginDetails.LoginDetails = LoginDetails;
         initListeners();
 
     }
+    /**
+     * Initialise les écouteurs pour les composants de la vue.
+     */
     private void initListeners() {
         // Patient button action listener
         LoginDetails.getLoginButton().addActionListener(e -> {
@@ -34,6 +47,9 @@ public class ControlleurLoginDetails {
         });
     }
 
+    /**
+     * S'occupe du click du bonton qui envoie les infotmations à la BDD
+     */
     private void onSendLoginButtonClick() {
         System.out.println("Patient button clicked");
         if (onSendLoginButtonClicked != null) {
@@ -41,6 +57,13 @@ public class ControlleurLoginDetails {
         }
     }
 
+    /**
+     * Exécute la logique de connexion en vérifiant les identifiants de l'utilisateur et en dirigeant vers
+     * la fenêtre correspondante selon le type d'utilisateur.
+     *
+     * @throws SQLException Si une erreur de base de données se produit pendant la vérification des identifiants.
+     * @throws ClassNotFoundException Si les classes JDBC nécessaires ne sont pas trouvées.
+     */
     private static void onSendLoginButtonClicked() throws SQLException, ClassNotFoundException {
         connect();
          // Close the ViewLogin window
@@ -68,7 +91,10 @@ public class ControlleurLoginDetails {
 
     }
 
-
+    /**
+     * Affiche la fenêtre de détails de connexion avec différentes informations.
+     * Geneère une exception si la BDD SQL ne fonctionne pas
+     */
     public static void ShowLoginDetails() {
         SwingUtilities.invokeLater(() -> {
             LoginDetails = new ViewLoginDetails(); // Create the ViewLogin window
