@@ -3,14 +3,24 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Affichage graphique de la fenètre Employe après s'est connecté.
+ * Contient le fond d'écran ainsi que les boutons pour choisir la prochaine action.
+ */
 public class ViewEmploye extends JFrame {
     private JButton gererMedecinButton;
     private JButton gererPatientButton;
 
+    /**
+     * Constructeur du programme graphique Employe
+     */
     public ViewEmploye() {
         initializeUI();
     }
 
+    /**
+     * Initialise l'affichage des UI de l'écran
+     */
     private void initializeUI() {
         // Custom JPanel with background image
         JPanel backgroundPanel = new JPanel(new GridBagLayout()) {
@@ -51,14 +61,25 @@ public class ViewEmploye extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Envoie vers la prochaine fenètre qui gere les Medecins.
+     * @return bouton Medecins
+     */
     public JButton getGererMedecinButton() {
         return gererMedecinButton;
     }
-
+    /**
+     * Envoie vers la prochaine fenètre qui gere les Patients.
+     * @return bouton Patients
+     */
     public JButton getGererPatientButton() {
         return gererPatientButton;
     }
 
+    /**
+     * Main qui permet de tester de manière intermédiaire.
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new ViewEmploye().setVisible(true));
     }
