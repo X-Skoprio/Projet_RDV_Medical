@@ -46,7 +46,7 @@ public class ControlleurPatient {
         SwingUtilities.invokeLater(() -> {
             view = new ViewPatient(); // Create the ViewLogin window
             view.setTitle("Patient Window"); // Optional: Set the window title
-            view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set the default close operation
+            view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
 
             view.setLocationRelativeTo(null); // Center the window on the screen
             view.setVisible(true); // Make the window visible
