@@ -504,7 +504,7 @@ public class CliniqueImpl {
 
     public static List<Integer> getAllPatientAge() throws SQLException {
         List<Integer> listAges = new ArrayList<>();
-        String query = "SELECT age FROM patient";  // SQL query to retrieve ages
+        String query = "SELECT age FROM patient";
 
         // Try-with-resources statement to auto-close the resources
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -517,7 +517,7 @@ public class CliniqueImpl {
             }
         } catch (SQLException e) {
             System.err.println("Error while retrieving patient ages: " + e.getMessage());
-            throw e;  // Rethrow the exception to handle it outside if necessary
+            throw e;
         }
 
         return listAges;
@@ -533,7 +533,7 @@ public class CliniqueImpl {
             pstmt.setTimestamp(3, Timestamp.valueOf(dateDebut));
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Updating the RDV failed, no rows affected.");
+                throw new SQLException("l'update a été refusé");
             }
         }
     }
