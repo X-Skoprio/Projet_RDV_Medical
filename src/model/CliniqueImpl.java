@@ -190,8 +190,8 @@ public class CliniqueImpl {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setTimestamp(1, java.sql.Timestamp.valueOf(rdv.getDateDebut()));
-            preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(rdv.getDateFin()));
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(rdv.getDateDebut()));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(rdv.getDateFin()));
             preparedStatement.setString(3, rdv.getEmailPatient());
             preparedStatement.setString(4, rdv.getEmailMedecin());
             preparedStatement.setString(5, rdv.getDescription());
@@ -412,7 +412,7 @@ public class CliniqueImpl {
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, emailMedecin);
-            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(dateDebut));
+            stmt.setTimestamp(2, Timestamp.valueOf(dateDebut));
             int affectedRows = stmt.executeUpdate();
 
             if (affectedRows == 0) {
@@ -502,13 +502,35 @@ public class CliniqueImpl {
 
     }
 
+    public static List<Integer> getAllPatientAge() throws SQLException {
+        List<Integer> listAges = new ArrayList<>();
+        String query = "SELECT age FROM patient";  // SQL query to retrieve ages
+
+        // Try-with-resources statement to auto-close the resources
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            // Process the result set
+            while (resultSet.next()) {
+                int age = resultSet.getInt("age");
+                listAges.add(age);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving patient ages: " + e.getMessage());
+            throw e;  // Rethrow the exception to handle it outside if necessary
+        }
+
+        return listAges;
+    }
+
+
 
     public static void updateRdvDescription(LocalDateTime dateDebut, String emailMedecin, String description) throws SQLException {
         String sql = "UPDATE rdv SET description = ? WHERE emailMedecin = ? AND dateDebut = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, description);
             pstmt.setString(2, emailMedecin);
-            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(dateDebut));
+            pstmt.setTimestamp(3, Timestamp.valueOf(dateDebut));
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Updating the RDV failed, no rows affected.");
