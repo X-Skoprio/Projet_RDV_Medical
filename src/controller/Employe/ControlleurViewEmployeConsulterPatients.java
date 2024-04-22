@@ -20,7 +20,7 @@ public class ControlleurViewEmployeConsulterPatients {
     public static void iniViewEmployeConsulterPatients() throws SQLException {
 
         //a refaire adapter sans l'objet patient
-        String[] columnNames = {"Nom", "Prenom", "Age","Email", "Mot de passe", "Details", "Voir RDV", "Supprimer Patient"};
+        String[] columnNames = {"Nom", "Prenom", "Age","Email", "Mot de passe", "Details", "Voir RDV Patient", "Supprimer Patient"};
         Object[][] data = CliniqueImpl.getAllPatient().stream().map(patient -> new Object[] {
                 patient.getNom(),
                 patient.getPrenom(),
@@ -28,7 +28,7 @@ public class ControlleurViewEmployeConsulterPatients {
                 patient.getEmail(),
                 patient.getMdp(),
                 patient.getDetails(),
-                "Voir RDV",
+                "Voir RDV Patient",
                 "Supprimer Patient"
         }).toArray(Object[][]::new);
 

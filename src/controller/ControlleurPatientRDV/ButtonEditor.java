@@ -87,7 +87,7 @@ public class ButtonEditor extends DefaultCellEditor {
                 }
             }
 
-            else if("Voir RDV".equals(label))
+            else if("Voir RDV Patient".equals(label))
             {
                 try {
                     voirRDV(row);
@@ -205,7 +205,7 @@ public class ButtonEditor extends DefaultCellEditor {
         System.out.println("Le button voir rdv patient a été cliqué sur la ligne: " + row);
 
         //récupére la case email du row correspodnant au button cliqué
-        Object emailData = (table.getModel().getValueAt(row, 4));
+        Object emailData = (table.getModel().getValueAt(row, 3));
         String emailString = null;
 
         if (emailData instanceof String) {

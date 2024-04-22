@@ -42,7 +42,7 @@ public class ViewEmployeConsulterPatients extends JFrame {
 
 
         // Setting up button columns
-        setUpButtonColumn(table, 6, "Voir RDV");
+        setUpButtonColumn(table, 6, "Voir RDV Patient");
         setUpButtonColumn(table, 7, "Supprimer Patient");
 
         JScrollPane scrollPane = new JScrollPane(table);

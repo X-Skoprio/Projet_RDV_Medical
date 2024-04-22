@@ -1,7 +1,5 @@
 package model;
 
-import com.mysql.cj.protocol.Message;
-import com.mysql.cj.protocol.x.XMessage;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -15,7 +13,7 @@ public class CliniqueImpl {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "root";
 
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
@@ -101,6 +99,11 @@ public class CliniqueImpl {
     public static boolean  insertMedecin(String nom, String prenom, String email, String specialisation) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
+        if(checkEmailInPatient(email))
+        {
+            return false;
+        }
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, nom);
             preparedStatement.setString(2, prenom);
@@ -141,6 +144,12 @@ public class CliniqueImpl {
 
     public static boolean insertPatient(String nom, String prenom, int age, String email, String password, String details) throws SQLException {
         String query = "INSERT INTO patient (nom, prenom, age, email, mdp, details) VALUES (?, ?, ?, ?, ?, ?)";
+
+        if(checkEmailInMedecin(email))
+        {
+            return false;
+        }
+
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, nom);
