@@ -16,7 +16,7 @@ import java.util.*;
 import static model.CliniqueImpl.connect;
 import static model.CliniqueImpl.getAllPatientAge;
 
-public class ChartUtils {
+public class Diagramme {
 
     private static JFrame frame;
     private static ChartPanel chartPanel;
@@ -24,11 +24,11 @@ public class ChartUtils {
     private static boolean showingPieChart = true;
 
     public static void displayPatientAgeDistributionChart() {
-        frame = new JFrame("Patient Age Distribution Chart");
+        frame = new JFrame("Distribution des patients par age");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Create a button to switch charts
-        JButton toggleButton = new JButton("Toggle Chart");
+        JButton toggleButton = new JButton("Charte suivante");
         toggleButton.addActionListener(e -> toggleChart());
 
         // Create initial chart panel with pie chart
@@ -75,9 +75,9 @@ public class ChartUtils {
 
     private static JFreeChart createHistogram(CategoryDataset dataset) {
         return ChartFactory.createBarChart(
-                "Patient Age Distribution Histogram",
+                "Histogramme de la distribution des patients par age",
                 "Age",
-                "Frequency",
+                "Frequence",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
@@ -87,7 +87,7 @@ public class ChartUtils {
 
     private static JFreeChart createPieChart(PieDataset dataset) {
         return ChartFactory.createPieChart(
-                "Patient Age Distribution",
+                "Distribution age patients",
                 dataset,
                 true,
                 true,
@@ -99,7 +99,7 @@ public class ChartUtils {
         try {
             List<Integer> ages = getAllPatientAge();
             for (int age : ages) {
-                String key = (age / 10 * 10) + "-" + ((age / 10 * 10) + 9); // Determine the interval
+                String key = (age / 10 * 10) + "-" + ((age / 10 * 10) + 9);
                 distribution.put(key, distribution.getOrDefault(key, 0) + 1);
             }
         } catch (SQLException e) {

@@ -13,7 +13,7 @@ public class CliniqueImpl {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/clinique";
     private static final String USER = "root";
-    private static final String PASS = "root";
+    private static final String PASS = "";
 
 
     public CliniqueImpl() throws SQLException, ClassNotFoundException {
@@ -99,7 +99,7 @@ public class CliniqueImpl {
     public static boolean  insertMedecin(String nom, String prenom, String email, String specialisation) throws SQLException {
         String query = "INSERT INTO employe (nom, prenom, email, mdp) VALUES (?, ?, ?, ?)";
 
-        if(checkEmailInPatient(email))
+        if(checkEmailInPatient(email) || checkEmailInEmploye(email))
         {
             return false;
         }
@@ -145,7 +145,7 @@ public class CliniqueImpl {
     public static boolean insertPatient(String nom, String prenom, int age, String email, String password, String details) throws SQLException {
         String query = "INSERT INTO patient (nom, prenom, age, email, mdp, details) VALUES (?, ?, ?, ?, ?, ?)";
 
-        if(checkEmailInMedecin(email))
+        if(checkEmailInMedecin(email) || checkEmailInPatient(email))
         {
             return false;
         }
